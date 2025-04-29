@@ -1,0 +1,22 @@
+# Ignorar carpeta de Visual Studio
+.vs/
+
+# Binarios y carpetas de compilación
+bin/
+obj/
+
+# Publicaciones y contenido generado
+publish/
+wwwroot/uploads/
+
+# Configuración de usuarios
+*.user
+*.suo
+
+# Node.js (por si usas Angular)
+node_modules/
+dist/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

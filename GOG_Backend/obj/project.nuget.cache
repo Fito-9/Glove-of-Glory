@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i0hZaSycZ4s=",
+  "dgSpecHash": "26Wkb4LgY+I=",
   "success": true,
-  "projectFilePath": "C:\\Users\\gonza\\source\\repos\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
+  "projectFilePath": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gonza\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\gonza\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

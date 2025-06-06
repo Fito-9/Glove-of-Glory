@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/xQPVEJqyto=",
+  "dgSpecHash": "TwNnfk+Aaa8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\gonza\\source\\repos\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
+  "projectFilePath": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gonza\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\gonza\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.4\\microsoft.aspnetcore.authentication.jwtbearer.8.0.4.nupkg.sha512",

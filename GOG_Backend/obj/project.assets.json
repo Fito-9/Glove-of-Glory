@@ -4000,11 +4000,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gonza\\source\\repos\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
+      "projectUniqueName": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
       "projectName": "GOG_Backend",
-      "projectPath": "C:\\Users\\gonza\\source\\repos\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
+      "projectPath": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
       "packagesPath": "C:\\Users\\gonza\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gonza\\source\\repos\\Glove-of-Glory\\GOG_Backend\\obj\\",
+      "outputPath": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

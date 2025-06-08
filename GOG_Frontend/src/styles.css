@@ -1,1 +1,127 @@
 /* You can add global styles to this file, and also import other style files */
+/* Importación de la fuente definida en index.html */
+:root {
+    --background-dark: #1e1e2f;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0b0;
+    --primary-accent: #ff8c00; /* Naranja vibrante */
+    --secondary-accent: #9370db; /* Morado medio */
+    --tertiary-accent: #00bfff; /* Azul brillante */
+    --error-color: #e53935;
+    --surface-color: #2a2a40;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    font-family: 'Exo 2', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+  }
+  
+  a {
+    color: var(--primary-accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--secondary-accent);
+  }
+  
+  /* Estilo de Botón "Gamer" */
+  .btn {
+    padding: 12px 28px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: linear-gradient(145deg, var(--secondary-accent), var(--tertiary-accent));
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(147, 112, 219, 0.4);
+  }
+  
+  .btn:disabled {
+    background: #555;
+    color: #999;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Estilos para Formularios */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--surface-color);
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-accent);
+    box-shadow: 0 0 20px rgba(147, 112, 219, 0.2);
+    width: 100%;
+    max-width: 450px;
+  }
+  
+  .form-title {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--primary-accent);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-weight: 700;
+  }
+  
+  .form-group input {
+    padding: 12px;
+    background-color: var(--background-dark);
+    border: 1px solid var(--tertiary-accent);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+  }
+  
+  .error-message {
+    color: var(--error-color);
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .redirect-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-secondary);
+  }

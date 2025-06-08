@@ -1,0 +1,9 @@
+<div class="home-container">
+    <div class="content-overlay">
+      <h1 class="welcome-title">¡Prepárate para la batalla, {{ authService.currentUserSig()?.nombreUsuario }}!</h1>
+      <div class="player-stats">
+        <p>Tu ELO actual: <span class="elo-score">{{ userElo }}</span></p>
+      </div>
+      <button class="btn find-match-btn">Buscar Partida</button>
+    </div>
+  </div>

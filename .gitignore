@@ -20,3 +20,23 @@ dist/
 # Archivos de sistema
 .DS_Store
 Thumbs.db
+
+# Android Studio / Gradle (Añade esta sección completa)
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+build/
+captures/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.keystore
+*~

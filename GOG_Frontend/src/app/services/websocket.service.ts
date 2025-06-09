@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './authservice';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class WebsocketService {
-  private socket$: WebSocketSubject<string> | null = null;
+  private socket$: WebSocketSubject<any> | null = null; 
   private connectedUsers: Set<number> = new Set();
 
   public connected$ = new BehaviorSubject<boolean>(false);
@@ -17,10 +18,11 @@ export class WebsocketService {
   public matchmakingMessage$ = new BehaviorSubject<any>(null);
   public gameUpdate$ = new BehaviorSubject<any>(null);
   public gameEndMessage$ = new BehaviorSubject<any>(null);
+  private authService = inject(AuthService);
   constructor(private http: HttpClient) {}
 
   connect(): void {
-    const token = localStorage.getItem('accessToken');
+    const token = this.authService.getToken(); 
     if (!token) {
       console.warn('No hay token disponible, no se puede conectar al WebSocket.');
       return;
@@ -52,7 +54,7 @@ export class WebsocketService {
     });
 
     this.socket$.subscribe({
-      next: (message: string) => this.handleMessage(message),
+      next: (message: any) => this.handleMessage(message),
       error: err => {
         console.error('Error en WebSocket:', err);
         this.reconnect(); // Intentar reconectar en caso de error

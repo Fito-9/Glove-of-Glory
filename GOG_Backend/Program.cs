@@ -3,14 +3,19 @@ using GOG_Backend.Models.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using GOG_Backend.WebSockets;
+using Microsoft.AspNetCore.WebSockets;
+using StrategoBackend.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<MyDbContext>();
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<WebSocketNetwork>();
+builder.Services.AddTransient<MatchmakingWebSocketMiddleware>();
 
 builder.Services.AddSingleton(provider =>
 {
@@ -32,7 +37,6 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
-
 
 builder.Services.AddAuthentication().AddJwtBearer();
 
@@ -57,9 +61,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 
+app.UseWebSockets();
+app.UseMiddleware<MatchmakingWebSocketMiddleware>();
+
+
+app.MapControllers();
 
 await InitDatabaseAsync(app.Services);
 await app.RunAsync();

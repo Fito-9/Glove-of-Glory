@@ -1,0 +1,17 @@
+<div class="home-container">
+    <div class="content-overlay">
+      <h1 class="welcome-title">¡Prepárate para la batalla, {{ authService.currentUserSig()?.nombreUsuario }}!</h1>
+      <div class="player-stats">
+        <p>Tu ELO actual: <span class="elo-score">{{ userElo }}</span></p>
+      </div>
+      <button class="btn find-match-btn" (click)="buscarPartida()" >Buscar Partida</button>
+
+      <div *ngIf="waitingMessage" class="message">
+        {{ waitingMessage }}
+        </div>
+
+        <div *ngIf="matchFound" class="match-info">
+          <p>¡Enhorabuena, has sido emparejado!</p>
+          </div>
+    </div>
+  </div>

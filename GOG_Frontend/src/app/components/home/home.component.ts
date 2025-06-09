@@ -1,11 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/authservice';
 import { WebsocketService } from '../../services/websocket.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

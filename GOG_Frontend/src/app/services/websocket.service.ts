@@ -74,9 +74,9 @@ export class WebsocketService {
     console.log('Mensaje recibido:', message);
     try {
       const parsed = JSON.parse(message);
-      console.log('Tipo de mensaje:', parsed.type);
+      console.log('Tipo de mensaje:', parsed.Type);
   
-      switch (parsed.type) {
+      switch (parsed.Type) {
         case 'onlineUsers':
           const userIds: number[] = parsed.payload;
           this.connectedUsers = new Set(userIds);
@@ -116,7 +116,7 @@ export class WebsocketService {
     if (this.socket$) {
       console.log('Enviando solicitud de matchmaking');
       const message = {
-        type: 'matchmakingRequest',
+        Type: 'matchmakingRequest',
         payload: {}
       };
       this.socket$.next(JSON.stringify(message));

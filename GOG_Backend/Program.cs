@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<WebSocketNetwork>();
 builder.Services.AddTransient<MatchmakingWebSocketMiddleware>();
 
+
 builder.Services.AddSingleton(provider =>
 {
     Settings settings = builder.Configuration.GetSection(Settings.SECTION_NAME).Get<Settings>();

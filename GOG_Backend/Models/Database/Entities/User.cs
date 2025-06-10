@@ -20,7 +20,7 @@ namespace GOG_Backend.Models.Database.Entities
         [MaxLength(50)]
         public string Rol { get; set; }
 
-        public int PuntuacionElo { get; set; }
+        public int PuntuacionElo { get; set; } = 1200;
 
         [MaxLength(255)]
         public string? ImagenPerfil { get; set; }

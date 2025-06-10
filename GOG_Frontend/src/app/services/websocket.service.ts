@@ -1,63 +1,57 @@
 import { inject, Injectable } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
-import { BehaviorSubject } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './authservice';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class WebsocketService {
-  private socket$: WebSocketSubject<any> | null = null; 
-  private connectedUsers: Set<number> = new Set();
-
+  private socket$: WebSocketSubject<any> | null = null;
   public connected$ = new BehaviorSubject<boolean>(false);
-  public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
-  public matchmakingMessage$ = new BehaviorSubject<any>(null);
-  public gameUpdate$ = new BehaviorSubject<any>(null);
-  public gameEndMessage$ = new BehaviorSubject<any>(null);
+  
+  public matchmakingMessage$ = new Subject<any>();
+  public matchState$ = new BehaviorSubject<any>(null);
+
   private authService = inject(AuthService);
+  private router = inject(Router);
+  private reconnectAttempts = 0;
+  private maxReconnectAttempts = 5;
+  private reconnectInterval = 5000;
+
   constructor(private http: HttpClient) {}
 
   connect(): void {
     const token = this.authService.getToken(); 
-    if (!token) {
-      console.warn('No hay token disponible, no se puede conectar al WebSocket.');
-      return;
-    }
+    if (!token || this.socket$) return;
 
     const url = `${environment.socketUrl}?token=${token}`;
-    console.log('Conectando a WebSocket:', url);
-    
     this.socket$ = webSocket({
       url: url,
       serializer: msg => msg,
       deserializer: event => event.data,
-      openObserver: {
-        next: () => {
+      openObserver: { next: () => {
           console.log('WebSocket conectado');
           this.connected$.next(true);
-          this.reconnectAttempts = 0; // Reiniciar intentos de reconexión
-        }
-      },
-      closeObserver: {
-        next: () => {
+          this.reconnectAttempts = 0;
+      }},
+      closeObserver: { next: () => {
           console.log('WebSocket desconectado');
           this.connected$.next(false);
-          this.connectedUsers.clear();
-          this.onlineUsers$.next(new Set());
-          this.reconnect(); // Intentar reconectar
-        }
-      }
+          this.socket$ = null;
+          this.reconnect();
+      }}
     });
 
     this.socket$.subscribe({
       next: (message: any) => this.handleMessage(message),
       error: err => {
         console.error('Error en WebSocket:', err);
-        this.reconnect(); // Intentar reconectar en caso de error
+        this.socket$ = null;
+        this.reconnect();
       }
     });
   }
@@ -71,86 +65,69 @@ export class WebsocketService {
   }
 
   private handleMessage(message: string): void {
-    console.log('Mensaje recibido:', message);
     try {
       const parsed = JSON.parse(message);
-      console.log('Tipo de mensaje:', parsed.Type);
-  
       switch (parsed.Type) {
-        case 'onlineUsers':
-          const userIds: number[] = parsed.payload;
-          this.connectedUsers = new Set(userIds);
-          this.onlineUsers$.next(new Set(userIds));
-          break;
-
         case 'matchFound':
-          console.log('Match encontrado. Tu oponente es el usuario:', parsed.payload.opponentId);
-          this.matchmakingMessage$.next(parsed);
+          this.matchmakingMessage$.next(parsed.Payload);
+          this.router.navigate(['/match', parsed.Payload.roomId]);
           break;
-
         case 'waitingForMatch':
-          console.log('Esperando oponente:', parsed.payload);
           this.matchmakingMessage$.next(parsed);
           break;
-
-          case 'gameEnd':
-            console.log('Juego terminado:', parsed.payload);
-            this.gameEndMessage$.next(parsed.payload);
-            break
-
-        case 'gameUpdate':
-          console.log('Actualización del juego recibida:', parsed.payload);
-          this.gameUpdate$.next(parsed.payload);
+        case 'matchStateUpdate':
+          this.matchState$.next(parsed.Payload);
           break;
-          
         default:
-          console.log('Mensaje de tipo desconocido:', parsed);
+          console.log('Mensaje desconocido:', parsed);
       }
     } catch (error) {
-      console.error('Error parseando mensaje JSON:', error);
-      console.error('Mensaje original:', message);
+      console.error('Error al parsear mensaje:', error, 'Original:', message);
     }
   }
 
   requestMatchmaking(): void {
     if (this.socket$) {
-      console.log('Enviando solicitud de matchmaking');
-      const message = {
-        Type: 'matchmakingRequest',
-        payload: {}
-      };
-      this.socket$.next(JSON.stringify(message));
-    } else {
-      console.warn('No se puede enviar solicitud: Socket no está conectado.');
+      this.socket$.next(JSON.stringify({ Type: 'matchmakingRequest', Payload: {} }));
     }
   }
 
-  getOnlineUsers(): Set<number> {
-    return this.connectedUsers;
+  private sendGameAction(type: string, roomId: string, payload: any): void {
+    if (this.socket$) {
+      const message = {
+        Type: type,
+        Payload: JSON.stringify({ RoomId: roomId, Payload: payload })
+      };
+      this.socket$.next(JSON.stringify(message));
+    }
   }
 
-  fetchOnlineUsers(): void {
-    this.http.get<number[]>(`${environment.apiUrl}WebSocket/online-users`).subscribe(onlineUsers => {
-      this.connectedUsers = new Set(onlineUsers);
-      this.onlineUsers$.next(this.connectedUsers);
-    }, error => {
-      console.error("Error obteniendo usuarios conectados:", error);
-    });
+  selectCharacter(roomId: string, characterName: string): void {
+    this.sendGameAction('selectCharacter', roomId, { CharacterName: characterName });
   }
-  
-  private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
-  private reconnectInterval = 5000; // 5 segundos
+
+  banMaps(roomId: string, bannedMaps: string[]): void {
+    this.sendGameAction('banMaps', roomId, { BannedMaps: bannedMaps });
+  }
+
+  pickMap(roomId: string, pickedMap: string): void {
+    this.sendGameAction('pickMap', roomId, { PickedMap: pickedMap });
+  }
+
+  sendChatMessage(roomId: string, message: string): void {
+    this.sendGameAction('sendChatMessage', roomId, { Message: message });
+  }
+
+  declareWinner(roomId: string, declaredWinnerId: number): void {
+    this.sendGameAction('declareWinner', roomId, { DeclaredWinnerId: declaredWinnerId });
+  }
   
   private reconnect(): void {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
-      setTimeout(() => {
-        console.log(`Intentando reconectar (${this.reconnectAttempts}/${this.maxReconnectAttempts})...`);
-        this.connect();
-      }, this.reconnectInterval);
+      setTimeout(() => this.connect(), this.reconnectInterval);
     } else {
-      console.error('Número máximo de intentos de reconexión alcanzado.');
+      console.error('Máximo de intentos de reconexión alcanzado.');
     }
   }
-} 
+}

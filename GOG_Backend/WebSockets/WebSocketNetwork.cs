@@ -81,6 +81,15 @@ namespace GOG_Backend.WebSockets
                     var charPayload = JsonSerializer.Deserialize<CharacterSelectionPayload>(gameAction.Payload.ToString());
                     stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
                     break;
+                case "requestInitialState":
+                    if (_activeRooms.TryGetValue(gameAction.RoomId, out var requestedRoom))
+                    {
+                        // Enviamos el estado actual solo al jugador que lo solicitó
+                        var statePayload = requestedRoom.GetStateDto();
+                        var stateMessage = new WebSocketMessageDto { Type = "matchStateUpdate", Payload = statePayload };
+                        await handler.SendAsync(stateMessage);
+                    }
+                    break;
                 case "banMaps":
                     var banPayload = JsonSerializer.Deserialize<MapBanPayload>(gameAction.Payload.ToString());
                     stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
@@ -128,8 +137,11 @@ namespace GOG_Backend.WebSockets
                     var newRoom = new MatchRoom(opponentId, handler.UserId);
                     _activeRooms[newRoom.RoomId] = newRoom;
                     var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
+
+                    // Notificamos a ambos jugadores que se encontró una partida
                     await opponentHandler.SendAsync(matchMessage);
                     await handler.SendAsync(matchMessage);
+                    await BroadcastRoomState(newRoom.RoomId);
                 }
             }
             else

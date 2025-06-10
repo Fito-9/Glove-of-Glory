@@ -64,6 +64,10 @@ export class WebsocketService {
     }
   }
 
+  requestInitialRoomState(roomId: string): void {
+    this.sendGameAction('requestInitialState', roomId, {});
+}
+
   private handleMessage(message: string): void {
     try {
       const parsed = JSON.parse(message);

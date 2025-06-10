@@ -38,6 +38,8 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.roomState = state;
       }
     });
+    this.websocketService.requestInitialRoomState(this.roomId);
+  
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,7 @@
-﻿namespace GOG_Backend.Game
+﻿using System;
+using System.Collections.Generic;
+
+namespace GOG_Backend.Game
 {
     public enum GameState
     {
@@ -19,6 +22,10 @@
         public int Player2Id { get; }
         public GameState CurrentState { get; private set; }
 
+        // --- PROPIEDADES AÑADIDAS PARA LOS NOMBRES DE USUARIO ---
+        public string Player1Username { get; }
+        public string Player2Username { get; }
+
         public string Player1Character { get; private set; }
         public string Player2Character { get; private set; }
 
@@ -31,11 +38,14 @@
         private int? _player1WinnerVote;
         private int? _player2WinnerVote;
 
-        public MatchRoom(int player1Id, int player2Id)
+        // --- CONSTRUCTOR MODIFICADO PARA ACEPTAR NOMBRES DE USUARIO ---
+        public MatchRoom(int player1Id, string player1Username, int player2Id, string player2Username)
         {
             RoomId = Guid.NewGuid().ToString();
             Player1Id = player1Id;
+            Player1Username = player1Username; // Asignar nombre de usuario
             Player2Id = player2Id;
+            Player2Username = player2Username; // Asignar nombre de usuario
             CurrentState = GameState.CharacterSelection;
             MapPool = new List<string> { "Small Battlefield", "Battlefield", "Final Destination", "Pokémon Stadium 2", "Hollow Bastion", "Smashville", "Town and City", "Kalos Pokémon League" };
         }
@@ -111,7 +121,9 @@
                 roomId = RoomId,
                 currentState = CurrentState.ToString(),
                 player1Id = Player1Id,
+                player1Username = Player1Username, 
                 player2Id = Player2Id,
+                player2Username = Player2Username, 
                 player1Character = (CurrentState > GameState.CharacterSelection) ? Player1Character : null,
                 player2Character = (CurrentState > GameState.CharacterSelection) ? Player2Character : null,
                 mapPool = MapPool,
@@ -123,4 +135,4 @@
             };
         }
     }
-    }
+}

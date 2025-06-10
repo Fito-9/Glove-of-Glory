@@ -14,16 +14,16 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./match-room.component.css']
 })
 export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
-  // SOLUCIÓN: Usamos '!' para indicar que esta propiedad será inicializada por Angular.
+
   @ViewChild('chatMessagesContainer') private chatContainer!: ElementRef;
 
   private route = inject(ActivatedRoute);
   private websocketService = inject(WebsocketService);
   public authService = inject(AuthService);
 
-  // SOLUCIÓN: Usamos '!' para indicar que estas propiedades se inicializarán en ngOnInit.
+
   roomId!: string;
-  roomState: any; // 'any' es aceptable aquí ya que la estructura es compleja y viene del backend.
+  roomState: any; 
   private stateSubscription!: Subscription;
 
   hasSelectedCharacter = false;
@@ -31,7 +31,6 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   chatMessage = '';
 
   ngOnInit(): void {
-    // SOLUCIÓN: Usamos '!' para asegurar a TS que el valor no será null.
     this.roomId = this.route.snapshot.paramMap.get('roomId')!;
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
@@ -53,7 +52,6 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private scrollToBottom(): void {
     try {
-      // No hay error aquí, pero es buena práctica verificar si el contenedor existe.
       if (this.chatContainer) {
         this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
       }
@@ -65,6 +63,11 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.websocketService.selectCharacter(this.roomId, character);
       this.hasSelectedCharacter = true;
     }
+  }
+
+  shouldShowMatchup(): boolean {
+    if (!this.roomState) return false;
+    return this.roomState.currentState !== 'CharacterSelection' && this.roomState.currentState !== 'WaitingForPlayers';
   }
 
   onMapClick(map: string): void {

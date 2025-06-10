@@ -59,8 +59,8 @@ namespace GOG_Backend.WebSockets
                 return;
             }
 
-            var gameAction = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString());
-            if (gameAction == null || !_activeRooms.TryGetValue(gameAction.RoomId, out var room))
+            var gameActionPayload = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            if (gameActionPayload == null || !_activeRooms.TryGetValue(gameActionPayload.RoomId, out var room))
             {
                 return;
             }
@@ -75,36 +75,30 @@ namespace GOG_Backend.WebSockets
 
             bool stateChanged = false;
 
+            var actionPayloadElement = (JsonElement)gameActionPayload.Payload;
+
             switch (message.Type)
             {
                 case "selectCharacter":
-                    var charPayload = JsonSerializer.Deserialize<CharacterSelectionPayload>(gameAction.Payload.ToString());
+                    var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>();
                     stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
                     break;
-                case "requestInitialState":
-                    if (_activeRooms.TryGetValue(gameAction.RoomId, out var requestedRoom))
-                    {
-                        // Enviamos el estado actual solo al jugador que lo solicitó
-                        var statePayload = requestedRoom.GetStateDto();
-                        var stateMessage = new WebSocketMessageDto { Type = "matchStateUpdate", Payload = statePayload };
-                        await handler.SendAsync(stateMessage);
-                    }
-                    break;
                 case "banMaps":
-                    var banPayload = JsonSerializer.Deserialize<MapBanPayload>(gameAction.Payload.ToString());
+                    var banPayload = actionPayloadElement.Deserialize<MapBanPayload>();
                     stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
                     break;
                 case "pickMap":
-                    var pickPayload = JsonSerializer.Deserialize<MapPickPayload>(gameAction.Payload.ToString());
+                    var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>();
                     stateChanged = room.PickMap(handler.UserId, pickPayload.PickedMap);
                     break;
                 case "sendChatMessage":
-                    var chatPayload = JsonSerializer.Deserialize<ChatMessagePayload>(gameAction.Payload.ToString());
+                    var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>();
                     room.AddChatMessage(handler.UserId, username, chatPayload.Message);
                     stateChanged = true;
                     break;
                 case "declareWinner":
-                    var winnerPayload = JsonSerializer.Deserialize<WinnerDeclarationPayload>(gameAction.Payload.ToString());
+                    // --- ESTA ES LA CORRECCIÓN CLAVE ---
+                    var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>();
                     var (isFinished, winnerId, loserId) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
                     stateChanged = true;
                     if (isFinished)
@@ -123,24 +117,30 @@ namespace GOG_Backend.WebSockets
         private async Task HandleMatchmakingRequest(WebSocketHandler handler)
         {
             await _semaphore.WaitAsync();
-            if (_matchmakingQueue.Contains(handler.UserId))
-            {
-                _semaphore.Release();
-                return;
-            }
-
             if (_matchmakingQueue.Count > 0)
             {
                 int opponentId = _matchmakingQueue.Dequeue();
                 if (_handlers.TryGetValue(opponentId, out var opponentHandler))
                 {
-                    var newRoom = new MatchRoom(opponentId, handler.UserId);
+                    string player1Username = "Player1";
+                    string player2Username = "Player2";
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+                        var user1 = await dbContext.Users.FindAsync(opponentId);
+                        var user2 = await dbContext.Users.FindAsync(handler.UserId);
+                        if (user1 != null) player1Username = user1.NombreUsuario;
+                        if (user2 != null) player2Username = user2.NombreUsuario;
+                    }
+
+                    var newRoom = new MatchRoom(opponentId, player1Username, handler.UserId, player2Username);
                     _activeRooms[newRoom.RoomId] = newRoom;
+
                     var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
 
-                    // Notificamos a ambos jugadores que se encontró una partida
                     await opponentHandler.SendAsync(matchMessage);
                     await handler.SendAsync(matchMessage);
+
                     await BroadcastRoomState(newRoom.RoomId);
                 }
             }
@@ -193,7 +193,7 @@ namespace GOG_Backend.WebSockets
             _activeRooms.Remove(room.RoomId);
         }
 
-        // --- Métodos auxiliares que ya tenías ---
+     
         private void RemoveFromMatchmakingQueue(int userId) { /* ... */ }
         private async Task BroadcastOnlineUsersAsync() { /* ... */ }
         public List<int> GetConnectedUsers() => _handlers.Keys.ToList();

@@ -1,4 +1,4 @@
-package com.example.gloveofglory.ui.theme
+package com.example.glove_of_glory.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

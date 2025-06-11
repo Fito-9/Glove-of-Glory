@@ -154,23 +154,23 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   getMapImageUrl(mapName: string): string {
     switch (mapName) {
       case "Battlefield":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img02.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img1.jpg';
       case "Final Destination":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img01.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img3.jpg';
       case "Smashville":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img29.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img44.jpg';
       case "Town and City":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img53.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img85_en.jpg';
       case "Pokémon Stadium 2":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img28.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img40.jpg';
       case "Kalos Pokémon League":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img65.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img79.jpg';
       case "Small Battlefield":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img103.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img104.jpg';
       case "Hollow Bastion":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img113.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_addition_img11.jpg';
       case "Yoshi's Story":
-        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img05.jpg';
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img19.jpg';
       default:
         return ''; // URL a una imagen por defecto
     }

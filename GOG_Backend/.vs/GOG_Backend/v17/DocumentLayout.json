@@ -94,8 +94,7 @@
               "RelativeToolTip": "WebSockets\\WebSocketHandler.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T18:38:41.788Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-10T18:38:41.788Z"
             },
             {
               "$type": "Document",
@@ -103,9 +102,9 @@
               "Title": "WebSocketNetwork.cs",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketNetwork.cs",
               "RelativeDocumentMoniker": "WebSockets\\WebSocketNetwork.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketNetwork.cs*",
-              "RelativeToolTip": "WebSockets\\WebSocketNetwork.cs*",
-              "ViewState": "AgIAAIYAAAAAAAAAAAAqwHsAAAARAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketNetwork.cs",
+              "RelativeToolTip": "WebSockets\\WebSocketNetwork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-10T18:16:28.242Z",
               "EditorCaption": ""
@@ -116,12 +115,11 @@
               "Title": "MatchRoom.cs",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs",
               "RelativeDocumentMoniker": "Game\\MatchRoom.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs*",
-              "RelativeToolTip": "Game\\MatchRoom.cs*",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs",
+              "RelativeToolTip": "Game\\MatchRoom.cs",
               "ViewState": "AgIAAGoAAAAAAAAAAAAAAH0AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T18:15:00.162Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-10T18:15:00.162Z"
             },
             {
               "$type": "Document",
@@ -133,8 +131,7 @@
               "RelativeToolTip": "Models\\Dto\\GameActionDto.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAAAB8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T18:12:56.102Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-10T18:12:56.102Z"
             },
             {
               "$type": "Document",
@@ -146,8 +143,7 @@
               "RelativeToolTip": "Models\\Database\\Entities\\Match.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T18:10:54.707Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-10T18:10:54.707Z"
             },
             {
               "$type": "Document",
@@ -159,8 +155,7 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAAAG0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:39:37.121Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T12:39:37.121Z"
             },
             {
               "$type": "Document",
@@ -172,8 +167,7 @@
               "RelativeToolTip": "Models\\Database\\Entities\\User.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAuwBYAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T11:54:41.454Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T11:54:41.454Z"
             },
             {
               "$type": "Document",
@@ -197,8 +191,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:05:32.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T12:05:32.408Z"
             },
             {
               "$type": "Document",
@@ -246,8 +239,7 @@
               "RelativeToolTip": "Models\\Database\\MyDbContext.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAAACcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T11:48:43.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T11:48:43.917Z"
             },
             {
               "$type": "Document",

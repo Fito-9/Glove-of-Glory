@@ -1,79 +1,83 @@
 <div class="match-room-container" *ngIf="roomState">
-    <div class="main-content">
-      <h1 class="room-title">{{ getTitleForState(roomState.currentState) }}</h1>
-  
-      <!-- Vista de Selección de Personajes -->
-      <div *ngIf="roomState.currentState === 'CharacterSelection'" class="state-view">
-        <p>Elige tu luchador. Tu oponente no verá tu elección hasta que ambos confirmen.</p>
-        <div class="character-grid">
-          <button (click)="onSelectCharacter('Mario')" class="char-btn" [disabled]="hasSelectedCharacter">Mario</button>
-          <button (click)="onSelectCharacter('Link')" class="char-btn" [disabled]="hasSelectedCharacter">Link</button>
-          <button (click)="onSelectCharacter('Samus')" class="char-btn" [disabled]="hasSelectedCharacter">Samus</button>
-        </div>
-        <p *ngIf="hasSelectedCharacter" class="waiting-text">¡Has elegido! Esperando al oponente...</p>
+  <div class="main-content">
+    <h1 class="room-title">{{ getTitleForState(roomState.currentState) }}</h1>
+
+    <!-- Vista de Selección de Personajes -->
+    <div *ngIf="roomState.currentState === 'CharacterSelection'" class="state-view">
+      <p>Elige tu luchador. Tu oponente no verá tu elección hasta que ambos confirmen.</p>
+      <div class="character-grid">
+        <button (click)="onSelectCharacter('Mario')" class="char-btn" [disabled]="hasSelectedCharacter">Mario</button>
+        <button (click)="onSelectCharacter('Link')" class="char-btn" [disabled]="hasSelectedCharacter">Link</button>
+        <button (click)="onSelectCharacter('Samus')" class="char-btn" [disabled]="hasSelectedCharacter">Samus</button>
+        <!-- Añade más personajes aquí -->
       </div>
-  
-      <!-- Vista de Veto de Mapas -->
-      <div *ngIf="isMapVetoState()" class="state-view">
-        <p class="instructions">{{ getMapVetoInstructions() }}</p>
-        <div class="map-grid">
-          <div *ngFor="let map of roomState.mapPool" 
-               class="map-item"
-               [class.selectable]="isMyTurnToBanOrPick()"
-               [class.selected]="selectedMapsForBan.includes(map)"
-               (click)="onMapClick(map)">
-            {{ map }}
+      <p *ngIf="hasSelectedCharacter" class="waiting-text">¡Has elegido! Esperando al oponente...</p>
+    </div>
+
+    <!-- Vista de Veto de Mapas con Imágenes -->
+    <div *ngIf="isMapVetoState()" class="state-view">
+      <p class="instructions">{{ getMapVetoInstructions() }}</p>
+      <div class="map-grid">
+        <div *ngFor="let map of roomState.mapPool" 
+             class="map-item"
+             [class.selectable]="isMyTurnToBanOrPick()"
+             [class.selected]="selectedMapsForBan.includes(map)"
+             [style.background-image]="'url(' + getMapImageUrl(map) + ')'"
+             (click)="onMapClick(map)">
+          <div class="map-overlay">
+            <span class="map-name">{{ map }}</span>
           </div>
         </div>
-        <button class="btn" (click)="confirmBans()" *ngIf="isMyTurnToBanOrPick() && selectedMapsForBan.length > 0 && roomState.currentState.includes('Ban')">Confirmar Bans</button>
       </div>
-  
-      <!-- Vista de Partida Lista -->
-      <div *ngIf="shouldShowMatchup()" class="state-view">
-        <h2 class="matchup-title">Contendientes</h2>
-        <div class="matchup">
-            <div>
-                <p>{{ roomState.player1Username }}</p>
-                <!-- Se muestra el personaje porque el estado ya no es 'CharacterSelection' -->
-                <p class="character-name">{{ roomState.player1Character || '???' }}</p>
-            </div>
-            <span class="vs-text">VS</span>
-            <div>
-                <p>{{ roomState.player2Username }}</p>
-                <p class="character-name">{{ roomState.player2Character || '???' }}</p>
-            </div>
-        </div>
-        <p *ngIf="roomState.selectedMap" class="map-info">Mapa: <strong>{{ roomState.selectedMap }}</strong></p>
+      <button class="btn" (click)="confirmBans()" *ngIf="isMyTurnToBanOrPick() && selectedMapsForBan.length > 0 && roomState.currentState.includes('Ban')">Confirmar Bans</button>
     </div>
-      <!-- Vista de Declaración de Ganador -->
-      <div *ngIf="roomState.currentState === 'WinnerDeclaration'" class="state-view">
-        <h3>¿Quién ha ganado la partida?</h3>
-        <div *ngIf="!hasVoted()" class="vote-buttons">
-            <button class="btn" (click)="onDeclareWinner(roomState.player1Id)">{{ roomState.player1Username }}</button>
-            <button class="btn" (click)="onDeclareWinner(roomState.player2Id)">{{ roomState.player2Username }}</button>
-        </div>
-        <p *ngIf="hasVoted()" class="waiting-text">Esperando la confirmación del oponente...</p>
-    </div>
-  
-      <!-- Mensaje de Fin de Partida -->
-      <div *ngIf="roomState.currentState === 'Finished'" class="state-view">
-          <h2>¡Partida Finalizada!</h2>
-          <p>El ELO ha sido actualizado. ¡Bien jugado!</p>
-          <a routerLink="/" class="btn">Volver al inicio</a>
-      </div>
-    </div>
-  
-    <!-- Componente de Chat -->
-    <div class="chat-container">
-      <h3>Chat de la Sala</h3>
-      <div class="chat-messages" #chatMessagesContainer>
-          <div *ngFor="let msg of roomState.chatMessages" class="chat-message" [class.my-message]="msg.userId === authService.currentUserSig()?.usuarioId">
-              <strong>{{ msg.username }}:</strong> {{ msg.message }}
+
+    <!-- Vista de Partida Lista (Muestra personajes y mapa) -->
+    <div *ngIf="shouldShowMatchup()" class="state-view">
+      <h2 class="matchup-title">Contendientes</h2>
+      <div class="matchup">
+          <div>
+              <p>{{ roomState.player1Username }}</p>
+              <p class="character-name">{{ roomState.player1Character || '???' }}</p>
+          </div>
+          <span class="vs-text">VS</span>
+          <div>
+              <p>{{ roomState.player2Username }}</p>
+              <p class="character-name">{{ roomState.player2Character || '???' }}</p>
           </div>
       </div>
-      <div class="chat-input">
-          <input type="text" [(ngModel)]="chatMessage" (keyup.enter)="onSendMessage()" placeholder="Escribe un mensaje...">
-          <button (click)="onSendMessage()">Enviar</button>
+      <p *ngIf="roomState.selectedMap" class="map-info">Mapa: <strong>{{ roomState.selectedMap }}</strong></p>
+    </div>
+
+    <!-- Vista de Declaración de Ganador -->
+    <div *ngIf="roomState.currentState === 'WinnerDeclaration'" class="state-view">
+      <h3>¿Quién ha ganado la partida?</h3>
+      <div *ngIf="!hasVoted()" class="vote-buttons">
+          <button class="btn" (click)="onDeclareWinner(roomState.player1Id)">{{ roomState.player1Username }}</button>
+          <button class="btn" (click)="onDeclareWinner(roomState.player2Id)">{{ roomState.player2Username }}</button>
       </div>
+      <p *ngIf="hasVoted()" class="waiting-text">Esperando la confirmación del oponente...</p>
+    </div>
+
+    <!-- Mensaje de Fin de Partida -->
+    <div *ngIf="roomState.currentState === 'Finished'" class="state-view">
+        <h2>¡Partida Finalizada!</h2>
+        <p>El ELO ha sido actualizado. ¡Bien jugado!</p>
+        <a routerLink="/" class="btn">Volver al inicio</a>
     </div>
   </div>
+
+  <!-- Componente de Chat -->
+  <div class="chat-container">
+    <h3>Chat de la Sala</h3>
+    <div class="chat-messages" #chatMessagesContainer>
+        <div *ngFor="let msg of roomState.chatMessages" class="chat-message" [class.my-message]="msg.userId === authService.currentUserSig()?.usuarioId">
+            <strong>{{ msg.username }}:</strong> {{ msg.message }}
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" [(ngModel)]="chatMessage" (keyup.enter)="onSendMessage()" placeholder="Escribe un mensaje...">
+        <button (click)="onSendMessage()">Enviar</button>
+    </div>
+  </div>
+</div>

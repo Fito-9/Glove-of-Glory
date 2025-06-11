@@ -14,16 +14,14 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./match-room.component.css']
 })
 export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
-
   @ViewChild('chatMessagesContainer') private chatContainer!: ElementRef;
 
   private route = inject(ActivatedRoute);
   private websocketService = inject(WebsocketService);
   public authService = inject(AuthService);
 
-
   roomId!: string;
-  roomState: any; 
+  roomState: any;
   private stateSubscription!: Subscription;
 
   hasSelectedCharacter = false;
@@ -37,8 +35,8 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.roomState = state;
       }
     });
+    // Solicitamos activamente el estado inicial por si nos lo perdimos.
     this.websocketService.requestInitialRoomState(this.roomId);
-  
   }
 
   ngOnDestroy(): void {
@@ -55,7 +53,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
       if (this.chatContainer) {
         this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
       }
-    } catch(err) { }
+    } catch (err) { }
   }
 
   onSelectCharacter(character: string): void {
@@ -63,11 +61,6 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.websocketService.selectCharacter(this.roomId, character);
       this.hasSelectedCharacter = true;
     }
-  }
-
-  shouldShowMatchup(): boolean {
-    if (!this.roomState) return false;
-    return this.roomState.currentState !== 'CharacterSelection' && this.roomState.currentState !== 'WaitingForPlayers';
   }
 
   onMapClick(map: string): void {
@@ -101,9 +94,15 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.websocketService.declareWinner(this.roomId, winnerId);
   }
 
+  // --- MÉTODOS AUXILIARES PARA LA VISTA ---
+
+  shouldShowMatchup(): boolean {
+    if (!this.roomState) return false;
+    return this.roomState.currentState !== 'CharacterSelection' && this.roomState.currentState !== 'WaitingForPlayers';
+  }
+  
   isMyTurnToBanOrPick(): boolean {
     if (!this.roomState || !this.authService.currentUserSig()) return false;
-    // SOLUCIÓN: Usamos '!' porque el 'if' anterior ya garantiza que no es nulo.
     const myId = this.authService.currentUserSig()!.usuarioId;
     const { currentState, player1Id } = this.roomState;
     return (currentState === 'MapBanP1' && myId === player1Id) ||
@@ -119,14 +118,12 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   hasVoted(): boolean {
     if (!this.roomState || !this.authService.currentUserSig()) return false;
-    // SOLUCIÓN: Usamos '!' porque el 'if' anterior ya garantiza que no es nulo.
     const myId = this.authService.currentUserSig()!.usuarioId;
     return (myId === this.roomState.player1Id && this.roomState.player1Voted) ||
            (myId !== this.roomState.player1Id && this.roomState.player2Voted);
   }
 
   getOpponentId(): number {
-    // SOLUCIÓN: Usamos '!' porque asumimos que este método solo se llama cuando el usuario está logueado.
     const myId = this.authService.currentUserSig()!.usuarioId;
     return myId === this.roomState.player1Id ? this.roomState.player2Id : this.roomState.player1Id;
   }
@@ -144,7 +141,6 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   getMapVetoInstructions(): string {
-    // SOLUCIÓN: Usamos '!' porque el 'if' en la plantilla HTML ya garantiza que currentUserSig() existe.
     const myId = this.authService.currentUserSig()!.usuarioId;
     const isP1 = myId === this.roomState.player1Id;
     switch (this.roomState.currentState) {
@@ -152,6 +148,31 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
       case 'MapBanP2': return !isP1 ? 'Banea 4 mapas de los restantes.' : 'Esperando a que el Jugador 2 banee 4 mapas.';
       case 'MapPickP1': return isP1 ? 'Elige 1 mapa para jugar.' : 'Esperando a que el Jugador 1 elija el mapa.';
       default: return '';
+    }
+  }
+
+  getMapImageUrl(mapName: string): string {
+    switch (mapName) {
+      case "Battlefield":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img02.jpg';
+      case "Final Destination":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img01.jpg';
+      case "Smashville":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img29.jpg';
+      case "Town and City":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img53.jpg';
+      case "Pokémon Stadium 2":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img28.jpg';
+      case "Kalos Pokémon League":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img65.jpg';
+      case "Small Battlefield":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img103.jpg';
+      case "Hollow Bastion":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img113.jpg';
+      case "Yoshi's Story":
+        return 'https://www.smashbros.com/assets_v2/img/stage/stage_img05.jpg';
+      default:
+        return ''; // URL a una imagen por defecto
     }
   }
 }

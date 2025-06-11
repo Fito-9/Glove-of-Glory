@@ -5,6 +5,11 @@ using GOG_Backend.Game;
 using System.Text.Json;
 using GOG_Backend.Models.Database;
 using GOG_Backend.Models.Database.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GOG_Backend.WebSockets
 {
@@ -53,18 +58,34 @@ namespace GOG_Backend.WebSockets
 
         private async Task OnMessageReceivedAsync(WebSocketHandler handler, WebSocketMessageDto message)
         {
+            // 1. Manejar matchmaking como un caso especial y prioritario
             if (message.Type == "matchmakingRequest")
             {
                 await HandleMatchmakingRequest(handler);
                 return;
             }
 
-            var gameActionPayload = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            if (gameActionPayload == null || !_activeRooms.TryGetValue(gameActionPayload.RoomId, out var room))
+            // 2. Intentar deserializar el payload principal. Si falla, es un mensaje malformado.
+            GameActionDto gameActionPayload;
+            try
             {
+                // Usamos JsonSerializerOptions para no ser sensibles a mayúsculas/minúsculas
+                gameActionPayload = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch (JsonException)
+            {
+                Console.WriteLine($"Usuario {handler.UserId} envió un payload no válido que no es un GameActionDto.");
                 return;
             }
 
+            // 3. Validar que tenemos la acción y la sala
+            if (gameActionPayload == null || string.IsNullOrEmpty(gameActionPayload.RoomId) || !_activeRooms.TryGetValue(gameActionPayload.RoomId, out var room))
+            {
+                Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionPayload?.RoomId}");
+                return;
+            }
+
+            // 4. Obtener el nombre de usuario
             string username = "Unknown";
             using (var scope = _serviceProvider.CreateScope())
             {
@@ -73,39 +94,61 @@ namespace GOG_Backend.WebSockets
                 if (user != null) username = user.NombreUsuario;
             }
 
+            // 5. Procesar la acción específica de forma segura
             bool stateChanged = false;
-
-            var actionPayloadElement = (JsonElement)gameActionPayload.Payload;
-
-            switch (message.Type)
+            try
             {
-                case "selectCharacter":
-                    var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>();
-                    stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
-                    break;
-                case "banMaps":
-                    var banPayload = actionPayloadElement.Deserialize<MapBanPayload>();
-                    stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
-                    break;
-                case "pickMap":
-                    var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>();
-                    stateChanged = room.PickMap(handler.UserId, pickPayload.PickedMap);
-                    break;
-                case "sendChatMessage":
-                    var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>();
-                    room.AddChatMessage(handler.UserId, username, chatPayload.Message);
-                    stateChanged = true;
-                    break;
-                case "declareWinner":
-                    // --- ESTA ES LA CORRECCIÓN CLAVE ---
-                    var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>();
-                    var (isFinished, winnerId, loserId) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
-                    stateChanged = true;
-                    if (isFinished)
-                    {
-                        await FinalizeMatch(room, winnerId.Value, loserId.Value);
-                    }
-                    break;
+                var actionPayloadElement = (JsonElement)gameActionPayload.Payload;
+                switch (message.Type)
+                {
+                    case "selectCharacter":
+                        var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>();
+                        if (charPayload != null) stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
+                        break;
+                    case "banMaps":
+                        var banPayload = actionPayloadElement.Deserialize<MapBanPayload>();
+                        if (banPayload != null) stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
+                        break;
+                    case "pickMap":
+                        var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>();
+                        if (pickPayload != null) stateChanged = room.PickMap(handler.UserId, pickPayload.PickedMap);
+                        break;
+                    case "sendChatMessage":
+                        var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>();
+                        if (chatPayload != null)
+                        {
+                            room.AddChatMessage(handler.UserId, username, chatPayload.Message);
+                            stateChanged = true;
+                        }
+                        break;
+                    case "declareWinner":
+                        var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>();
+                        if (winnerPayload != null)
+                        {
+                            var (isFinished, winnerId, loserId) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
+                            stateChanged = true;
+                            if (isFinished && winnerId.HasValue && loserId.HasValue)
+                            {
+                                await FinalizeMatch(room, winnerId.Value, loserId.Value);
+                            }
+                        }
+                        break;
+                    case "requestInitialState":
+                        if (_activeRooms.TryGetValue(gameActionPayload.RoomId, out var requestedRoom))
+                        {
+                            var statePayload = requestedRoom.GetStateDto();
+                            var stateMessage = new WebSocketMessageDto { Type = "matchStateUpdate", Payload = statePayload };
+                            await handler.SendAsync(stateMessage);
+                        }
+                        break;
+                    default:
+                        Console.WriteLine($"Tipo de mensaje no reconocido recibido: {message.Type}");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error procesando acción '{message.Type}' para la sala {room.RoomId}: {ex.Message}");
             }
 
             if (stateChanged)
@@ -117,6 +160,12 @@ namespace GOG_Backend.WebSockets
         private async Task HandleMatchmakingRequest(WebSocketHandler handler)
         {
             await _semaphore.WaitAsync();
+            if (_matchmakingQueue.Contains(handler.UserId))
+            {
+                _semaphore.Release();
+                return;
+            }
+
             if (_matchmakingQueue.Count > 0)
             {
                 int opponentId = _matchmakingQueue.Dequeue();
@@ -193,9 +242,42 @@ namespace GOG_Backend.WebSockets
             _activeRooms.Remove(room.RoomId);
         }
 
-     
-        private void RemoveFromMatchmakingQueue(int userId) { /* ... */ }
-        private async Task BroadcastOnlineUsersAsync() { /* ... */ }
+        private void RemoveFromMatchmakingQueue(int userId)
+        {
+            // Esta implementación es simple pero ineficiente para colas grandes.
+            // Para un TFG está bien, pero en producción se usaría una estructura de datos más adecuada.
+            if (_matchmakingQueue.Contains(userId))
+            {
+                var newQueue = new Queue<int>(_matchmakingQueue.Where(id => id != userId));
+                _matchmakingQueue.Clear();
+                foreach (var id in newQueue)
+                {
+                    _matchmakingQueue.Enqueue(id);
+                }
+            }
+        }
+
+        private async Task BroadcastOnlineUsersAsync()
+        {
+            var onlineUserIds = _handlers.Keys.ToList();
+            var dto = new WebSocketMessageDto
+            {
+                Type = "onlineUsers",
+                Payload = onlineUserIds
+            };
+
+            await _semaphore.WaitAsync();
+            try
+            {
+                var tasks = _handlers.Values.Select(handler => handler.SendAsync(dto));
+                await Task.WhenAll(tasks);
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
         public List<int> GetConnectedUsers() => _handlers.Keys.ToList();
     }
 }

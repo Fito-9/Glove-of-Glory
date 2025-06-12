@@ -24,7 +24,7 @@ import com.example.glove_of_glory.ui.theme.SmashRed
 import com.example.glove_of_glory.ui.models.AuthViewModel
 import com.example.glove_of_glory.ui.models.AuthViewModelFactory
 import com.example.glove_of_glory.util.Resource
-import com.example.gloveofglory.navigation.Routes
+
 
 @Composable
 fun LoginScreen(navController: NavController) {

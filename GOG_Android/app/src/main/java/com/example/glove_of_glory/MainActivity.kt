@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.glove_of_glory.navigation.AppNavigation
-import com.example.gloveofglory.ui.theme.GloveOfGloryTheme
+import com.example.glove_of_glory.ui.theme.GloveOfGloryTheme
 
 
 class MainActivity : ComponentActivity() {

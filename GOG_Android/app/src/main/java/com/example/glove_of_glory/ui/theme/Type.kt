@@ -1,5 +1,5 @@
 // app/src/main/java/com/example/gloveofglory/ui/theme/Type.kt
-package com.example.gloveofglory.ui.theme
+package com.example.glove_of_glory.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.gloveofglory.R
+import com.example.glove_of_glory.R
 
 val tekoFontFamily = FontFamily(
     Font(R.font.teko_regular, FontWeight.Normal),

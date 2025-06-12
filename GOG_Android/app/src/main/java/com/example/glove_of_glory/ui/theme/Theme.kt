@@ -1,5 +1,5 @@
 // app/src/main/java/com/example/gloveofglory/ui/theme/Theme.kt
-package com.example.gloveofglory.ui.theme
+package com.example.glove_of_glory.ui.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme

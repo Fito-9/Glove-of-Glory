@@ -1,4 +1,4 @@
-package com.example.gloveofglory.navigation
+package com.example.glove_of_glory.navigation
 
 sealed class Routes(val route: String) {
     object Splash : Routes("splash_screen")

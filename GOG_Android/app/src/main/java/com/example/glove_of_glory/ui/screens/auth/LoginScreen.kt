@@ -1,5 +1,6 @@
 package com.example.glove_of_glory.ui.screens.auth
 
+// --- IMPORTS CORRECTOS ---
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -20,17 +21,16 @@ import androidx.navigation.NavController
 import com.example.glove_of_glory.data.remote.RetrofitClient
 import com.example.glove_of_glory.data.repository.UserRepository
 import com.example.glove_of_glory.navigation.Routes
-import com.example.glove_of_glory.ui.theme.SmashRed
 import com.example.glove_of_glory.ui.models.AuthViewModel
 import com.example.glove_of_glory.ui.models.AuthViewModelFactory
+import com.example.glove_of_glory.ui.theme.SmashRed
 import com.example.glove_of_glory.util.Resource
-
 
 @Composable
 fun LoginScreen(navController: NavController) {
     val context = LocalContext.current
 
-    // Inyección manual de dependencias para el ViewModel
+    // Esta línea ahora encontrará AuthViewModelFactory, UserRepository y RetrofitClient
     val authViewModel: AuthViewModel = viewModel(
         factory = AuthViewModelFactory(UserRepository(RetrofitClient.instance))
     )
@@ -103,6 +103,7 @@ fun LoginScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Esta línea ahora encontrará SmashRed
             Button(
                 onClick = {
                     if (email.isNotBlank() && password.isNotBlank()) {

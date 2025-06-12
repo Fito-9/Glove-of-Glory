@@ -58,18 +58,17 @@ namespace GOG_Backend.WebSockets
 
         private async Task OnMessageReceivedAsync(WebSocketHandler handler, WebSocketMessageDto message)
         {
-            // 1. Manejar matchmaking como un caso especial y prioritario
+          
             if (message.Type == "matchmakingRequest")
             {
                 await HandleMatchmakingRequest(handler);
                 return;
             }
 
-            // 2. Intentar deserializar el payload principal. Si falla, es un mensaje malformado.
             GameActionDto gameActionPayload;
             try
             {
-                // Usamos JsonSerializerOptions para no ser sensibles a mayúsculas/minúsculas
+
                 gameActionPayload = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
             catch (JsonException)
@@ -78,14 +77,13 @@ namespace GOG_Backend.WebSockets
                 return;
             }
 
-            // 3. Validar que tenemos la acción y la sala
             if (gameActionPayload == null || string.IsNullOrEmpty(gameActionPayload.RoomId) || !_activeRooms.TryGetValue(gameActionPayload.RoomId, out var room))
             {
                 Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionPayload?.RoomId}");
                 return;
             }
 
-            // 4. Obtener el nombre de usuario
+
             string username = "Unknown";
             using (var scope = _serviceProvider.CreateScope())
             {
@@ -94,7 +92,6 @@ namespace GOG_Backend.WebSockets
                 if (user != null) username = user.NombreUsuario;
             }
 
-            // 5. Procesar la acción específica de forma segura
             bool stateChanged = false;
             try
             {
@@ -133,6 +130,13 @@ namespace GOG_Backend.WebSockets
                             }
                         }
                         break;
+                    case "inviteFriend":
+                        var invitePayload = actionPayloadElement.Deserialize<InviteFriendPayload>();
+                        if (invitePayload != null)
+                        {
+                            await HandleFriendInvite(handler.UserId, invitePayload.InvitedUserId);
+                        }
+                        break;
                     case "requestInitialState":
                         if (_activeRooms.TryGetValue(gameActionPayload.RoomId, out var requestedRoom))
                         {
@@ -154,6 +158,46 @@ namespace GOG_Backend.WebSockets
             if (stateChanged)
             {
                 await BroadcastRoomState(room.RoomId);
+            }
+        }
+
+        private async Task HandleFriendInvite(int senderId, int receiverId)
+        {
+            await _semaphore.WaitAsync();
+            try
+            {
+                if (_handlers.TryGetValue(receiverId, out var receiverHandler))
+                {
+   
+                    string senderUsername = "Player1";
+                    string receiverUsername = "Player2";
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+                        var user1 = await dbContext.Users.FindAsync(senderId);
+                        var user2 = await dbContext.Users.FindAsync(receiverId);
+                        if (user1 != null) senderUsername = user1.NombreUsuario;
+                        if (user2 != null) receiverUsername = user2.NombreUsuario;
+                    }
+
+                    var newRoom = new MatchRoom(senderId, senderUsername, receiverId, receiverUsername);
+                    _activeRooms[newRoom.RoomId] = newRoom;
+
+             
+                    var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
+
+                    if (_handlers.TryGetValue(senderId, out var senderHandler))
+                    {
+                        await senderHandler.SendAsync(matchMessage);
+                    }
+                    await receiverHandler.SendAsync(matchMessage);
+
+                    await BroadcastRoomState(newRoom.RoomId);
+                }
+            }
+            finally
+            {
+                _semaphore.Release();
             }
         }
 
@@ -244,8 +288,7 @@ namespace GOG_Backend.WebSockets
 
         private void RemoveFromMatchmakingQueue(int userId)
         {
-            // Esta implementación es simple pero ineficiente para colas grandes.
-            // Para un TFG está bien, pero en producción se usaría una estructura de datos más adecuada.
+ 
             if (_matchmakingQueue.Contains(userId))
             {
                 var newQueue = new Queue<int>(_matchmakingQueue.Where(id => id != userId));

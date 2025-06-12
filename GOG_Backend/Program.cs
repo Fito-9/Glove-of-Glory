@@ -6,6 +6,7 @@ using System.Text;
 using GOG_Backend.WebSockets;
 using Microsoft.AspNetCore.WebSockets;
 using StrategoBackend.WebSockets;
+using GOG_Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<WebSocketNetwork>();
 builder.Services.AddTransient<MatchmakingWebSocketMiddleware>();
+builder.Services.AddScoped<FriendshipService>();
 
 
 builder.Services.AddSingleton(provider =>

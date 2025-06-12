@@ -5,13 +5,14 @@ import { FriendshipService, UserSummary, FriendRequest } from '../../services/fr
 import { WebsocketService } from '../../services/websocket.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-friendship',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink], // Añadido RouterLink para el futuro
   templateUrl: './friendship.component.html',
-  styleUrl: './friendship.component.css'
+  styleUrls: ['./friendship.component.css']
 })
 export class FriendshipComponent implements OnInit, OnDestroy {
   private friendshipService = inject(FriendshipService);
@@ -32,7 +33,8 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) return;
     this.loadAllData();
 
-    this.onlineUsersSubscription = this.websocketService.onlineUsers$.subscribe(onlineIds => {
+    // SOLUCIÓN: Añadimos el tipo explícito Set<number> al parámetro.
+    this.onlineUsersSubscription = this.websocketService.onlineUsers$.subscribe((onlineIds: Set<number>) => {
         this.updateOnlineStatus(onlineIds);
     });
   }
@@ -51,6 +53,7 @@ export class FriendshipComponent implements OnInit, OnDestroy {
 
     this.friendshipService.getFriends(this.currentUserId).subscribe(friends => {
       this.friends = friends;
+      // SOLUCIÓN: Ahora este método existe en el servicio.
       this.updateOnlineStatus(this.websocketService.getOnlineUsers());
     });
 
@@ -77,7 +80,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) return;
     this.friendshipService.sendFriendRequest(this.currentUserId, receiverId).subscribe(() => {
       alert('Solicitud enviada.');
-      // Opcional: actualizar estado para mostrar "Solicitud Enviada"
     });
   }
 
@@ -99,7 +101,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
 
   inviteToGame(friendId: number): void {
     if (!this.currentUserId) return;
-    // La roomId se genera en el backend, aquí podemos pasar un placeholder o nada.
     this.websocketService.inviteFriend("private-game", friendId);
   }
 
@@ -108,8 +109,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
   }
 
   isRequestSent(userId: number): boolean {
-    // Esta lógica es más compleja, por ahora la simplificamos.
-    // En un sistema real, necesitarías saber las solicitudes que has enviado.
     return false;
   }
 }

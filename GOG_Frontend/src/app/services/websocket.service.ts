@@ -16,6 +16,11 @@ export class WebsocketService {
   public matchmakingMessage$ = new Subject<any>();
   public matchState$ = new BehaviorSubject<any>(null);
 
+  // --- PROPIEDADES AÑADIDAS PARA USUARIOS ONLINE ---
+  private connectedUsers = new Set<number>();
+  public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
+  // -------------------------------------------------
+
   private authService = inject(AuthService);
   private router = inject(Router);
   private reconnectAttempts = 0;
@@ -42,6 +47,10 @@ export class WebsocketService {
           console.log('WebSocket desconectado');
           this.connected$.next(false);
           this.socket$ = null;
+          // --- LIMPIAR LISTA DE USUARIOS AL DESCONECTAR ---
+          this.connectedUsers.clear();
+          this.onlineUsers$.next(new Set());
+          // ---------------------------------------------
           this.reconnect();
       }}
     });
@@ -64,14 +73,17 @@ export class WebsocketService {
     }
   }
 
-  requestInitialRoomState(roomId: string): void {
-    this.sendGameAction('requestInitialState', roomId, {});
-}
-
   private handleMessage(message: string): void {
     try {
       const parsed = JSON.parse(message);
       switch (parsed.Type) {
+        // --- NUEVO CASE PARA MANEJAR LA LISTA DE USUARIOS ONLINE ---
+        case 'onlineUsers':
+          const userIds: number[] = parsed.Payload;
+          this.connectedUsers = new Set(userIds);
+          this.onlineUsers$.next(this.connectedUsers);
+          break;
+        // ---------------------------------------------------------
         case 'matchFound':
           this.matchmakingMessage$.next(parsed.Payload);
           this.router.navigate(['/match', parsed.Payload.roomId]);
@@ -88,6 +100,22 @@ export class WebsocketService {
     } catch (error) {
       console.error('Error al parsear mensaje:', error, 'Original:', message);
     }
+  }
+  
+  // --- NUEVO MÉTODO PARA OBTENER LA LISTA ACTUAL ---
+  getOnlineUsers(): Set<number> {
+    return this.connectedUsers;
+  }
+  // ------------------------------------------------
+
+  // ... (resto de métodos como requestMatchmaking, sendGameAction, etc. no cambian)
+  
+  inviteFriend(roomId: string, invitedUserId: number): void {
+    this.sendGameAction('inviteFriend', roomId, { InvitedUserId: invitedUserId });
+  }
+  
+  requestInitialRoomState(roomId: string): void {
+    this.sendGameAction('requestInitialState', roomId, {});
   }
 
   requestMatchmaking(): void {

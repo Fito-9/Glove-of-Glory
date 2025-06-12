@@ -30,4 +30,8 @@
     {
         public int DeclaredWinnerId { get; set; }
     }
+    public class InviteFriendPayload
+    {
+        public int InvitedUserId { get; set; }
+    }
 }

@@ -47,7 +47,7 @@ namespace GOG_Backend.Game
             Player2Id = player2Id;
             Player2Username = player2Username; // Asignar nombre de usuario
             CurrentState = GameState.CharacterSelection;
-            MapPool = new List<string> { "Small Battlefield", "Battlefield", "Final Destination", "Pokémon Stadium 2", "Hollow Bastion", "Smashville", "Town and City", "Kalos Pokémon League" };
+            MapPool = new List<string> { "Small Battlefield", "Battlefield", "Final Destination", "Pokémon Stadium 2", "Hollow Bastion", "Smashville", "Town and City", "Kalos Pokémon League", "Yoshi's Story" };
         }
 
         public bool SelectCharacter(int userId, string character)

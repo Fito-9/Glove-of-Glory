@@ -9,6 +9,7 @@ namespace GOG_Backend.Models.Database
 
         public DbSet<User> Users { get; set; }
         public DbSet<Match> Matches { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,6 +37,18 @@ namespace GOG_Backend.Models.Database
                 .HasOne(m => m.Winner)
                 .WithMany()
                 .HasForeignKey(m => m.WinnerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Friendship>()
+              .HasOne(f => f.Sender)
+              .WithMany() 
+              .HasForeignKey(f => f.SenderId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Friendship>()
+                .HasOne(f => f.Receiver)
+                .WithMany() 
+                .HasForeignKey(f => f.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

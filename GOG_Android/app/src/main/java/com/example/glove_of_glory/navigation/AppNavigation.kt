@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.glove_of_glory.ui.screens.auth.LoginScreen
 import com.example.glove_of_glory.ui.screens.MainScreen
 import com.example.glove_of_glory.ui.screens.auth.RegisterScreen
-import com.example.glove_of_glory.navigation.Routes
+
 
 
 @Composable

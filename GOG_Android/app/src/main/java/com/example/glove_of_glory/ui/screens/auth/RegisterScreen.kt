@@ -21,10 +21,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.glove_of_glory.data.remote.RetrofitClient
 import com.example.glove_of_glory.data.repository.UserRepository
+import com.example.glove_of_glory.navigation.Routes
 import com.example.glove_of_glory.ui.models.AuthViewModel
+import com.example.glove_of_glory.ui.models.AuthViewModelFactory
 import com.example.glove_of_glory.ui.theme.SmashRed
-import com.example.gloveofglory.util.Resource
-import com.example.gloveofglory.navigation.Routes
+import com.example.glove_of_glory.util.Resource
 
 @Composable
 fun RegisterScreen(navController: NavController) {

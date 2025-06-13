@@ -6,12 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -69,7 +67,8 @@ fun StageCard(stage: Stage, onClick: () -> Unit) {
             .fillMaxWidth()
             .height(200.dp)
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(16.dp),
+        // --- CAMBIO: Usamos la forma del tema ---
+        shape = MaterialTheme.shapes.large,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -118,6 +117,8 @@ fun RecommendedCharactersDialog(stage: Stage, onDismiss: () -> Unit) {
             TextButton(onClick = onDismiss) {
                 Text(stringResource(id = R.string.dialog_close_button))
             }
-        }
+        },
+        // --- CAMBIO: Aplicamos la forma del tema ---
+        shape = MaterialTheme.shapes.large
     )
 }

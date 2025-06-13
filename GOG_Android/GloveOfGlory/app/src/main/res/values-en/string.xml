@@ -1,11 +1,14 @@
 <resources>
+    <!-- General / App -->
     <string name="app_name">Glove of Glory</string>
+    <string name="loading_text">Loading...</string>
 
     <!-- Screen Titles -->
     <string name="login_title">Login</string>
     <string name="register_title">Create Account</string>
     <string name="main_title">Glove of Glory</string>
     <string name="profile_title">User Profile</string>
+    <string name="how_to_play_title">Beginner\'s Guide</string>
 
     <!-- Field Labels -->
     <string name="email_label">Email</string>
@@ -19,12 +22,11 @@
     <string name="logout_button">Logout</string>
     <string name="profile_button">Profile</string>
     <string name="dialog_close_button">Close</string>
+    <string name="profile_back_button_description">Back to main screen</string>
 
     <!-- Texts and Links -->
     <string name="no_account_link">Don\'t have an account? Sign up</string>
     <string name="already_have_account_link">Already have an account? Log in</string>
-    <string name="main_welcome_text">Prepare for Glory!</string>
-    <string name="loading_text">Loading...</string>
 
     <!-- Messages and Errors -->
     <string name="fill_all_fields_error">Please fill in all fields</string>
@@ -35,14 +37,7 @@
     <string name="session_invalid_error">Invalid or expired session. Please log in again.</string>
     <string name="network_error">Network error: %1$s</string>
 
-    <!-- How to Play -->
-    <string name="how_to_play_title">Beginner\'s Guide</string>
-    <string name="how_to_play_intro_text">Super Smash Bros. Ultimate is a unique fighting game where the goal is not to deplete the opponent\'s health, but to launch them off the stage. Each character has a percentage that increases when they take damage. The higher the percentage, the farther you\'ll fly when hit! Use normal attacks, special moves, grabs, and shields to dominate the fight and be the last one standing.</string>
-    <string name="how_to_play_video_title">Basic Video Tutorial</string>
-    <string name="video_content_description">How to play video tutorial</string>
-    <string name="play_video_description">Play video</string>
-
-    <!-- Menu -->
+    <!-- Navigation Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_how_to_play">How to Play</string>
     <string name="menu_characters">Characters</string>
@@ -50,7 +45,28 @@
     <string name="menu_history">History</string>
     <string name="menu_description">Navigation Menu</string>
 
-    <!-- Stages -->
+    <!-- Home Screen -->
+    <string name="home_welcome_to">Welcome to</string>
+    <string name="history_placeholder_text">The history of Smash Ultimate will go here.</string>
+
+    <!-- Register Screen -->
+    <string name="register_avatar_prompt">Choose your avatar</string>
+    <string name="avatar_content_description">Selected avatar</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_elo_label">ELO</string>
+    <string name="profile_email_label">Email</string>
+    <string name="profile_avatar_description">User avatar</string>
+    <string name="profile_elo_icon_description">ELO icon</string>
+    <string name="profile_email_icon_description">Email icon</string>
+
+    <!-- How to Play Screen -->
+    <string name="how_to_play_intro_text">Super Smash Bros. Ultimate is a unique fighting game where the goal is not to deplete the opponent\'s health, but to launch them off the stage. Each character has a percentage that increases when they take damage. The higher the percentage, the farther you\'ll fly when hit! Use normal attacks, special moves, grabs, and shields to dominate the fight and be the last one standing.</string>
+    <string name="how_to_play_video_title">Basic Video Tutorial</string>
+    <string name="video_content_description">How to play video tutorial</string>
+    <string name="video_play_description">Play video</string>
+
+    <!-- Character & Stage Screens -->
     <string name="stage_dialog_title">Best Characters for %1$s</string>
     <string name="character_difficulty">Difficulty:</string>
 </resources>

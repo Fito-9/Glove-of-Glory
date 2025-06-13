@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -56,13 +55,12 @@ fun HowToPlayScreen() {
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        // --- COMPONENTE DE VÍDEO CON MINIATURA ---
         YoutubeThumbnailPlayer(
-            // --- ¡CAMBIO APLICADO AQUÍ! ---
             videoId = "ncLSmmu7DCc",
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
+                // --- CAMBIO: Usamos la forma del tema para consistencia ---
+                .clip(MaterialTheme.shapes.large)
         )
     }
 }
@@ -87,6 +85,7 @@ fun YoutubeThumbnailPlayer(
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = thumbnailUrl),
+            // --- CAMBIO: Usamos stringResource ---
             contentDescription = stringResource(id = R.string.video_content_description),
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -100,7 +99,8 @@ fun YoutubeThumbnailPlayer(
 
         Icon(
             imageVector = Icons.Filled.PlayArrow,
-            contentDescription = "Reproducir vídeo",
+            // --- CAMBIO: Usamos stringResource ---
+            contentDescription = stringResource(id = R.string.video_play_description),
             modifier = Modifier.size(64.dp),
             tint = Color.White.copy(alpha = 0.9f)
         )

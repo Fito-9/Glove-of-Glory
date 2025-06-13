@@ -1,22 +1,20 @@
 package com.example.glove_of_glory.ui.screens.main
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -25,6 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.glove_of_glory.R
 import com.example.glove_of_glory.data.local.UserPreferencesRepository
 import com.example.glove_of_glory.data.remote.RetrofitClient
@@ -35,8 +34,13 @@ import com.example.glove_of_glory.ui.models.AuthViewModelFactory
 import com.example.glove_of_glory.ui.theme.SmashRed
 import kotlinx.coroutines.launch
 
-// Pantalla de marcador de posición para la última que nos queda.
-@Composable fun HistoryScreen() { Text("Aquí irá la historia de Smash Ultimate.", color = MaterialTheme.colorScheme.onBackground) }
+// --- CAMBIO: Usamos stringResource para el texto del placeholder ---
+//@Composable fun HistoryScreen() {
+// Text(
+//    text = stringResource(id = R.string.history_placeholder_text),
+//     color = MaterialTheme.colorScheme.onBackground
+//  )
+//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +56,20 @@ fun MainScreen(navController: NavController) {
     val mainContentNavController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
+    var userAvatarUrl by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(key1 = Unit) {
+        try {
+            val userRepo = UserRepository(RetrofitClient.getInstance(context))
+            val response = userRepo.getMyProfile()
+            if (response.isSuccessful) {
+                userAvatarUrl = response.body()?.avatarUrl
+            }
+        } catch (e: Exception) {
+            // Manejo de error opcional
+        }
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -118,11 +136,22 @@ fun MainScreen(navController: NavController) {
                     },
                     actions = {
                         IconButton(onClick = { navController.navigate(Routes.Profile.route) }) {
-                            Icon(
-                                imageVector = Icons.Default.AccountCircle,
-                                contentDescription = stringResource(id = R.string.profile_button),
-                                modifier = Modifier.size(32.dp)
-                            )
+                            if (!userAvatarUrl.isNullOrEmpty()) {
+                                Image(
+                                    painter = rememberAsyncImagePainter(model = userAvatarUrl),
+                                    contentDescription = stringResource(id = R.string.profile_button),
+                                    modifier = Modifier
+                                        .size(36.dp)
+                                        .clip(CircleShape),
+                                    contentScale = ContentScale.Crop
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Default.AccountCircle,
+                                    contentDescription = stringResource(id = R.string.profile_button),
+                                    modifier = Modifier.size(36.dp)
+                                )
+                            }
                         }
                         IconButton(onClick = {
                             authViewModel.logout()
@@ -154,8 +183,8 @@ fun MainScreen(navController: NavController) {
                 composable("home") { HomeScreen() }
                 composable("how_to_play") { HowToPlayScreen() }
                 composable("character_list") { CharacterListScreen() }
-                composable("stage_list") { StageListScreen() } // Ahora llama a la pantalla real
-                composable("history") { Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { HistoryScreen() } }
+                composable("stage_list") { StageListScreen() }
+                composable("history") { Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {  } }
             }
         }
     }

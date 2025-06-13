@@ -35,7 +35,6 @@ class AuthViewModel(
                 val response = userRepository.loginUser(email, password)
                 if (response.isSuccessful && response.body() != null) {
                     val loginData = response.body()!!
-                    // Volvemos a guardar token y ID
                     prefsRepository.saveAuthTokenAndId(loginData.accessToken, loginData.usuarioId)
                     _loginState.value = Resource.Success(loginData)
                 } else {
@@ -64,11 +63,13 @@ class AuthViewModel(
         }
     }
 
-    fun register(nombreUsuario: String, email: String, password: String) {
+    // --- CAMBIO: Añadimos avatarId a la firma ---
+    fun register(nombreUsuario: String, email: String, password: String, avatarId: String?) {
         viewModelScope.launch {
             _registerState.value = Resource.Loading()
             try {
-                val response = userRepository.registerUser(nombreUsuario, email, password)
+                // --- CAMBIO: Pasamos el avatarId al repositorio ---
+                val response = userRepository.registerUser(nombreUsuario, email, password, avatarId)
                 if (response.isSuccessful && response.body() != null) {
                     _registerState.value = Resource.Success(response.body()!!)
                 } else {

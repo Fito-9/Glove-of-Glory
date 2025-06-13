@@ -80,7 +80,9 @@ fun LoginScreen(navController: NavController) {
                 label = { Text(stringResource(id = R.string.email_label)) },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                singleLine = true
+                singleLine = true,
+                // --- CAMBIO: Aplicamos la forma del tema ---
+                shape = MaterialTheme.shapes.medium
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -91,7 +93,9 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                singleLine = true
+                singleLine = true,
+                // --- CAMBIO: Aplicamos la forma del tema ---
+                shape = MaterialTheme.shapes.medium
             )
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -105,7 +109,9 @@ fun LoginScreen(navController: NavController) {
                 },
                 modifier = Modifier.fillMaxWidth().height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = SmashRed),
-                enabled = loginState !is Resource.Loading
+                enabled = loginState !is Resource.Loading,
+                // --- CAMBIO: Aplicamos la forma del tema ---
+                shape = MaterialTheme.shapes.medium
             ) {
                 if (loginState is Resource.Loading) {
                     CircularProgressIndicator(modifier = Modifier.size(24.dp), color = MaterialTheme.colorScheme.onPrimary)

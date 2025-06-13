@@ -22,10 +22,8 @@ fun AppNavigation() {
     val context = LocalContext.current
     val prefsRepository = UserPreferencesRepository(context)
 
-    // Usamos un estado para guardar la ruta de inicio. Inicialmente es nulo.
     var startDestination by remember { mutableStateOf<String?>(null) }
 
-    // Este LaunchedEffect se ejecuta una vez para decidir la ruta de inicio.
     LaunchedEffect(key1 = true) {
         val authToken = prefsRepository.authToken.first()
         startDestination = if (authToken.isNullOrEmpty()) {
@@ -35,14 +33,12 @@ fun AppNavigation() {
         }
     }
 
-    // Mientras startDestination sea nulo, mostramos una pantalla de carga.
     if (startDestination != null) {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = startDestination!! // Usamos la ruta que hemos decidido
+            startDestination = startDestination!!
         ) {
-            // Ya no necesitamos una ruta para "Splash", la lógica está fuera.
             composable(Routes.Main.route) {
                 MainScreen(navController = navController)
             }
@@ -52,12 +48,13 @@ fun AppNavigation() {
             composable(Routes.Register.route) {
                 RegisterScreen(navController = navController)
             }
+            // --- CAMBIO AQUÍ ---
+            // Ahora pasamos el navController a la ProfileScreen para que pueda volver.
             composable(Routes.Profile.route) {
-                ProfileScreen()
+                ProfileScreen(navController = navController)
             }
         }
     } else {
-        // Pantalla de carga genérica mientras decidimos la ruta
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center

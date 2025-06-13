@@ -1,51 +1,54 @@
 package com.example.glove_of_glory.ui.screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.glove_of_glory.R
-import com.example.glove_of_glory.data.local.UserPreferencesRepository
 import com.example.glove_of_glory.data.remote.RetrofitClient
 import com.example.glove_of_glory.data.remote.dto.UserFullProfileDto
 import com.example.glove_of_glory.data.repository.UserRepository
-import kotlinx.coroutines.flow.first
+import com.example.glove_of_glory.ui.theme.SmashGold
+import com.example.glove_of_glory.ui.theme.SmashRed
 import kotlinx.coroutines.launch
 
+// --- CAMBIO: La firma ahora acepta un NavController ---
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var userProfile by remember { mutableStateOf<UserFullProfileDto?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    // LaunchedEffect se ejecuta una vez para cargar los datos del perfil.
     LaunchedEffect(key1 = Unit) {
         scope.launch {
-            // --- LÓGICA CORREGIDA ---
-            // 1. Creamos una instancia del repositorio de preferencias.
-            val prefsRepository = UserPreferencesRepository(context)
-
-            // 2. Leemos el ID del usuario que hemos guardado en DataStore al hacer login.
-            val userId = prefsRepository.userId.first()
-
-            // 3. Si por alguna razón no encontramos un ID, mostramos un error.
-            if (userId == null) {
-                errorMessage = context.getString(R.string.session_invalid_error)
-                isLoading = false
-                return@launch
-            }
-            // --- FIN DE LA LÓGICA CORREGIDA ---
-
-            // Si tenemos un ID, procedemos a llamar a la API.
+            isLoading = true
             try {
                 val userRepository = UserRepository(RetrofitClient.getInstance(context))
-                // Ahora la llamada a getMyProfile usará el token que el interceptor añade
                 val response = userRepository.getMyProfile()
                 if (response.isSuccessful) {
                     userProfile = response.body()
@@ -60,30 +63,163 @@ fun ProfileScreen() {
         }
     }
 
-    // La UI para mostrar los diferentes estados: carga, error o el perfil.
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+    // --- CAMBIO: Envolvemos todo en un Scaffold ---
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(id = R.string.profile_title)) },
+                navigationIcon = {
+                    // --- El botón de volver ---
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(id = R.string.profile_back_button_description)
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = SmashRed,
+                    titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White
+                )
+            )
+        }
+    ) { paddingValues ->
+        // El Surface ahora usa el padding del Scaffold para no quedar debajo de la TopAppBar
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            when {
+                isLoading -> {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                        CircularProgressIndicator()
+                    }
+                }
+                errorMessage != null -> {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                        Text(
+                            text = errorMessage!!,
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                }
+                userProfile != null -> {
+                    ProfileContent(user = userProfile!!)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ProfileContent(user: UserFullProfileDto) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
-        when {
-            isLoading -> {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    CircularProgressIndicator()
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = stringResource(id = R.string.loading_text))
-                }
-            }
-            errorMessage != null -> {
-                Text(text = errorMessage!!, color = MaterialTheme.colorScheme.error)
-            }
-            userProfile != null -> {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = userProfile!!.nickname, style = MaterialTheme.typography.headlineMedium)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = "Email: ${userProfile!!.email}")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(text = "ELO: ${userProfile!!.elo}")
-                }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.6f)
+                    .align(Alignment.TopCenter)
+                    .background(SmashRed)
+            )
+            Image(
+                painter = rememberAsyncImagePainter(
+                    model = user.avatarUrl,
+                    fallback = painterResource(id = R.drawable.ic_launcher_foreground)
+                ),
+                contentDescription = stringResource(id = R.string.profile_avatar_description),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(128.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(4.dp)
+                    .clip(CircleShape)
+                    .align(Alignment.BottomCenter)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = user.nickname,
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        InfoCard(
+            icon = Icons.Default.Star,
+            iconColor = SmashGold,
+            title = stringResource(id = R.string.profile_elo_label),
+            value = user.elo.toString(),
+            iconDescription = stringResource(id = R.string.profile_elo_icon_description)
+        )
+
+        InfoCard(
+            icon = Icons.Default.Email,
+            iconColor = MaterialTheme.colorScheme.secondary,
+            title = stringResource(id = R.string.profile_email_label),
+            value = user.email,
+            iconDescription = stringResource(id = R.string.profile_email_icon_description)
+        )
+    }
+}
+
+@Composable
+fun InfoCard(
+    icon: ImageVector,
+    iconColor: Color,
+    title: String,
+    value: String,
+    iconDescription: String
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        shape = MaterialTheme.shapes.large,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = iconDescription,
+                modifier = Modifier.size(40.dp),
+                tint = iconColor
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
             }
         }
     }

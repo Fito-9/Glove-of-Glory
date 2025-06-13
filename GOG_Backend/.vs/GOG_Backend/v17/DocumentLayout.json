@@ -1,76 +1,76 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\",
+  "WorkspaceRootPath": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\services\\simplesessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:services\\simplesessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\dto\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\services\\simplesessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:services\\simplesessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\dto\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\dto\\userfullprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\dto\\userfullprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\userfullprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\dto\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\dto\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\dto\\userregisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\dto\\userregisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\userregisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\source\\repos\\glove-of-glory\\gog_backend\\models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\fitob\\onedrive\\escritorio\\trabajo final\\glove-of-glory\\gog_backend\\models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -81,15 +81,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 822,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
               "RelativeDocumentMoniker": "Models\\Database\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
               "RelativeToolTip": "Models\\Database\\Entities\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -107,58 +107,51 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GOG_Backend",
-              "DocumentMoniker": "C:\\Users\\fitob\\Source\\Repos\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
+              "DocumentIndex": 4,
+              "Title": "GOG_Backend.csproj",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
               "RelativeDocumentMoniker": "GOG_Backend.csproj",
-              "ToolTip": "C:\\Users\\fitob\\Source\\Repos\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
               "RelativeToolTip": "GOG_Backend.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-06-13T01:22:46.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T01:22:46.009Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "UserFullProfileDto.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\Source\\Repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserFullProfileDto.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserFullProfileDto.cs",
               "RelativeDocumentMoniker": "Models\\Dto\\UserFullProfileDto.cs",
-              "ToolTip": "C:\\Users\\fitob\\Source\\Repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserFullProfileDto.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserFullProfileDto.cs",
               "RelativeToolTip": "Models\\Dto\\UserFullProfileDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T00:18:18.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T00:18:18.782Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "UserLoginDto.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
               "RelativeDocumentMoniker": "Models\\Dto\\UserLoginDto.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
               "RelativeToolTip": "Models\\Dto\\UserLoginDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:41:31.453Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T12:41:31.453Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -167,76 +160,71 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "SimpleSessionService.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Services\\SimpleSessionService.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Services\\SimpleSessionService.cs",
               "RelativeDocumentMoniker": "Services\\SimpleSessionService.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Services\\SimpleSessionService.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Services\\SimpleSessionService.cs",
               "RelativeToolTip": "Services\\SimpleSessionService.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T01:25:50.602Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T01:25:50.602Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Program.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAiwC4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:05:32.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T12:05:32.408Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "PasswordHelper.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
               "RelativeDocumentMoniker": "Recursos\\PasswordHelper.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
               "RelativeToolTip": "Recursos\\PasswordHelper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:43:44.822Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T12:43:44.822Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "UserProfileDto.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserProfileDto.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserProfileDto.cs",
               "RelativeDocumentMoniker": "Models\\Dto\\UserProfileDto.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserProfileDto.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserProfileDto.cs",
               "RelativeToolTip": "Models\\Dto\\UserProfileDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T00:17:33.983Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T00:17:33.983Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "UserUpdateDto.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\Source\\Repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserUpdateDto.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserUpdateDto.cs",
               "RelativeDocumentMoniker": "Models\\Dto\\UserUpdateDto.cs",
-              "ToolTip": "C:\\Users\\fitob\\Source\\Repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserUpdateDto.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserUpdateDto.cs",
               "RelativeToolTip": "Models\\Dto\\UserUpdateDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T00:19:06.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T00:19:06.227Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\appsettings.json",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -246,22 +234,21 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "UserRegisterDto.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
               "RelativeDocumentMoniker": "Models\\Dto\\UserRegisterDto.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
               "RelativeToolTip": "Models\\Dto\\UserRegisterDto.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:41:04.45Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T12:41:04.45Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Properties\\launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Properties\\launchSettings.json",
               "RelativeToolTip": "Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -272,9 +259,9 @@
               "DocumentIndex": 13,
               "Title": "Microsoft.PackageDependencyResolution.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.200\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "ViewState": "AgIAABMAAAAAAAAAAAD4v/gAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
               "WhenOpened": "2025-06-09T14:53:56.917Z"
@@ -283,9 +270,9 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
               "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -295,9 +282,9 @@
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "Settings.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Settings.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Settings.cs",
               "RelativeDocumentMoniker": "Settings.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Settings.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Settings.cs",
               "RelativeToolTip": "Settings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -307,9 +294,9 @@
               "$type": "Document",
               "DocumentIndex": 16,
               "Title": "Seeder.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
               "RelativeDocumentMoniker": "Models\\Database\\Seeder.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
               "RelativeToolTip": "Models\\Database\\Seeder.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAxwBQAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -319,9 +306,9 @@
               "$type": "Document",
               "DocumentIndex": 17,
               "Title": "MyDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
               "RelativeDocumentMoniker": "Models\\Database\\MyDbContext.cs",
-              "ToolTip": "C:\\Users\\fitob\\source\\repos\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
+              "ToolTip": "C:\\Users\\fitob\\OneDrive\\Escritorio\\Trabajo final\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
               "RelativeToolTip": "Models\\Database\\MyDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

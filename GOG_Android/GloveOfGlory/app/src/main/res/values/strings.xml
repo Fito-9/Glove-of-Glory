@@ -1,3 +1,56 @@
 <resources>
-    <string name="app_name">GloveOfGlory</string>
+    <string name="app_name">Glove of Glory</string>
+
+    <!-- Títulos de Pantalla -->
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="register_title">Crear Cuenta</string>
+    <string name="main_title">Glove of Glory</string>
+    <string name="profile_title">Perfil de Usuario</string>
+
+    <!-- Etiquetas de Campos -->
+    <string name="email_label">Email</string>
+    <string name="password_label">Contraseña</string>
+    <string name="username_label">Nombre de Usuario</string>
+    <string name="confirm_password_label">Confirmar Contraseña</string>
+
+    <!-- Botones -->
+    <string name="login_button">INICIAR SESIÓN</string>
+    <string name="register_button">REGISTRARSE</string>
+    <string name="logout_button">Cerrar Sesión</string>
+    <string name="profile_button">Perfil</string>
+    <string name="dialog_close_button">Cerrar</string>
+
+    <!-- Textos y Enlaces -->
+    <string name="no_account_link">¿No tienes cuenta? Regístrate</string>
+    <string name="already_have_account_link">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="main_welcome_text">¡Prepárate para la Gloria!</string>
+    <string name="loading_text">Cargando...</string>
+
+    <!-- Mensajes y Errores -->
+    <string name="fill_all_fields_error">Por favor, rellena todos los campos</string>
+    <string name="passwords_do_not_match_error">Las contraseñas no coinciden</string>
+    <string name="login_success_message">¡Login exitoso!</string>
+    <string name="register_success_message">Registro exitoso. Ahora inicia sesión.</string>
+    <string name="profile_load_error">Error al cargar el perfil: %1$s</string>
+    <string name="session_invalid_error">Sesión inválida o expirada. Por favor, inicia sesión de nuevo.</string>
+    <string name="network_error">Error de red: %1$s</string>
+
+    <!-- Cómo Jugar -->
+    <string name="how_to_play_title">Guía para Principiantes</string>
+    <string name="how_to_play_intro_text">Super Smash Bros. Ultimate es un juego de lucha único donde el objetivo no es reducir la vida del oponente, sino lanzarlo fuera del escenario. Cada personaje tiene un porcentaje que aumenta al recibir daño. ¡Cuanto más alto sea el porcentaje, más lejos volarás al ser golpeado! Usa ataques normales, especiales, agarres y escudos para dominar el combate y ser el último en pie.</string>
+    <string name="how_to_play_video_title">Vídeo Tutorial Básico</string>
+    <string name="video_content_description">Vídeo tutorial de cómo jugar</string>
+    <string name="play_video_description">Reproducir vídeo</string>
+
+    <!-- Menú -->
+    <string name="menu_home">Inicio</string>
+    <string name="menu_how_to_play">Cómo Jugar</string>
+    <string name="menu_characters">Personajes</string>
+    <string name="menu_stages">Escenarios</string>
+    <string name="menu_history">Historia</string>
+    <string name="menu_description">Menú de Navegación</string>
+
+    <!-- Escenarios -->
+    <string name="stage_dialog_title">Mejores Personajes para %1$s</string>
+    <string name="character_difficulty">Dificultad:</string>
 </resources>

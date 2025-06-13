@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -19,7 +20,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.glove_of_glory.data.local.UserPreferencesRepository // <-- IMPORTAR
+import com.example.glove_of_glory.R
+import com.example.glove_of_glory.data.local.UserPreferencesRepository
 import com.example.glove_of_glory.data.remote.RetrofitClient
 import com.example.glove_of_glory.data.repository.UserRepository
 import com.example.glove_of_glory.navigation.Routes
@@ -31,29 +33,23 @@ import com.example.glove_of_glory.util.Resource
 @Composable
 fun RegisterScreen(navController: NavController) {
     val context = LocalContext.current
-
-// ...
     val authViewModel: AuthViewModel = viewModel(
         factory = AuthViewModelFactory(
-            // Pasamos el context al crear la instancia de Retrofit
             userRepository = UserRepository(RetrofitClient.getInstance(context)),
             prefsRepository = UserPreferencesRepository(context)
         )
     )
-// ...
 
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-
     val registerState by authViewModel.registerState.collectAsState()
 
     LaunchedEffect(registerState) {
         when (val state = registerState) {
             is Resource.Success -> {
-                Toast.makeText(context, state.data?.message ?: "Registro exitoso. Ahora inicia sesión.", Toast.LENGTH_LONG).show()
-                // Navegamos a Login y limpiamos la pila para que no pueda volver a Registro con el botón "atrás"
+                Toast.makeText(context, state.data?.message ?: context.getString(R.string.register_success_message), Toast.LENGTH_LONG).show()
                 navController.navigate(Routes.Login.route) {
                     popUpTo(Routes.Login.route) { inclusive = true }
                     launchSingleTop = true
@@ -64,102 +60,58 @@ fun RegisterScreen(navController: NavController) {
                 Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
                 authViewModel.resetRegisterState()
             }
-            is Resource.Loading -> { /* Indicador de carga en la UI */ }
-            null -> { /* Estado inicial */ }
+            is Resource.Loading -> { /* No action needed */ }
+            null -> { /* Initial state */ }
         }
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Crear Cuenta",
-                style = MaterialTheme.typography.headlineLarge
-            )
+            Text(text = stringResource(id = R.string.register_title), style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(32.dp))
 
-            OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text("Nombre de Usuario") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
-            )
+            OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text(stringResource(id = R.string.username_label)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
             Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text("Email") },
-                modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                singleLine = true
-            )
+            OutlinedTextField(value = email, onValueChange = { email = it }, label = { Text(stringResource(id = R.string.email_label)) }, modifier = Modifier.fillMaxWidth(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email), singleLine = true)
             Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Contraseña") },
-                modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                singleLine = true
-            )
+            OutlinedTextField(value = password, onValueChange = { password = it }, label = { Text(stringResource(id = R.string.password_label)) }, modifier = Modifier.fillMaxWidth(), visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), singleLine = true)
             Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
-                label = { Text("Confirmar Contraseña") },
-                modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                singleLine = true
-            )
+            OutlinedTextField(value = confirmPassword, onValueChange = { confirmPassword = it }, label = { Text(stringResource(id = R.string.confirm_password_label)) }, modifier = Modifier.fillMaxWidth(), visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), singleLine = true)
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
                 onClick = {
                     if (username.isBlank() || email.isBlank() || password.isBlank()) {
-                        Toast.makeText(context, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.fill_all_fields_error), Toast.LENGTH_SHORT).show()
                         return@Button
                     }
                     if (password != confirmPassword) {
-                        Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.passwords_do_not_match_error), Toast.LENGTH_SHORT).show()
                         return@Button
                     }
                     authViewModel.register(username, email, password)
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
+                modifier = Modifier.fillMaxWidth().height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = SmashRed),
                 enabled = registerState !is Resource.Loading
             ) {
                 if (registerState is Resource.Loading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(24.dp),
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
+                    CircularProgressIndicator(modifier = Modifier.size(24.dp), color = MaterialTheme.colorScheme.onPrimary)
                 } else {
-                    Text("REGISTRARSE", style = MaterialTheme.typography.labelLarge)
+                    Text(stringResource(id = R.string.register_button), style = MaterialTheme.typography.labelLarge)
                 }
             }
             Spacer(modifier = Modifier.height(24.dp))
 
             ClickableText(
-                text = AnnotatedString("¿Ya tienes cuenta? Inicia sesión"),
+                text = AnnotatedString(stringResource(id = R.string.already_have_account_link)),
                 onClick = { navController.popBackStack() },
                 style = TextStyle(
                     color = MaterialTheme.colorScheme.primary,

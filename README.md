@@ -82,8 +82,8 @@ A continuación se muestra el diagrama Entidad-Relación:
 
 ## 6. Despliegue
 
-*   **URL de la Aplicación Web:** `[Pega aquí la URL donde esté desplegada tu app de Angular]`
-*   **URL del Backend:** `[Pega aquí la URL donde esté desplegada tu API de .NET]`
+*   **URL de la Aplicación Web:** [https://webserver.jarvisnetwork.es/app/browser/]
+*   **URL del Backend:** [http://webserver.jarvisnetwork.es/app/back/]
 
 ---
 
@@ -92,14 +92,14 @@ A continuación se muestra el diagrama Entidad-Relación:
 El diseño de la interfaz y la experiencia de usuario se ha prototipado utilizando Uizard.
 
 *   **URL del Prototipo:** [https://app.uizard.io/prototypes/qyYGgMWbQjsye6ZejxJG/player/overview]
+*   
     **Powerby**![image](https://github.com/user-attachments/assets/64e1b63c-150b-4624-8ec7-69dba2635144)
 
 ---
 
 ## 8. Presentación y Vídeo ----- ## 5. Tutorial de Uso
 
-*   **Presentación PDF:** `[Sube tu PDF a Google Drive o similar y pega aquí el enlace]`
-*   **Vídeo Demostrativo (5 min):** `[Sube tu vídeo a YouTube/Vimeo y pega aquí el enlace]`
+*   **Vídeo Demostrativo:** [https://drive.google.com/file/d/1Fx7ekHjBghVxUzzjgIb4rGNEZM-fiK2k/view?usp=sharing]
 
 
 ---
@@ -139,6 +139,7 @@ A continuación, se detalla el registro cronológico del desarrollo del proyecto
 |            | Grabación y edición del vídeo demostrativo del proyecto.                                                       | gonza     |
 |            | Redacción final del `README.md` y preparación de todos los entregables.                                        | gonza, fitin |
 |            | Despliegue de las aplicaciones y backends en los servidores de producción.                                     | gonza, fitin |
+
 ## 10. Bibliografía y Recursos
 
 Para el desarrollo de este proyecto, además de la documentación oficial de las tecnologías utilizadas, se ha recurrido a las siguientes fuentes de información y comunidades para asegurar la fidelidad a la temática de *Super Smash Bros. Ultimate*:

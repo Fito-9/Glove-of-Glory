@@ -43,61 +43,47 @@ namespace GOG_Backend.Controllers
                 return NotFound("Usuario no encontrado.");
             }
 
-            string avatarUrl = string.IsNullOrEmpty(user.ImagenPerfil)
-                ? null
-                : $"{Request.Scheme}://{Request.Host}/{user.ImagenPerfil.Replace("\\", "/")}";
-
             var fullProfile = new UserFullProfileDto
             {
                 UserId = user.UsuarioId,
                 Nickname = user.NombreUsuario,
                 Email = user.Email,
                 Elo = user.PuntuacionElo,
-                AvatarUrl = avatarUrl
+                // --- CAMBIO: Usamos directamente la URL guardada en la BD ---
+                AvatarUrl = user.ImagenPerfil
             };
 
             return Ok(fullProfile);
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLoginDto userLoginDto)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Email == userLoginDto.Email);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == userLoginDto.Email);
             if (user == null) return Unauthorized("Usuario no existe");
             if (!PasswordHelper.Hash(userLoginDto.Password).Equals(user.ContrasenaHash)) return Unauthorized("Contraseña incorrecta");
 
             var sessionToken = _sessionService.CreateSession(user.UsuarioId);
-
-            string avatarUrl = string.IsNullOrEmpty(user.ImagenPerfil) ? null : $"{Request.Scheme}://{Request.Host}/{user.ImagenPerfil.Replace("\\", "/")}";
 
             return Ok(new
             {
                 AccessToken = sessionToken,
                 UsuarioId = user.UsuarioId,
                 NombreUsuario = user.NombreUsuario,
-                Avatar = avatarUrl
+                // --- CAMBIO: Usamos directamente la URL guardada en la BD ---
+                Avatar = user.ImagenPerfil
             });
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] UserRegisterDto userDto)
+        // --- CAMBIO: Ya no es [FromForm] porque no subimos archivos, es [FromBody] para recibir JSON ---
+        public async Task<IActionResult> Register([FromBody] UserRegisterDto userDto)
         {
             if (await _dbContext.Users.AnyAsync(u => u.NombreUsuario == userDto.NombreUsuario))
                 return BadRequest("El nombre del usuario ya está en uso");
 
-            string? avatarPath = null;
-            if (userDto.Imagen != null && userDto.Imagen.Length > 0)
-            {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
-                string uniqueFileName = $"{Guid.NewGuid()}_{Path.GetFileName(userDto.Imagen.FileName)}";
-                avatarPath = Path.Combine("uploads", uniqueFileName);
-                string fullPath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await userDto.Imagen.CopyToAsync(fileStream);
-                }
-            }
+            // --- CAMBIO: Lógica para obtener la URL del avatar a partir del ID ---
+            string? avatarUrl = GetAvatarUrlFromId(userDto.AvatarId);
 
             var newUser = new User
             {
@@ -106,13 +92,29 @@ namespace GOG_Backend.Controllers
                 ContrasenaHash = PasswordHelper.Hash(userDto.Password),
                 Rol = "Jugador",
                 PuntuacionElo = 1200,
-                ImagenPerfil = avatarPath
+                // --- CAMBIO: Guardamos la URL completa del avatar ---
+                ImagenPerfil = avatarUrl
             };
 
             await _dbContext.Users.AddAsync(newUser);
             await _dbContext.SaveChangesAsync();
 
             return Ok(new { Message = "Usuario registrado con éxito" });
+        }
+
+        // --- NUEVO MÉTODO HELPER ---
+        private string? GetAvatarUrlFromId(string? avatarId)
+        {
+            if (string.IsNullOrEmpty(avatarId)) return null;
+
+            return avatarId.ToLower() switch
+            {
+                "mario" => "https://www.smashbros.com/assets_v2/img/fighter/mario/main.png",
+                "donkey_kong" => "https://www.smashbros.com/assets_v2/img/fighter/donkey_kong/main.png",
+                "link" => "https://www.smashbros.com/assets_v2/img/fighter/link/main.png",
+                "samus" => "https://www.smashbros.com/assets_v2/img/fighter/samus/main.png",
+                _ => null
+            };
         }
     }
 }

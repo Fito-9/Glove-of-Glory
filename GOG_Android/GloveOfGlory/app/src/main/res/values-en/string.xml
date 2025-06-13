@@ -69,4 +69,19 @@
     <!-- Character & Stage Screens -->
     <string name="stage_dialog_title">Best Characters for %1$s</string>
     <string name="character_difficulty">Difficulty:</string>
+    <!-- res/values-en/string.xml -->
+
+    <!-- History Screen -->
+    <string name="history_main_title">The Legend of Smash</string>
+    <string name="history_background_description">Background with characters from the Smash series</string>
+    <string name="history_n64_title">1999: The Origin (Nintendo 64)</string>
+    <string name="history_n64_content">It all started as a prototype called "Dragon King: The Fighting Game," created by Masahiro Sakurai and Satoru Iwata. The idea of including Nintendo characters transformed a simple fighting game into a historic crossover. With only 12 characters, Super Smash Bros. laid the foundation for a unique gameplay style: damage opponents to increase their percentage and launch them off the stage.</string>
+    <string name="history_melee_title">2001: Competitive Perfection (GameCube)</string>
+    <string name="history_melee_content">Considered by many to be the competitive peak of the series, Melee refined the formula with unprecedented speed and technical depth. It introduced techniques like "wavedashing" which, though unintentional, became the heart of its competitive scene, which endures to this day. It added 25 characters and became a pillar of video game tournaments.</string>
+    <string name="history_brawl_title">2008: The Great Adventure (Wii)</string>
+    <string name="history_brawl_content">Brawl shifted the pace towards more accessible and chaotic gameplay. Its biggest innovation was "The Subspace Emissary," an adventure mode with a story and cinematics that united the entire Nintendo universe. It was the first to include third-party characters, with the arrival of Solid Snake and Sonic the Hedgehog, breaking all imaginable barriers.</string>
+    <string name="history_wiiu_3ds_title">2014: Two Versions, One Battle (Wii U / 3DS)</string>
+    <string name="history_wiiu_3ds_content">For the first time, the series was released simultaneously on a home console and a handheld. Each version had exclusive stages, and the 3DS version introduced the "Smash Run" mode. The game continued to expand its roster with characters like Mega Man, Pac-Man, and Ryu, and was the first to add DLC fighters, changing the future of the series.</string>
+    <string name="history_ultimate_title">2018: Everyone is Here! (Nintendo Switch)</string>
+    <string name="history_ultimate_content">The definitive installment. Ultimate fulfilled every fans dream with the motto "Everyone is Here!", bringing together every character who had ever appeared in the series and adding many more through the Fighters Pass. With over 80 fighters, a polished gameplay system combining the best of Melee and Brawl, and endless content, it has established itself as the best-selling fighting game in history and a monumental celebration of video games.</string>
 </resources>

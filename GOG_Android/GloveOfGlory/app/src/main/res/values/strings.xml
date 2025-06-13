@@ -69,4 +69,19 @@
     <!-- Pantallas de Personajes y Escenarios -->
     <string name="stage_dialog_title">Mejores Personajes para %1$s</string>
     <string name="character_difficulty">Dificultad:</string>
+    <!-- res/values/strings.xml -->
+
+    <!-- Pantalla de Historia -->
+    <string name="history_main_title">La Leyenda de Smash</string>
+    <string name="history_background_description">Fondo con personajes de la saga Smash</string>
+    <string name="history_n64_title">1999: El Origen (Nintendo 64)</string>
+    <string name="history_n64_content">Todo comenzó como un prototipo llamado "Dragon King: The Fighting Game", creado por Masahiro Sakurai y Satoru Iwata. La idea de incluir personajes de Nintendo transformó un simple juego de lucha en un crossover histórico. Con solo 12 personajes, Super Smash Bros. sentó las bases de una jugabilidad única: dañar a los oponentes para aumentar su porcentaje y lanzarlos fuera del escenario.</string>
+    <string name="history_melee_title">2001: La Perfección Competitiva (GameCube)</string>
+    <string name="history_melee_content">Considerado por muchos como la cúspide competitiva de la saga, Melee refinó la fórmula con una velocidad y una profundidad técnica sin precedentes. Introdujo movimientos como el "wavedashing" que, aunque no intencionados, se convirtieron en el corazón de su escena competitiva, que perdura hasta hoy. Añadió 25 personajes y se convirtió en un pilar de los torneos de videojuegos.</string>
+    <string name="history_brawl_title">2008: La Gran Aventura (Wii)</string>
+    <string name="history_brawl_content">Brawl cambió el ritmo hacia una jugabilidad más accesible y caótica. Su mayor innovación fue "El Emisario Subespacial", un modo aventura con historia y cinemáticas que unía a todo el universo Nintendo. Fue el primero en incluir personajes de terceros, con la llegada de Solid Snake y Sonic the Hedgehog, rompiendo todas las barreras imaginables.</string>
+    <string name="history_wiiu_3ds_title">2014: Dos Versiones, Una Batalla (Wii U / 3DS)</string>
+    <string name="history_wiiu_3ds_content">Por primera vez, la saga se lanzó simultáneamente en una consola de sobremesa y una portátil. Cada versión tenía escenarios exclusivos y la versión de 3DS introdujo el modo "Smashventura". El juego continuó expandiendo su plantel con personajes como Mega Man, Pac-Man y Ryu, y fue el primero en añadir luchadores DLC, cambiando el futuro de la saga.</string>
+    <string name="history_ultimate_title">2018: ¡Están todos! (Nintendo Switch)</string>
+    <string name="history_ultimate_content">La entrega definitiva. Ultimate cumplió el sueño de todos los fans con el lema "Everyone is Here!", reuniendo a todos los personajes que alguna vez aparecieron en la saga y añadiendo muchos más a través de los Fighters Pass. Con más de 80 luchadores, un pulido sistema de juego que combina lo mejor de Melee y Brawl, y un sinfín de contenido, se ha consolidado como el juego de lucha más vendido de la historia y una celebración monumental de los videojuegos.</string>
 </resources>

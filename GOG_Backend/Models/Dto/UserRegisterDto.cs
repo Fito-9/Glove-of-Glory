@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace GOG_Backend.Models.Dto
 {
@@ -14,6 +15,6 @@ namespace GOG_Backend.Models.Dto
         [Required]
         public string Password { get; set; }
 
-        public IFormFile? Imagen { get; set; }
+        public string? AvatarId { get; set; }
     }
 }

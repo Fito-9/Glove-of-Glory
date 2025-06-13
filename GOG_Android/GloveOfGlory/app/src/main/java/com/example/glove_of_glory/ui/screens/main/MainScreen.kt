@@ -34,18 +34,11 @@ import com.example.glove_of_glory.ui.models.AuthViewModelFactory
 import com.example.glove_of_glory.ui.theme.SmashRed
 import kotlinx.coroutines.launch
 
-// --- CAMBIO: Usamos stringResource para el texto del placeholder ---
-//@Composable fun HistoryScreen() {
-// Text(
-//    text = stringResource(id = R.string.history_placeholder_text),
-//     color = MaterialTheme.colorScheme.onBackground
-//  )
-//}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController) {
     val context = LocalContext.current
+    // El ViewModel para gestionar la lógica de autenticación (como el logout)
     val authViewModel: AuthViewModel = viewModel(
         factory = AuthViewModelFactory(
             userRepository = UserRepository(RetrofitClient.getInstance(context)),
@@ -53,12 +46,16 @@ fun MainScreen(navController: NavController) {
         )
     )
 
+    // Controlador de navegación para el contenido principal (Home, Personajes, etc.)
     val mainContentNavController = rememberNavController()
+    // Estado para controlar el menú lateral (drawer)
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    // Estado para almacenar la URL del avatar del usuario
     var userAvatarUrl by remember { mutableStateOf<String?>(null) }
 
+    // Efecto que se ejecuta una sola vez para cargar el perfil del usuario
     LaunchedEffect(key1 = Unit) {
         try {
             val userRepo = UserRepository(RetrofitClient.getInstance(context))
@@ -67,7 +64,8 @@ fun MainScreen(navController: NavController) {
                 userAvatarUrl = response.body()?.avatarUrl
             }
         } catch (e: Exception) {
-            // Manejo de error opcional
+            // Manejo de error opcional (p.ej. mostrar un Toast)
+            e.printStackTrace()
         }
     }
 
@@ -76,6 +74,7 @@ fun MainScreen(navController: NavController) {
         drawerContent = {
             ModalDrawerSheet {
                 Spacer(Modifier.height(12.dp))
+                // --- Opciones del Menú Lateral ---
                 NavigationDrawerItem(
                     label = { Text(stringResource(id = R.string.menu_home)) },
                     selected = false,
@@ -135,6 +134,7 @@ fun MainScreen(navController: NavController) {
                         }
                     },
                     actions = {
+                        // Botón para ir al perfil, muestra el avatar del usuario
                         IconButton(onClick = { navController.navigate(Routes.Profile.route) }) {
                             if (!userAvatarUrl.isNullOrEmpty()) {
                                 Image(
@@ -153,6 +153,7 @@ fun MainScreen(navController: NavController) {
                                 )
                             }
                         }
+                        // Botón para cerrar sesión
                         IconButton(onClick = {
                             authViewModel.logout()
                             navController.navigate(Routes.Login.route) {
@@ -175,6 +176,7 @@ fun MainScreen(navController: NavController) {
                 )
             }
         ) { paddingValues ->
+            // --- Contenedor de Navegación para las pantallas principales ---
             NavHost(
                 navController = mainContentNavController,
                 startDestination = "home",
@@ -184,7 +186,9 @@ fun MainScreen(navController: NavController) {
                 composable("how_to_play") { HowToPlayScreen() }
                 composable("character_list") { CharacterListScreen() }
                 composable("stage_list") { StageListScreen() }
-                composable("history") { Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {  } }
+                // --- CAMBIO APLICADO AQUÍ ---
+                // Ahora llama a la pantalla de historia que creamos en su propio archivo
+                composable("history") { HistoryScreen() }
             }
         }
     }

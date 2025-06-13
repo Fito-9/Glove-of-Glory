@@ -105,8 +105,40 @@ El diseño de la interfaz y la experiencia de usuario se ha prototipado utilizan
 ---
 ## 9. Bitácora de Tareas
 
----
+A continuación, se detalla el registro cronológico del desarrollo del proyecto, reflejando la evolución de las tecnologías y la distribución de tareas.
 
+| Fecha      | Tarea Realizada                                                                                                | Autor(es) |
+| :--------- | :------------------------------------------------------------------------------------------------------------- | :-------- |
+| **Abril 2025: Fase Inicial y Exploración Tecnológica**                                                                       |
+| 07/04/2025 | **Planificación:** Definición del concepto "Glove of Glory", objetivos y funcionalidades clave.                  | gonza, fitin |
+| 09/04/2025 | **Investigación:** Creación de los proyectos iniciales utilizando **Flutter** para el frontend (web y móvil).   | gonza, fitin |
+| 14/04/2025 | **Desarrollo (Flutter):** Primeros intentos de implementación de la interfaz y conexión con un backend simple. | gonza, fitin |
+| 21/04/2025 | **Pivote Técnico:** Tras encontrar dificultades, se decide cambiar el stack a **Angular** para la web y **Kotlin (Nativo)** para el móvil para asegurar la viabilidad del proyecto. | gonza, fitin |
+| 23/04/2025 | **Nuevo Stack:** Creación de los proyectos definitivos y configuración de los entornos de desarrollo.          | gonza, fitin |
+| 28/04/2025 | **Backend (.NET):** Diseño del Diagrama E/R y creación de la base de datos con Entity Framework Core.          | gonza     |
+| **Mayo 2025: Desarrollo de Funcionalidades Base**                                                                            |
+| 20/05/2025 | **Backend (Web):** Implementación de los endpoints de autenticación (Login/Registro) con JWT.                  | gonza     |
+| 21/05/2025 | **Frontend (Web):** Desarrollo de los componentes de Login y Registro en Angular y conexión con la API.        | gonza     |
+| 22/05/2025 | **App Móvil:** Configuración del proyecto en Kotlin, dependencias (Retrofit, Coroutines) y estructura MVVM.    | fitin     |
+| 23/05/2025 | **Backend (Móvil):** Creación del backend ligero para Android, con su propia base de datos y sistema de sesión. | fitin     |
+| 26/05/2025 | **Backend (Web):** Desarrollo del sistema de WebSockets para la gestión de conexiones y estado de usuarios.     | gonza     |
+| 27/05/2025 | **App Móvil:** Implementación de las pantallas de Login y Registro, conectadas a su backend.                   | fitin     |
+| 28/05/2025 | **Frontend (Web):** Creación del `WebsocketService` en Angular y la página Home para buscar partida.           | gonza     |
+| 29/05/2025 | **App Móvil:** Desarrollo de las pantallas de consulta de Personajes y Escenarios con datos locales (JSON).     | fitin     |
+| **Junio 2025: Sprint Final de Implementación y Entrega**                                                                     |
+| 10/06/2025 | **Implementación Masiva (Día 1):**                                                                             |           |
+|            | **Web:** Lógica completa de la `MatchRoom` (selección, vetos, ganador) y sistema de amigos.                    | gonza     |
+|            | **Móvil:** Desarrollo de la pantalla de Perfil y finalización de la interfaz de usuario.                       | fitin     |
+|            | **Backend:** Creación del `AdminController` para la gestión de usuarios.                                       | gonza     |
+| 11/06/2025 | **Integración y Funcionalidades (Día 2):**                                                                     |           |
+|            | **Web:** Desarrollo del `AdminPanelComponent` y la página de Ranking.                                          | gonza     |
+|            | **Móvil:** Conexión final de todas las vistas con el backend y pruebas de la API.                              | fitin     |
+|            | **Full-Stack:** Pruebas integrales y corrección de los primeros bugs encontrados.                              | gonza, fitin |
+| 12/06/2025 | **Documentación y Despliegue (Día 3):**                                                                        |           |
+|            | Creación del prototipo en Uizard y diseño de la presentación.                                                  | fitin     |
+|            | Grabación y edición del vídeo demostrativo del proyecto.                                                       | gonza     |
+|            | Redacción final del `README.md` y preparación de todos los entregables.                                        | gonza, fitin |
+|            | Despliegue de las aplicaciones y backends en los servidores de producción.                                     | gonza, fitin |
 ## 10. Bibliografía y Recursos
 
 Para el desarrollo de este proyecto, además de la documentación oficial de las tecnologías utilizadas, se ha recurrido a las siguientes fuentes de información y comunidades para asegurar la fidelidad a la temática de *Super Smash Bros. Ultimate*:

@@ -65,11 +65,13 @@ namespace GOG_Backend.WebSockets
 
         private async Task OnMessageReceivedAsync(WebSocketHandler handler, WebSocketMessageDto message)
         {
-            Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}");
+            Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}, Payload={message.Payload}");
+
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
             if (message.Type == "inviteFriend")
             {
-                var invitePayload = JsonSerializer.Deserialize<InviteFriendPayload>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var invitePayload = JsonSerializer.Deserialize<InviteFriendPayload>(message.Payload.ToString(), options);
                 if (invitePayload != null)
                 {
                     await HandleFriendInvite(handler.UserId, invitePayload.InvitedUserId);
@@ -83,22 +85,25 @@ namespace GOG_Backend.WebSockets
                 return;
             }
 
-            GameActionDto gameActionPayload;
+            // --- INICIO DE LA CORRECCIÓN ---
+            GameActionDto gameActionDto;
             try
             {
-                gameActionPayload = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                // El payload del mensaje ya es el GameActionDto, solo hay que deserializarlo.
+                gameActionDto = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), options);
             }
-            catch (JsonException)
+            catch (JsonException ex)
             {
-                Console.WriteLine($"Usuario {handler.UserId} envió un payload no válido que no es un GameActionDto.");
+                Console.WriteLine($"Usuario {handler.UserId} envió un payload no válido. Error: {ex.Message}");
                 return;
             }
 
-            if (gameActionPayload == null || string.IsNullOrEmpty(gameActionPayload.RoomId) || !_activeRooms.TryGetValue(gameActionPayload.RoomId, out var room))
+            if (gameActionDto == null || string.IsNullOrEmpty(gameActionDto.RoomId) || !_activeRooms.TryGetValue(gameActionDto.RoomId, out var room))
             {
-                Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionPayload?.RoomId}");
+                Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionDto?.RoomId}");
                 return;
             }
+            // --- FIN DE LA CORRECCIÓN ---
 
             string username = "Unknown";
             using (var scope = _serviceProvider.CreateScope())
@@ -111,23 +116,27 @@ namespace GOG_Backend.WebSockets
             bool stateChanged = false;
             try
             {
-                var actionPayloadElement = (JsonElement)gameActionPayload.Payload;
+                // --- INICIO DE LA CORRECCIÓN ---
+                // Ahora el payload de la acción está dentro del gameActionDto
+                var actionPayloadElement = (JsonElement)gameActionDto.Payload;
+                // --- FIN DE LA CORRECCIÓN ---
+
                 switch (message.Type)
                 {
                     case "selectCharacter":
-                        var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>();
+                        var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>(options);
                         if (charPayload != null) stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
                         break;
                     case "banMaps":
-                        var banPayload = actionPayloadElement.Deserialize<MapBanPayload>();
+                        var banPayload = actionPayloadElement.Deserialize<MapBanPayload>(options);
                         if (banPayload != null) stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
                         break;
                     case "pickMap":
-                        var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>();
+                        var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>(options);
                         if (pickPayload != null) stateChanged = room.PickMap(handler.UserId, pickPayload.PickedMap);
                         break;
                     case "sendChatMessage":
-                        var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>();
+                        var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>(options);
                         if (chatPayload != null)
                         {
                             room.AddChatMessage(handler.UserId, username, chatPayload.Message);
@@ -135,7 +144,7 @@ namespace GOG_Backend.WebSockets
                         }
                         break;
                     case "declareWinner":
-                        var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>();
+                        var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>(options);
                         if (winnerPayload != null)
                         {
                             var (isFinished, players, voteMismatch) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
@@ -156,7 +165,7 @@ namespace GOG_Backend.WebSockets
                         }
                         break;
                     case "requestInitialState":
-                        if (_activeRooms.TryGetValue(gameActionPayload.RoomId, out var requestedRoom))
+                        if (_activeRooms.TryGetValue(gameActionDto.RoomId, out var requestedRoom))
                         {
                             var statePayload = requestedRoom.GetStateDto();
                             var stateMessage = new WebSocketMessageDto { Type = "matchStateUpdate", Payload = statePayload };

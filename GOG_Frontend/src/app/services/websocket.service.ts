@@ -141,10 +141,21 @@ export class WebsocketService {
   }
 
   private sendGameAction(type: string, roomId: string, payload: any): void {
+    // --- INICIO DE LA CORRECCIÓN ---
+    // El objeto que enviamos debe ser el GameActionDto directamente.
+    // El backend espera { Type: "...", Payload: { RoomId: "...", Payload: {...} } }
+    // Así que el objeto que creamos aquí debe tener esa estructura.
+    const gameAction = {
+      RoomId: roomId,
+      Payload: payload
+    };
+
     const message = {
       Type: type,
-      Payload: { RoomId: roomId, Payload: payload }
+      Payload: gameAction
     };
+    // --- FIN DE LA CORRECCIÓN ---
+    
     this.send(message);
   }
 

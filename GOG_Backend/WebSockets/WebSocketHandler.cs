@@ -12,11 +12,9 @@ namespace StrategoBackend.WebSockets
         private readonly WebSocket _webSocket;
         private readonly byte[] _buffer;
 
-        // Usamos el userId extraído del token para identificar la conexión
         public int UserId { get; }
         public bool IsOpen => _webSocket.State == WebSocketState.Open;
 
-        // Eventos para notificar cuando se recibe un mensaje (ya convertido a DTO) y cuando se desconecta
         public event Func<WebSocketHandler, WebSocketMessageDto, Task> MessageReceived;
         public event Func<WebSocketHandler, Task> Disconnected;
 
@@ -29,7 +27,6 @@ namespace StrategoBackend.WebSockets
 
         public async Task HandleAsync()
         {
-            // Enviamos un mensaje de bienvenida usando el DTO
             await SendAsync(new WebSocketMessageDto { Type = "welcome", Payload = $"Bienvenido, tu id es {UserId}" });
 
             while (IsOpen)
@@ -40,8 +37,9 @@ namespace StrategoBackend.WebSockets
                     WebSocketMessageDto messageDto;
                     try
                     {
-                        messageDto = JsonSerializer.Deserialize<WebSocketMessageDto>(message);
-                        if (messageDto == null)
+                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        messageDto = JsonSerializer.Deserialize<WebSocketMessageDto>(message, options);
+                        if (messageDto == null || string.IsNullOrEmpty(messageDto.Type))
                         {
                             messageDto = new WebSocketMessageDto { Type = "text", Payload = message };
                         }
@@ -84,7 +82,6 @@ namespace StrategoBackend.WebSockets
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 
-        // Método para enviar mensajes en forma de cadena JSON
         public async Task SendAsync(string message)
         {
             if (IsOpen)
@@ -94,7 +91,6 @@ namespace StrategoBackend.WebSockets
             }
         }
 
-        // Sobrecarga para enviar mensajes usando el DTO (se serializa a JSON internamente)
         public async Task SendAsync(WebSocketMessageDto dto)
         {
             string json = JsonSerializer.Serialize(dto);

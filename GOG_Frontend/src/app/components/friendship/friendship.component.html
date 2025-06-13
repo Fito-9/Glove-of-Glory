@@ -1,58 +1,61 @@
 <div class="friendship-container">
-    <!-- Buscador de Usuarios -->
-    <div class="section">
-      <h2 class="section-title">Buscar Jugadores</h2>
-      <input type="text" placeholder="Buscar por nickname..." [(ngModel)]="searchTerm" (input)="filterUsers()" class="search-input">
-      <ul class="user-list">
-        <li *ngFor="let user of filteredUsers">
-          <div class="user-info">
-            <img [src]="user.ruta || 'assets/default-avatar.png'" alt="Avatar" class="avatar">
-            <span>{{ user.nickname }}</span>
-          </div>
-          <button *ngIf="!isFriend(user.userId) && !isRequestSent(user.userId)" (click)="sendRequest(user.userId)" class="btn">
-            Añadir Amigo
-          </button>
-          <span *ngIf="isFriend(user.userId)" class="status-text">Amigos</span>
-          <span *ngIf="isRequestSent(user.userId)" class="status-text">Solicitud Enviada</span>
-        </li>
-      </ul>
-    </div>
-  
-    <!-- Solicitudes Pendientes -->
-    <div class="section">
-      <h2 class="section-title">Solicitudes de Amistad</h2>
-      <ul class="request-list">
-        <li *ngFor="let req of pendingRequests">
-          <div class="user-info">
-            <img [src]="req.senderAvatar || 'assets/default-avatar.png'" alt="Avatar" class="avatar">
-            <span>{{ req.senderNickname }}</span>
-          </div>
-          <div class="actions">
-            <button (click)="acceptRequest(req.senderId)" class="btn accept-btn">Aceptar</button>
-            <button (click)="rejectRequest(req.senderId)" class="btn reject-btn">Rechazar</button>
-          </div>
-        </li>
-        <p *ngIf="pendingRequests.length === 0">No tienes solicitudes pendientes.</p>
-      </ul>
-    </div>
-  
-    <!-- Lista de Amigos -->
-    <div class="section">
-      <h2 class="section-title">Mis Amigos</h2>
-      <ul class="friend-list">
-        <li *ngFor="let friend of friends">
-          <div class="user-info">
-            <img [src]="friend.ruta || 'assets/default-avatar.png'" alt="Avatar" class="avatar">
-            <span>{{ friend.nickname }}</span>
-            <span class="status-dot" [class.online]="friend.isOnline"></span>
-          </div>
-          <div class="actions">
-            <button (click)="inviteToGame(friend.userId)" class="btn invite-btn" [disabled]="!friend.isOnline">
-              Invitar a Partida
-            </button>
-          </div>
-        </li>
-        <p *ngIf="friends.length === 0">Aún no tienes amigos.</p>
-      </ul>
-    </div>
+  <!-- Buscador de Usuarios -->
+  <div class="section">
+    <h2 class="section-title">Buscar Jugadores</h2>
+    <input type="text" placeholder="Buscar por nickname..." [(ngModel)]="searchTerm" (input)="filterUsers()" class="search-input">
+    <ul class="user-list">
+      <li *ngFor="let user of filteredUsers">
+        <div class="user-info">
+          <!-- ✅ CAMBIO: Ya no necesitamos el fallback al asset local -->
+          <img [src]="user.ruta" alt="Avatar" class="avatar">
+          <span>{{ user.nickname }}</span>
+        </div>
+        <button *ngIf="!isFriend(user.userId) && !isRequestSent(user.userId)" (click)="sendRequest(user.userId)" class="btn">
+          Añadir Amigo
+        </button>
+        <span *ngIf="isFriend(user.userId)" class="status-text">Amigos</span>
+        <span *ngIf="isRequestSent(user.userId)" class="status-text">Solicitud Enviada</span>
+      </li>
+    </ul>
   </div>
+
+  <!-- Solicitudes Pendientes -->
+  <div class="section">
+    <h2 class="section-title">Solicitudes de Amistad</h2>
+    <ul class="request-list">
+      <li *ngFor="let req of pendingRequests">
+        <div class="user-info">
+          <!-- ✅ CAMBIO: Ya no necesitamos el fallback al asset local -->
+          <img [src]="req.senderAvatar" alt="Avatar" class="avatar">
+          <span>{{ req.senderNickname }}</span>
+        </div>
+        <div class="actions">
+          <button (click)="acceptRequest(req.senderId)" class="btn accept-btn">Aceptar</button>
+          <button (click)="rejectRequest(req.senderId)" class="btn reject-btn">Rechazar</button>
+        </div>
+      </li>
+      <p *ngIf="pendingRequests.length === 0">No tienes solicitudes pendientes.</p>
+    </ul>
+  </div>
+
+  <!-- Lista de Amigos -->
+  <div class="section">
+    <h2 class="section-title">Mis Amigos</h2>
+    <ul class="friend-list">
+      <li *ngFor="let friend of friends">
+        <div class="user-info">
+          <!-- ✅ CAMBIO: Ya no necesitamos el fallback al asset local -->
+          <img [src]="friend.ruta" alt="Avatar" class="avatar">
+          <span>{{ friend.nickname }}</span>
+          <span class="status-dot" [class.online]="friend.isOnline"></span>
+        </div>
+        <div class="actions">
+          <button (click)="inviteToGame(friend.userId)" class="btn invite-btn" [disabled]="!friend.isOnline">
+            Invitar a Partida
+          </button>
+        </div>
+      </li>
+      <p *ngIf="friends.length === 0">Aún no tienes amigos.</p>
+    </ul>
+  </div>
+</div>

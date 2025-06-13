@@ -10,12 +10,17 @@
     @else {
       <div class="user-info">
         <img 
-          [src]="authService.currentUserSig()?.avatar ? authService.currentUserSig()!.avatar : 'assets/default-avatar.png'" 
+          [src]="authService.currentUserSig()?.avatar" 
           alt="User Avatar" 
           class="user-avatar">
         <span class="username">{{ authService.currentUserSig()?.nombreUsuario }}</span>
       </div>
-      <!-- ✅ CAMBIO: Se añade el botón para ir a la página de amigos -->
+      
+      @if (authService.currentUserSig()?.rol === 'Admin') {
+        <a routerLink="/admin" routerLinkActive="active" class="nav-button">Admin Panel</a>
+      }
+
+      <a routerLink="/ranking" routerLinkActive="active" class="nav-button">Ranking</a>
       <a routerLink="/friends" routerLinkActive="active" class="nav-button">Amigos</a>
       <button (click)="logout()" class="nav-button logout-btn">Logout</button>
     }

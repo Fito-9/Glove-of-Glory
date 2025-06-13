@@ -16,6 +16,7 @@ export class WebsocketService {
   public matchmakingMessage$ = new Subject<any>();
   public matchState$ = new BehaviorSubject<any>(null);
   public voteMismatch$ = new Subject<void>();
+  public gameInvite$ = new Subject<{ inviterId: number, inviterName: string }>();
 
   private connectedUsers = new Set<number>();
   public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
@@ -119,6 +120,14 @@ export class WebsocketService {
       case 'voteMismatch':
         this.voteMismatch$.next();
         break;
+      case 'gameInviteReceived':
+        this.gameInvite$.next(parsed.Payload);
+        break;
+      case 'eloUpdate':
+        if (parsed.Payload && typeof parsed.Payload.newElo === 'number') {
+          this.authService.updateUserElo(parsed.Payload.newElo);
+        }
+        break;
       default:
         console.log('Mensaje de tipo desconocido:', parsed);
     }
@@ -130,7 +139,7 @@ export class WebsocketService {
 
   private send(message: any): void {
     if (this.socket$ && this.connected$.getValue()) {
-      console.log("Enviando mensaje:", message); // ✅ Log para depurar
+      console.log("Enviando mensaje:", message);
       this.socket$.next(message);
     } else {
       console.error('Intento de enviar mensaje pero el WebSocket no está conectado.');
@@ -141,7 +150,6 @@ export class WebsocketService {
     this.send({ Type: 'matchmakingRequest', Payload: {} });
   }
 
-  // ✅✅✅ INICIO DE LA REFACTORIZACIÓN CRÍTICA DEL FRONTEND ✅✅✅
   private sendGameAction(type: string, payload: any): void {
     const message = {
       Type: type,
@@ -158,6 +166,14 @@ export class WebsocketService {
     const message = {
         Type: 'inviteFriend',
         Payload: { InvitedUserId: friendId }
+    };
+    this.send(message);
+  }
+
+  acceptInvite(inviterId: number): void {
+    const message = {
+        Type: 'acceptInvite',
+        Payload: { InvitedUserId: inviterId }
     };
     this.send(message);
   }
@@ -181,7 +197,6 @@ export class WebsocketService {
   declareWinner(roomId: string, declaredWinnerId: number): void {
     this.sendGameAction('declareWinner', { RoomId: roomId, DeclaredWinnerId: declaredWinnerId });
   }
-  // ✅✅✅ FIN DE LA REFACTORIZACIÓN CRÍTICA DEL FRONTEND ✅✅✅
   
   private reconnect(): void {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {

@@ -7,6 +7,7 @@ using GOG_Backend.WebSockets;
 using Microsoft.AspNetCore.WebSockets;
 using StrategoBackend.WebSockets;
 using GOG_Backend.Services;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,6 @@ builder.Services.AddSingleton<WebSocketNetwork>();
 builder.Services.AddTransient<MatchmakingWebSocketMiddleware>();
 builder.Services.AddScoped<FriendshipService>();
 
-
 builder.Services.AddSingleton(provider =>
 {
     Settings settings = builder.Configuration.GetSection(Settings.SECTION_NAME).Get<Settings>();
@@ -27,7 +27,12 @@ builder.Services.AddSingleton(provider =>
     {
         ValidateIssuer = false,
         ValidateAudience = false,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.JwtKey))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.JwtKey)),
+
+        // ✅ INICIO DE LA SOLUCIÓN DEFINITIVA
+        ValidateLifetime = true, // Le decimos que SÍ valide la expiración del token.
+        ClockSkew = TimeSpan.Zero // Opcional: elimina cualquier margen de tiempo, haciendo la validación más estricta.
+        // ✅ FIN DE LA SOLUCIÓN DEFINITIVA
     };
 });
 
@@ -57,6 +62,12 @@ static async Task InitDatabaseAsync(IServiceProvider serviceProvider)
 
 var app = builder.Build();
 
+var uploadsPath = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "uploads");
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -65,12 +76,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
+
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseWebSockets();
 app.UseMiddleware<MatchmakingWebSocketMiddleware>();
-
 
 app.MapControllers();
 

@@ -1,0 +1,33 @@
+<div class="ranking-container">
+    <h1 class="ranking-title">Clasificación de Jugadores</h1>
+  
+    <div *ngIf="isLoading" class="loading-message">Cargando...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+    <div *ngIf="!isLoading && !error" class="ranking-table-container">
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>ELO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of ranking; let i = index" [ngClass]="{'top-rank': i < 3}">
+            <td class="rank-position">
+              <span *ngIf="i === 0" class="trophy gold">🏆</span>
+              <span *ngIf="i === 1" class="trophy silver">🥈</span>
+              <span *ngIf="i === 2" class="trophy bronze">🥉</span>
+              <span *ngIf="i >= 3">{{ i + 1 }}</span>
+            </td>
+            <td class="player-info">
+              <img [src]="user.ruta" alt="Avatar de {{ user.nickname }}" class="avatar">
+              <span>{{ user.nickname }}</span>
+            </td>
+            <td class="elo-score">{{ user.puntuacionElo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

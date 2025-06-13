@@ -1,4 +1,5 @@
 ﻿using GOG_Backend.Models.Database.Entities;
+using GOG_Backend.Utils;
 
 namespace GOG_Backend.Models.Database
 {
@@ -18,9 +19,9 @@ namespace GOG_Backend.Models.Database
                 new User
                 {
                     NombreUsuario = "gonza",
-                    ContrasenaHash = "contraseña", 
+                    ContrasenaHash = PasswordHelper.Hash("contraseña"), 
                     Email = "gonza@example.com",
-                    Rol = "Jugador",
+                    Rol = "Admin",
                     PuntuacionElo = 1200,
                     ImagenPerfil = ""
                 }

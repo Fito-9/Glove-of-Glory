@@ -1,0 +1,93 @@
+.admin-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--surface-color);
+    border: 1px solid var(--secondary-accent);
+    border-radius: 8px;
+    color: var(--text-primary);
+  }
+  
+  .admin-title {
+    text-align: center;
+    color: var(--primary-accent);
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+  }
+  
+  .admin-table-container {
+    overflow-x: auto;
+  }
+  
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .admin-table th, .admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    vertical-align: middle; /* Centra verticalmente el contenido */
+  }
+  
+  .admin-table th {
+    background-color: rgba(147, 112, 219, 0.2);
+    font-size: 1.1rem;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .edit-btn { background-color: var(--tertiary-accent); }
+  .delete-btn { background-color: var(--error-color); }
+  .save-btn { background-color: #4caf50; }
+  .cancel-btn { background-color: #757575; }
+  
+  .editing-row {
+    background-color: rgba(255, 140, 0, 0.1);
+  }
+  
+  .edit-input {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--background-dark);
+    border: 1px solid var(--primary-accent);
+    color: var(--text-primary);
+    border-radius: 4px;
+  }
+  
+  .role-cell {
+    text-align: center;
+  }
+  
+  .admin-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .admin-checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .loading-message, .error-message {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+  }
+  
+  .error-message {
+    color: var(--error-color);
+  }

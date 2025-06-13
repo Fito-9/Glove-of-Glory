@@ -4,13 +4,13 @@ import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
-// La interfaz no cambia, pero la incluyo por completitud
 export interface AuthResponse {
   accessToken: string;
   usuarioId: number;
   nombreUsuario: string;
   puntuacionElo: number;
   avatar: string;
+  rol: string;
 }
 
 @Injectable({
@@ -60,5 +60,14 @@ export class AuthService {
     localStorage.removeItem('user_data');
     this.currentUserSig.set(null);
     this.router.navigate(['/login']);
+  }
+
+  updateUserElo(newElo: number): void {
+    const currentUser = this.currentUserSig();
+    if (currentUser) {
+      const updatedUser = { ...currentUser, puntuacionElo: newElo };
+      this.saveUserData(updatedUser);
+      console.log(`ELO actualizado a: ${newElo}`);
+    }
   }
 }

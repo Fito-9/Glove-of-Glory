@@ -44,7 +44,10 @@ namespace GOG_Backend.Controllers
             var friendDtos = friends.Select(u => new {
                 userId = u.UsuarioId,
                 nickname = u.NombreUsuario,
-                ruta = string.IsNullOrEmpty(u.ImagenPerfil) ? null : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil}"
+                // ✅ CAMBIO: Ruta actualizada al avatar por defecto en /uploads
+                ruta = string.IsNullOrEmpty(u.ImagenPerfil)
+                       ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
+                       : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil.Replace('\\', '/')}"
             });
             return Ok(friendDtos);
         }
@@ -58,9 +61,10 @@ namespace GOG_Backend.Controllers
                 SenderId = fr.SenderId,
                 ReceiverId = fr.ReceiverId,
                 SenderNickname = fr.Sender?.NombreUsuario ?? "Desconocido",
+                // ✅ CAMBIO: Ruta actualizada al avatar por defecto en /uploads
                 SenderAvatar = string.IsNullOrEmpty(fr.Sender?.ImagenPerfil)
-                                ? null
-                                : $"{Request.Scheme}://{Request.Host}/{fr.Sender.ImagenPerfil}"
+                                ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
+                                : $"{Request.Scheme}://{Request.Host}/{fr.Sender.ImagenPerfil.Replace('\\', '/')}"
             }).ToList();
 
             return Ok(result);

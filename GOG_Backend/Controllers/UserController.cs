@@ -21,6 +21,7 @@ namespace GOG_Backend.Controllers
             _dbContext = dbContext;
             _tokenParameters = tokenParameters;
         }
+
         [HttpGet]
         public IEnumerable<UserSummaryDto> GetUsers()
         {
@@ -29,9 +30,26 @@ namespace GOG_Backend.Controllers
                 UserId = u.UsuarioId,
                 Nickname = u.NombreUsuario,
                 Ruta = string.IsNullOrEmpty(u.ImagenPerfil)
-                        ? null
-                        : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil.Replace('\\', '/')}"
+                        ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
+                        : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil.Replace('\\', '/')}",
+                PuntuacionElo = u.PuntuacionElo
             }).ToList();
+        }
+
+        [HttpGet("ranking")]
+        public IEnumerable<UserSummaryDto> GetRanking()
+        {
+            return _dbContext.Users
+                .OrderByDescending(u => u.PuntuacionElo)
+                .Select(u => new UserSummaryDto
+                {
+                    UserId = u.UsuarioId,
+                    Nickname = u.NombreUsuario,
+                    Ruta = string.IsNullOrEmpty(u.ImagenPerfil)
+                            ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
+                            : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil.Replace('\\', '/')}",
+                    PuntuacionElo = u.PuntuacionElo
+                }).ToList();
         }
 
         [HttpPost("register")]
@@ -101,10 +119,9 @@ namespace GOG_Backend.Controllers
             var accessToken = tokenHandler.WriteToken(token);
 
             string avatarUrl = string.IsNullOrEmpty(user.ImagenPerfil)
-                ? null
+                ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
                 : $"{Request.Scheme}://{Request.Host}/{user.ImagenPerfil.Replace('\\', '/')}";
 
-            // CORRECCIÓN: Añadir NombreUsuario y PuntuacionElo a la respuesta
             return Ok(new
             {
                 AccessToken = accessToken,

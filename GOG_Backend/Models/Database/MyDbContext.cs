@@ -1,5 +1,6 @@
 ﻿using GOG_Backend.Models.Database.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace GOG_Backend.Models.Database
 {
@@ -16,11 +17,18 @@ namespace GOG_Backend.Models.Database
         public DbSet<Friendship> Friendships { get; set; }
 
         // Le decimos que use un archivo SQLite como base de datos.
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+#if DEBUG
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            optionsBuilder.UseSqlite($"DataSource={baseDir}{DATABASE_PATH}");
+            options.UseSqlite($"DataSource={baseDir}{DATABASE_PATH}");
+#else
+            string connection = "Server=db21564.databaseasp.net; Database=db21564; Uid=db21564; Pwd=eF_65aL-f+7N;";
+            options.UseMySql(connection, ServerVersion.AutoDetect(connection));
+#endif
+
         }
+
 
         // Aquí definimos las relaciones entre tablas.
         protected override void OnModelCreating(ModelBuilder modelBuilder)

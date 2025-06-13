@@ -54,17 +54,13 @@
       <h3>¿Quién ha ganado la partida?</h3>
       <p *ngIf="voteMismatch" class="error-message">Los votos no coincidieron. Por favor, vuelvan a votar.</p>
       
-      <!--
-        AQUÍ ESTÁ EL CAMBIO CLAVE:
-        - El div.vote-buttons siempre está presente.
-        - Los botones se deshabilitan individualmente con [disabled]="hasVoted()".
-        - El texto de espera se muestra con *ngIf="hasVoted()".
-      -->
       <div class="vote-buttons">
-          <button class="btn" (click)="onDeclareWinner(roomState.player1Id)" [disabled]="hasVoted()">{{ roomState.player1Username }}</button>
-          <button class="btn" (click)="onDeclareWinner(roomState.player2Id)" [disabled]="hasVoted()">{{ roomState.player2Username }}</button>
+          <!-- ✅ CAMBIO: Usa la propiedad 'iHaveVoted' en lugar de la función 'hasVoted()' -->
+          <button class="btn" (click)="onDeclareWinner(roomState.player1Id)" [disabled]="iHaveVoted">{{ roomState.player1Username }}</button>
+          <button class="btn" (click)="onDeclareWinner(roomState.player2Id)" [disabled]="iHaveVoted">{{ roomState.player2Username }}</button>
       </div>
-      <p *ngIf="hasVoted()" class="waiting-text">Esperando la confirmación del oponente...</p>
+      <!-- ✅ CAMBIO: Usa la propiedad 'iHaveVoted' aquí también -->
+      <p *ngIf="iHaveVoted" class="waiting-text">Esperando la confirmación del oponente...</p>
     </div>
 
     <!-- Mensaje de Fin de Partida -->

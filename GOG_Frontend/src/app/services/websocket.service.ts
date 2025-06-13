@@ -130,6 +130,7 @@ export class WebsocketService {
 
   private send(message: any): void {
     if (this.socket$ && this.connected$.getValue()) {
+      console.log("Enviando mensaje:", message); // ✅ Log para depurar
       this.socket$.next(message);
     } else {
       console.error('Intento de enviar mensaje pero el WebSocket no está conectado.');
@@ -140,27 +141,17 @@ export class WebsocketService {
     this.send({ Type: 'matchmakingRequest', Payload: {} });
   }
 
-  private sendGameAction(type: string, roomId: string, payload: any): void {
-    // --- INICIO DE LA CORRECCIÓN ---
-    // El objeto que enviamos debe ser el GameActionDto directamente.
-    // El backend espera { Type: "...", Payload: { RoomId: "...", Payload: {...} } }
-    // Así que el objeto que creamos aquí debe tener esa estructura.
-    const gameAction = {
-      RoomId: roomId,
-      Payload: payload
-    };
-
+  // ✅✅✅ INICIO DE LA REFACTORIZACIÓN CRÍTICA DEL FRONTEND ✅✅✅
+  private sendGameAction(type: string, payload: any): void {
     const message = {
       Type: type,
-      Payload: gameAction
+      Payload: payload
     };
-    // --- FIN DE LA CORRECCIÓN ---
-    
     this.send(message);
   }
 
   requestInitialRoomState(roomId: string): void {
-    this.sendGameAction('requestInitialState', roomId, {});
+    this.sendGameAction('requestInitialState', { RoomId: roomId });
   }
   
   inviteFriend(friendId: number): void {
@@ -172,24 +163,25 @@ export class WebsocketService {
   }
 
   selectCharacter(roomId: string, characterName: string): void {
-    this.sendGameAction('selectCharacter', roomId, { CharacterName: characterName });
+    this.sendGameAction('selectCharacter', { RoomId: roomId, CharacterName: characterName });
   }
 
   banMaps(roomId: string, bannedMaps: string[]): void {
-    this.sendGameAction('banMaps', roomId, { BannedMaps: bannedMaps });
+    this.sendGameAction('banMaps', { RoomId: roomId, BannedMaps: bannedMaps });
   }
 
   pickMap(roomId: string, pickedMap: string): void {
-    this.sendGameAction('pickMap', roomId, { PickedMap: pickedMap });
+    this.sendGameAction('pickMap', { RoomId: roomId, PickedMap: pickedMap });
   }
 
   sendChatMessage(roomId: string, message: string): void {
-    this.sendGameAction('sendChatMessage', roomId, { Message: message });
+    this.sendGameAction('sendChatMessage', { RoomId: roomId, Message: message });
   }
 
   declareWinner(roomId: string, declaredWinnerId: number): void {
-    this.sendGameAction('declareWinner', roomId, { DeclaredWinnerId: declaredWinnerId });
+    this.sendGameAction('declareWinner', { RoomId: roomId, DeclaredWinnerId: declaredWinnerId });
   }
+  // ✅✅✅ FIN DE LA REFACTORIZACIÓN CRÍTICA DEL FRONTEND ✅✅✅
   
   private reconnect(): void {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {

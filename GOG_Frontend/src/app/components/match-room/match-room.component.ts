@@ -32,12 +32,32 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   
   voteMismatch = false;
 
+  // ✅ NUEVA PROPIEDAD PARA CONTROLAR EL ESTADO DEL VOTO
+  iHaveVoted = false;
+
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('roomId')!;
     
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
         this.roomState = state;
+
+        // ✅ INICIO DE LA LÓGICA MODIFICADA
+        // Calculamos el estado del voto aquí y lo guardamos en la propiedad
+        const myId = this.authService.currentUserSig()?.usuarioId;
+        if (myId) {
+          if (myId === this.roomState.player1Id) {
+            this.iHaveVoted = this.roomState.player1Voted;
+          } else if (myId === this.roomState.player2Id) {
+            this.iHaveVoted = this.roomState.player2Voted;
+          } else {
+            this.iHaveVoted = true; // Es un espectador, deshabilitar siempre
+          }
+        } else {
+          this.iHaveVoted = true; // No hay usuario, deshabilitar
+        }
+        // ✅ FIN DE LA LÓGICA MODIFICADA
+
         this.cdr.detectChanges();
       }
     });
@@ -105,6 +125,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   onDeclareWinner(winnerId: number): void {
     this.websocketService.declareWinner(this.roomId, winnerId); 
   }
+
   shouldShowMatchup(): boolean {
     if (!this.roomState) return false;
     return this.roomState.currentState !== 'CharacterSelection' && this.roomState.currentState !== 'WaitingForPlayers';
@@ -125,22 +146,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     return state === 'MapBanP1' || state === 'MapBanP2' || state === 'MapPickP1';
   }
 
-  hasVoted(): boolean {
-    if (!this.roomState || !this.authService.currentUserSig()) {
-      return false;
-    }
-    const myId = this.authService.currentUserSig()!.usuarioId;
-  
-    if (myId === this.roomState.player1Id) {
-      return this.roomState.player1Voted;
-    }
-    
-    if (myId === this.roomState.player2Id) {
-      return this.roomState.player2Voted;
-    }
-  
-    return true; 
-  }
+  // ❌ LA FUNCIÓN hasVoted() HA SIDO ELIMINADA
 
   getOpponentId(): number {
     const myId = this.authService.currentUserSig()!.usuarioId;

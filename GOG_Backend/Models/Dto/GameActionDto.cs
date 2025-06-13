@@ -34,4 +34,9 @@
     {
         public int InvitedUserId { get; set; }
     }
+
+    public class RequestInitialStatePayload
+    {
+        public string RoomId { get; set; }
+    }
 }

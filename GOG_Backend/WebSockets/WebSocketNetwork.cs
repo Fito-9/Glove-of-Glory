@@ -67,7 +67,6 @@ namespace GOG_Backend.WebSockets
         {
             Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}");
 
-            // ✅ CAMBIO: La invitación a amigos ahora se maneja aquí directamente.
             if (message.Type == "inviteFriend")
             {
                 var invitePayload = JsonSerializer.Deserialize<InviteFriendPayload>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
@@ -139,15 +138,23 @@ namespace GOG_Backend.WebSockets
                         var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>();
                         if (winnerPayload != null)
                         {
-                            var (isFinished, winnerId, loserId) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
-                            stateChanged = true;
-                            if (isFinished && winnerId.HasValue && loserId.HasValue)
+                            var (isFinished, players, voteMismatch) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
+
+                            if (voteMismatch)
                             {
-                                await FinalizeMatch(room, winnerId.Value, loserId.Value);
+                                var mismatchMessage = new WebSocketMessageDto { Type = "voteMismatch", Payload = new { roomId = room.RoomId } };
+                                if (_handlers.TryGetValue(room.Player1Id, out var p1Handler)) await p1Handler.SendAsync(mismatchMessage);
+                                if (_handlers.TryGetValue(room.Player2Id, out var p2Handler)) await p2Handler.SendAsync(mismatchMessage);
+                            }
+
+                            stateChanged = true;
+
+                            if (isFinished && players.winner.HasValue && players.loser.HasValue)
+                            {
+                                await FinalizeMatch(room, players.winner.Value, players.loser.Value);
                             }
                         }
                         break;
-                    // ✅ CAMBIO: Se elimina el caso 'inviteFriend' de aquí porque se maneja antes.
                     case "requestInitialState":
                         if (_activeRooms.TryGetValue(gameActionPayload.RoomId, out var requestedRoom))
                         {
@@ -189,7 +196,6 @@ namespace GOG_Backend.WebSockets
                         receiverUsername = user2?.NombreUsuario ?? $"Usuario (ID: {receiverId})";
                     }
 
-                    // ✅ CAMBIO: Se crea la sala como NO RANKED.
                     var newRoom = new MatchRoom(senderId, senderUsername, receiverId, receiverUsername, isRanked: false);
                     _activeRooms[newRoom.RoomId] = newRoom;
 
@@ -217,7 +223,7 @@ namespace GOG_Backend.WebSockets
             {
                 if (_matchmakingQueue.Contains(handler.UserId) || _activeRooms.Values.Any(r => r.Player1Id == handler.UserId || r.Player2Id == handler.UserId))
                 {
-                    return; // El usuario ya está en cola o en una partida
+                    return;
                 }
 
                 if (_matchmakingQueue.Count > 0)
@@ -235,7 +241,6 @@ namespace GOG_Backend.WebSockets
                             player2Username = user2?.NombreUsuario ?? $"Usuario (ID: {handler.UserId})";
                         }
 
-                        // ✅ CAMBIO: Se crea la sala como RANKED.
                         var newRoom = new MatchRoom(opponentId, player1Username, handler.UserId, player2Username, isRanked: true);
                         _activeRooms[newRoom.RoomId] = newRoom;
 
@@ -280,7 +285,6 @@ namespace GOG_Backend.WebSockets
 
                 if (winner != null && loser != null)
                 {
-                    // ✅ CAMBIO: El ELO solo se modifica si la partida es ranked.
                     if (room.IsRanked)
                     {
                         winner.PuntuacionElo += 15;
@@ -296,7 +300,7 @@ namespace GOG_Backend.WebSockets
                         Player1Character = room.Player1Character,
                         Player2Character = room.Player2Character,
                         Map = room.SelectedMap,
-                        IsRanked = room.IsRanked // ✅ CAMBIO: Guardamos el estado en la BD.
+                        IsRanked = room.IsRanked
                     };
                     await dbContext.Matches.AddAsync(newMatch);
                     await dbContext.SaveChangesAsync();

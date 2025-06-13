@@ -24,6 +24,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   roomId!: string;
   roomState: any;
   private stateSubscription!: Subscription;
+  private voteMismatchSubscription!: Subscription;
 
   hasSelectedCharacter = false;
   selectedMapsForBan: string[] = [];
@@ -33,29 +34,25 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('roomId')!;
+    
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
-        
-        const previousState = this.roomState;
         this.roomState = state;
-
-        if (previousState && 
-            previousState.currentState === 'WinnerDeclaration' && 
-            state.currentState === 'WinnerDeclaration' && 
-            !state.player1Voted && !state.player2Voted &&
-            (previousState.player1Voted || previousState.player2Voted)) { // <-- Asegurarse de que antes sí había un voto
-              this.voteMismatch = true;
-              setTimeout(() => this.voteMismatch = false, 3000);
-        }
-        
         this.cdr.detectChanges();
       }
     });
+
+    this.voteMismatchSubscription = this.websocketService.voteMismatch$.subscribe(() => {
+      this.voteMismatch = true;
+      setTimeout(() => this.voteMismatch = false, 3000);
+    });
+
     this.websocketService.requestInitialRoomState(this.roomId);
   }
 
   ngOnDestroy(): void {
     this.stateSubscription?.unsubscribe();
+    this.voteMismatchSubscription?.unsubscribe();
     this.websocketService.matchState$.next(null);
   }
 
@@ -106,11 +103,8 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   onDeclareWinner(winnerId: number): void {
-    this.websocketService.declareWinner(this.roomId, winnerId);
+    this.websocketService.declareWinner(this.roomId, winnerId); 
   }
-
-  // --- MÉTODOS AUXILIARES PARA LA VISTA ---
-
   shouldShowMatchup(): boolean {
     if (!this.roomState) return false;
     return this.roomState.currentState !== 'CharacterSelection' && this.roomState.currentState !== 'WaitingForPlayers';
@@ -131,12 +125,21 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     return state === 'MapBanP1' || state === 'MapBanP2' || state === 'MapPickP1';
   }
 
-  // ✅ CORRECCIÓN: La lógica ahora solo comprueba si el jugador actual ha votado.
   hasVoted(): boolean {
-    if (!this.roomState || !this.authService.currentUserSig()) return false;
+    if (!this.roomState || !this.authService.currentUserSig()) {
+      return false;
+    }
     const myId = this.authService.currentUserSig()!.usuarioId;
-    return (myId === this.roomState.player1Id && this.roomState.player1Voted) ||
-           (myId !== this.roomState.player1Id && this.roomState.player2Voted);
+  
+    if (myId === this.roomState.player1Id) {
+      return this.roomState.player1Voted;
+    }
+    
+    if (myId === this.roomState.player2Id) {
+      return this.roomState.player2Voted;
+    }
+  
+    return true; 
   }
 
   getOpponentId(): number {

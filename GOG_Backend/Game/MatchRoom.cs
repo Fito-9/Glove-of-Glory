@@ -21,7 +21,7 @@ namespace GOG_Backend.Game
         public int Player1Id { get; }
         public int Player2Id { get; }
         public GameState CurrentState { get; private set; }
-        public bool IsRanked { get; } // ✅ CAMBIO: Propiedad para saber si es ranked.
+        public bool IsRanked { get; }
 
         public string Player1Username { get; }
         public string Player2Username { get; }
@@ -38,7 +38,6 @@ namespace GOG_Backend.Game
         private int? _player1WinnerVote;
         private int? _player2WinnerVote;
 
-        // ✅ CAMBIO: El constructor ahora requiere el parámetro 'isRanked'.
         public MatchRoom(int player1Id, string player1Username, int player2Id, string player2Username, bool isRanked)
         {
             RoomId = Guid.NewGuid().ToString();
@@ -46,7 +45,7 @@ namespace GOG_Backend.Game
             Player1Username = player1Username;
             Player2Id = player2Id;
             Player2Username = player2Username;
-            IsRanked = isRanked; // ✅ CAMBIO: Asignamos el valor.
+            IsRanked = isRanked;
             CurrentState = GameState.CharacterSelection;
             MapPool = new List<string> { "Small Battlefield", "Battlefield", "Final Destination", "Pokémon Stadium 2", "Hollow Bastion", "Smashville", "Town and City", "Kalos Pokémon League", "Yoshi's Story" };
         }
@@ -97,33 +96,29 @@ namespace GOG_Backend.Game
             ChatMessages.Add(new { userId, username, message, timestamp = DateTime.UtcNow });
         }
 
-        public (bool isFinished, int? winnerId, int? loserId) DeclareWinner(int userId, int declaredWinnerId)
+        public (bool isFinished, (int? winner, int? loser) players, bool voteMismatch) DeclareWinner(int userId, int declaredWinnerId)
         {
-            if (CurrentState != GameState.WinnerDeclaration) return (false, null, null);
+            if (CurrentState != GameState.WinnerDeclaration) return (false, (null, null), false);
 
             if (userId == Player1Id) _player1WinnerVote = declaredWinnerId;
             else if (userId == Player2Id) _player2WinnerVote = declaredWinnerId;
 
-            // Si los votos no coinciden, se resetean para que vuelvan a votar.
             if (_player1WinnerVote.HasValue && _player2WinnerVote.HasValue && _player1WinnerVote != _player2WinnerVote)
             {
                 _player1WinnerVote = null;
                 _player2WinnerVote = null;
-                // Devolvemos false para que la partida no termine, pero el estado ha cambiado (se reseteó)
-                return (false, null, null);
+                return (false, (null, null), true);
             }
 
-            // Si ambos votos existen y coinciden, la partida termina.
             if (_player1WinnerVote.HasValue && _player1WinnerVote == _player2WinnerVote)
             {
                 CurrentState = GameState.Finished;
                 int winner = _player1WinnerVote.Value;
                 int loser = (winner == Player1Id) ? Player2Id : Player1Id;
-                return (true, winner, loser);
+                return (true, (winner, loser), false);
             }
 
-            // Si solo uno ha votado, la partida no ha terminado.
-            return (false, null, null);
+            return (false, (null, null), false);
         }
 
         public object GetStateDto()

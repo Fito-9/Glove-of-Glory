@@ -15,6 +15,7 @@ export class WebsocketService {
   
   public matchmakingMessage$ = new Subject<any>();
   public matchState$ = new BehaviorSubject<any>(null);
+  public voteMismatch$ = new Subject<void>();
 
   private connectedUsers = new Set<number>();
   public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
@@ -26,17 +27,13 @@ export class WebsocketService {
   private reconnectInterval = 5000;
 
   constructor() {
-    // ✅ CAMBIO: Usamos un `effect` para reaccionar a los cambios de autenticación.
-    // Esto es más moderno y desacoplado que la inyección circular.
     effect(() => {
       const user = this.authService.currentUserSig();
       if (user) {
-        // Si hay un usuario y no estamos conectados, conectar.
         if (!this.connected$.getValue()) {
           this.connect();
         }
       } else {
-        // Si no hay usuario (logout), desconectar.
         this.disconnect();
       }
     });
@@ -71,7 +68,6 @@ export class WebsocketService {
           this.socket$ = null;
           this.connectedUsers.clear();
           this.onlineUsers$.next(new Set());
-          // No intentamos reconectar si el usuario ha cerrado sesión.
           if (this.authService.isLoggedIn()) {
             this.reconnect();
           }
@@ -119,6 +115,9 @@ export class WebsocketService {
         break;
       case 'matchStateUpdate':
         this.matchState$.next(parsed.Payload);
+        break;
+      case 'voteMismatch':
+        this.voteMismatch$.next();
         break;
       default:
         console.log('Mensaje de tipo desconocido:', parsed);

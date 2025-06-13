@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css']
 })
+// Este es el panel para que los admins controlen a los usuarios.
 export class AdminPanelComponent implements OnInit {
   private adminService = inject(AdminService);
 
@@ -17,12 +18,14 @@ export class AdminPanelComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
 
+  // Guardamos aquí el usuario que se está editando para no liar la tabla.
   editingUser: AdminUser | null = null;
   
   ngOnInit(): void {
     this.loadUsers();
   }
 
+  // Pide la lista de usuarios al servicio.
   loadUsers(): void {
     this.isLoading = true;
     this.adminService.getUsers().subscribe({
@@ -32,26 +35,28 @@ export class AdminPanelComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al cargar usuarios:', err);
-        this.error = 'No se pudo cargar la lista de usuarios. ¿Tienes permisos de administrador?';
+        this.error = 'No se pudo cargar la lista. ¿Seguro que eres admin?';
         this.isLoading = false;
       }
     });
   }
 
+  // Prepara un usuario para ser editado.
   editUser(user: AdminUser): void {
-    // Creamos una copia para no modificar el original hasta guardar
+    // Hacemos una copia para poder cancelar sin guardar cambios.
     this.editingUser = { ...user };
   }
 
+  // Guarda los cambios del usuario editado.
   saveUser(): void {
     if (!this.editingUser) return;
 
     const { userId, nickname, puntuacionElo, rol } = this.editingUser;
     this.adminService.updateUser(userId, { nickname, puntuacionElo, rol }).subscribe({
       next: () => {
-        alert('Usuario actualizado con éxito.');
+        alert('Usuario actualizado.');
         this.editingUser = null;
-        this.loadUsers(); // Recargar la lista
+        this.loadUsers(); // Recargamos la lista para ver los cambios.
       },
       error: (err) => {
         alert(`Error al actualizar: ${err.error?.message || 'Error desconocido'}`);
@@ -59,16 +64,18 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
+  // Cancela la edición y vuelve a la normalidad.
   cancelEdit(): void {
     this.editingUser = null;
   }
 
+  // Borra un usuario, previa confirmación.
   deleteUser(userId: number, nickname: string): void {
-    if (confirm(`¿Estás seguro de que quieres eliminar al usuario "${nickname}"? Esta acción es irreversible.`)) {
+    if (confirm(`¿Seguro que quieres borrar a "${nickname}"? Esto no se puede deshacer.`)) {
       this.adminService.deleteUser(userId).subscribe({
         next: () => {
-          alert('Usuario eliminado con éxito.');
-          this.loadUsers(); // Recargar la lista
+          alert('Usuario eliminado.');
+          this.loadUsers();
         },
         error: (err) => {
           alert(`Error al eliminar: ${err.error?.message || 'Error desconocido'}`);

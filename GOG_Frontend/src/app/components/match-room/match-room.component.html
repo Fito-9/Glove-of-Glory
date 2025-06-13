@@ -2,7 +2,7 @@
   <div class="main-content">
     <h1 class="room-title">{{ getTitleForState(roomState.currentState) }}</h1>
 
-    <!-- Vista de Selección de Personajes -->
+
     <div *ngIf="roomState.currentState === 'CharacterSelection'" class="state-view">
       <p>Elige tu luchador. Tu oponente no verá tu elección hasta que ambos confirmen.</p>
       <div class="character-grid">
@@ -15,7 +15,7 @@
       <p *ngIf="hasSelectedCharacter" class="waiting-text">¡Has elegido! Esperando al oponente...</p>
     </div>
 
-    <!-- Vista de Veto de Mapas con Imágenes -->
+
     <div *ngIf="isMapVetoState()" class="state-view">
       <p class="instructions">{{ getMapVetoInstructions() }}</p>
       <div class="map-grid">
@@ -33,7 +33,7 @@
       <button class="btn" (click)="confirmBans()" *ngIf="isMyTurnToBanOrPick() && selectedMapsForBan.length > 0 && roomState.currentState.includes('Ban')">Confirmar Bans</button>
     </div>
 
-    <!-- Vista de Partida Lista (Muestra personajes y mapa) -->
+  
     <div *ngIf="shouldShowMatchup()" class="state-view">
       <h2 class="matchup-title">Contendientes</h2>
       <div class="matchup">
@@ -62,8 +62,6 @@
       <p *ngIf="iHaveVoted" class="waiting-text">Esperando la confirmación del oponente...</p>
     </div>
 
-    <!-- Mensaje de Fin de Partida -->
-    <!-- ✅ CAMBIO AQUÍ: Añadida la clase 'finished-view' -->
     <div *ngIf="roomState.currentState === 'Finished'" class="state-view finished-view">
         <h2>¡Partida Finalizada!</h2>
         <p>El ELO ha sido actualizado. ¡Bien jugado!</p>

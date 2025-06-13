@@ -21,31 +21,30 @@ export interface AdminUpdateUser {
 @Injectable({
   providedIn: 'root'
 })
+// Servicio para las acciones del panel de administración.
 export class AdminService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
   private apiUrl = `${environment.apiUrl}Admin`;
 
-  // ✅ CAMBIO: Ya no necesitamos cabeceras, el token va en el body
-
+  // Pide la lista de usuarios al backend.
   getUsers(): Observable<AdminUser[]> {
     const token = this.authService.getToken();
     const body = { AdminToken: token };
-    // ✅ CAMBIO: Ahora es un POST que envía el token en el cuerpo
     return this.http.post<AdminUser[]>(`${this.apiUrl}/users`, body);
   }
 
+  // Envía los datos para actualizar un usuario.
   updateUser(userId: number, userData: AdminUpdateUser): Observable<any> {
     const token = this.authService.getToken();
-    // ✅ CAMBIO: Añadimos el token al cuerpo de la petición
     const body = { ...userData, AdminToken: token };
     return this.http.put(`${this.apiUrl}/users/${userId}`, body);
   }
 
+  // Pide al backend que elimine un usuario.
   deleteUser(userId: number): Observable<any> {
     const token = this.authService.getToken();
     const body = { AdminToken: token };
-    // ✅ CAMBIO: Ahora es un POST para poder enviar el token en el cuerpo
     return this.http.post(`${this.apiUrl}/users/delete/${userId}`, body);
   }
 }

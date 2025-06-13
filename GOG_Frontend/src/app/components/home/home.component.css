@@ -1,29 +1,28 @@
-/* Contenedor del fondo */
+
 .background-layer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #12121c; /* Color sólido y fiable */
-  z-index: -1; /* Lo mandamos detrás de todo */
+  background-color: #12121c; 
+  z-index: -1; 
 }
 
-/* Contenedor principal del contenido */
 .home-container {
   width: 100%;
-  height: calc(100vh - 80px); /* Restamos el header */
+  height: calc(100vh - 80px); 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative; /* Importante para que el z-index del contenido funcione */
+  position: relative; 
 }
 
-/* El overlay del contenido, que sí puede recibir clics */
+
 .content-overlay {
   position: relative;
-  z-index: 1; /* Asegura que está por encima del fondo */
+  z-index: 1; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +53,7 @@
   transform: scale(1.1);
 }
 
-/* Estilo para el mensaje de espera */
+
 .message {
   margin-top: 20px;
   font-size: 1.2rem;

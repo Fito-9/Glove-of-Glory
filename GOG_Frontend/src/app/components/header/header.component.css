@@ -74,17 +74,15 @@
 .username {
   font-weight: 700;
   color: var(--text-primary);
-  /* ✅ INICIO DE NUEVOS ESTILOS */
   text-decoration: none;
   transition: color 0.2s ease;
-  /* ✅ FIN DE NUEVOS ESTILOS */
 }
 
-/* ✅ INICIO DE NUEVOS ESTILOS */
+
 .username:hover {
   color: var(--primary-accent);
 }
-/* ✅ FIN DE NUEVOS ESTILOS */
+
 
 .logout-btn {
   background-color: transparent;

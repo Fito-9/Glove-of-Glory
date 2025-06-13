@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './match-room.component.html',
   styleUrls: ['./match-room.component.css']
 })
+// El componente más complejo. Gestiona toda la interfaz de la partida.
 export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('chatMessagesContainer') private chatContainer!: ElementRef;
 
@@ -22,7 +23,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   private cdr = inject(ChangeDetectorRef);
 
   roomId!: string;
-  roomState: any;
+  roomState: any; // Aquí se guarda todo el estado de la partida que viene del server.
   private stateSubscription!: Subscription;
   private voteMismatchSubscription!: Subscription;
 
@@ -33,7 +34,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   voteMismatch = false;
   iHaveVoted = false;
 
-  // ✅ INICIO DEL CAMBIO: Lista completa de personajes
+  // Lista de personajes para la selección.
   characterList: string[] = [
     'Mario', 'Donkey Kong', 'Link', 'Samus', 'Dark Samus', 'Yoshi', 'Kirby', 'Fox', 'Pikachu',
     'Luigi', 'Ness', 'Captain Falcon', 'Jigglypuff', 'Peach', 'Daisy', 'Bowser', 'Ice Climbers',
@@ -46,12 +47,12 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     'Corrin', 'Bayonetta', 'Inkling', 'Ridley', 'Simon', 'Richter', 'King K. Rool', 'Isabelle',
     'Incineroar', 'Piranha Plant', 'Joker', 'Hero', 'Banjo & Kazooie', 'Terry', 'Byleth',
     'Min Min', 'Steve', 'Sephiroth', 'Pyra/Mythra', 'Kazuya', 'Sora'
-  ].sort(); // La ordenamos alfabéticamente
-  // ✅ FIN DEL CAMBIO
+  ].sort();
 
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('roomId')!;
     
+    // Nos suscribimos al estado de la sala para recibir actualizaciones.
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
         this.roomState = state;
@@ -69,24 +70,27 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.iHaveVoted = true;
         }
 
-        this.cdr.detectChanges();
+        this.cdr.detectChanges(); // Forzamos la detección de cambios.
       }
     });
 
+    // Escuchamos si hay un desacuerdo en la votación.
     this.voteMismatchSubscription = this.websocketService.voteMismatch$.subscribe(() => {
       this.voteMismatch = true;
       setTimeout(() => this.voteMismatch = false, 3000);
     });
 
+    // Pedimos el estado inicial de la sala al entrar.
     this.websocketService.requestInitialRoomState(this.roomId);
   }
 
   ngOnDestroy(): void {
     this.stateSubscription?.unsubscribe();
     this.voteMismatchSubscription?.unsubscribe();
-    this.websocketService.matchState$.next(null);
+    this.websocketService.matchState$.next(null); // Limpiamos el estado al salir.
   }
 
+  // Para que el chat siempre muestre los últimos mensajes.
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
@@ -98,6 +102,8 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
       }
     } catch (err) { }
   }
+
+  // --- Métodos que se llaman desde el HTML ---
 
   onSelectCharacter(character: string): void {
     if (!this.hasSelectedCharacter) {
@@ -136,6 +142,8 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   onDeclareWinner(winnerId: number): void {
     this.websocketService.declareWinner(this.roomId, winnerId); 
   }
+
+  // --- Funciones de ayuda para la vista ---
 
   shouldShowMatchup(): boolean {
     if (!this.roomState) return false;

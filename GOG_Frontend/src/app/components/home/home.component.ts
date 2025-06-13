@@ -13,12 +13,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+// La página principal donde buscas partida.
 export class HomeComponent implements OnInit, OnDestroy {
   waitingMessage: string = '';
   authService = inject(AuthService);
   websocketService = inject(WebsocketService);
   router = inject(Router);
-
 
   get userElo(): number {
     return this.authService.currentUserSig()?.puntuacionElo ?? 1200;
@@ -27,11 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   private matchmakingSubscription!: Subscription;
 
   ngOnInit(): void {
+    // Si por alguna razón el WebSocket no está conectado, lo conectamos.
     if (!this.websocketService.connected$.getValue()) {
-      console.log('HomeComponent: WebSocket no conectado. Conectando...');
       this.websocketService.connect();
     }
 
+    // Escuchamos los mensajes de la cola de matchmaking.
     this.matchmakingSubscription = this.websocketService.matchmakingMessage$.subscribe(message => {
       if (message?.type === 'waitingForMatch') {
         this.waitingMessage = message.payload;
@@ -47,11 +48,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Se llama al pulsar el botón de buscar partida.
   buscarPartida(): void {
-    console.log("Botón 'Buscar Partida' presionado.");
-    
     if (!this.websocketService.connected$.getValue()) {
-      console.error('No se puede buscar partida, WebSocket no está conectado.');
       this.waitingMessage = 'Error de conexión. Intenta recargar la página.';
       return;
     }

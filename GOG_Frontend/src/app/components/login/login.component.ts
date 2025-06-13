@@ -13,39 +13,33 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+// El formulario de loginn
 export class LoginComponent {
-   // Propiedades para vincular con el formulario usando ngModel
    email = ''; 
    password = ''; 
    errorMessage: string | null = null;
  
-   // Inyectamos los servicios necesarios
    private authService = inject(AuthService);
    private router = inject(Router);
  
    async onSubmit() {
-     // Creamos el objeto con los datos para el backend
      const credentials = { Email: this.email, Password: this.password }; 
  
      try {
-       // Usamos lastValueFrom para convertir el Observable en una Promesa (estilo async/await)
        const result = await lastValueFrom(this.authService.login(credentials));
  
        if (result && result.accessToken) {
-         console.log("Inicio de sesión exitoso.");
-         // La redirección se maneja dentro del servicio, pero la reforzamos aquí
+         console.log("Login correcto.");
          this.router.navigate(['/']);
        } else {
-         // Este caso es poco probable si el backend siempre devuelve un token en éxito
-         this.errorMessage = "No se recibió una respuesta válida del servidor.";
+         this.errorMessage = "Respuesta rara del servidor.";
        }
      } catch (error) {
        console.error("Error al iniciar sesión:", error);
        if (error instanceof HttpErrorResponse) {
-         // Mostramos el mensaje de error que viene del backend
-         this.errorMessage = error.error?.message || 'Error en el inicio de sesión. Verifica tus credenciales.';
+         this.errorMessage = error.error?.message || 'Error en el login. Revisa tus datos.';
        } else {
-         this.errorMessage = 'Ocurrió un error inesperado.';
+         this.errorMessage = 'Error inesperado.';
        }
      }
    }

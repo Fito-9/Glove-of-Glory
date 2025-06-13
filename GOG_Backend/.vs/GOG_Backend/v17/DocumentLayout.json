@@ -3,58 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\profiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\profiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\admindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\admindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\usersummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\usersummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\friendshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\friendshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\websockets\\websocketnetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:websockets\\websocketnetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\entities\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\gameactiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\gameactiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\websockets\\websockethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:websockets\\websockethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -63,52 +11,28 @@
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:game\\matchroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\friendrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\friendrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\websocketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\websocketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\websockets\\websocketnetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:websockets\\websocketnetwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\websockets\\matchmakingwebsocketmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:websockets\\matchmakingwebsocketmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\services\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:services\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:recursos\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\gog_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:gog_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\websocketmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\websocketmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\services\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:services\\friendshipservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\entities\\friendship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\friendship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\usersummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\usersummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\userregisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -117,6 +41,90 @@
     {
       "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\profiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\profiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\friendrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\friendrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\gameactiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\gameactiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\dto\\admindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\dto\\admindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\seeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\entities\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\models\\database\\entities\\friendship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:models\\database\\entities\\friendship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\websocketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\websocketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\friendshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\friendshipcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\gog_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:gog_backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|solutionrelative:gog_backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{858D71A7-35A1-40DD-8D66-DB76D5D52834}|GOG_Backend.csproj|c:\\users\\gonza\\onedrive\\documentos\\github\\glove-of-glory\\gog_backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -130,7 +138,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -138,171 +146,145 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProfileController.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\ProfileController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProfileController.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\ProfileController.cs",
-              "RelativeToolTip": "Controllers\\ProfileController.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAAAHAAAAABAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "PasswordHelper.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
+              "RelativeDocumentMoniker": "Recursos\\PasswordHelper.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
+              "RelativeToolTip": "Recursos\\PasswordHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T15:58:26.403Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProfileDto.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\ProfileDto.cs",
-              "RelativeDocumentMoniker": "Models\\Dto\\ProfileDto.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\ProfileDto.cs",
-              "RelativeToolTip": "Models\\Dto\\ProfileDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T15:57:34.915Z",
+              "WhenOpened": "2025-04-29T12:43:44.822Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "Controllers\\AdminController.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAAIMAAAABAAAAAAAAAA==",
+              "Title": "FriendshipService.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Services\\FriendshipService.cs",
+              "RelativeDocumentMoniker": "Services\\FriendshipService.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Services\\FriendshipService.cs",
+              "RelativeToolTip": "Services\\FriendshipService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T14:36:42.579Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:43:59.867Z",
+              "WhenOpened": "2025-06-11T23:16:57.391Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAAAIIAAAAjAAAAAAAAAA==",
+              "Title": "MatchmakingWebSocketMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\MatchmakingWebSocketMiddleware.cs",
+              "RelativeDocumentMoniker": "WebSockets\\MatchmakingWebSocketMiddleware.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\MatchmakingWebSocketMiddleware.cs",
+              "RelativeToolTip": "WebSockets\\MatchmakingWebSocketMiddleware.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwBMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:39:37.121Z",
+              "WhenOpened": "2025-06-12T20:26:22.2Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAEMAAAArAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "WebSocketHandler.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketHandler.cs",
+              "RelativeDocumentMoniker": "WebSockets\\WebSocketHandler.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketHandler.cs",
+              "RelativeToolTip": "WebSockets\\WebSocketHandler.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAowDsAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:05:32.408Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "FriendshipController.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\FriendshipController.cs",
-              "RelativeDocumentMoniker": "Controllers\\FriendshipController.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\FriendshipController.cs",
-              "RelativeToolTip": "Controllers\\FriendshipController.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAuwDAAAABYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T23:18:05.924Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Seeder.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
-              "RelativeDocumentMoniker": "Models\\Database\\Seeder.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
-              "RelativeToolTip": "Models\\Database\\Seeder.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAQwBUAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:22:03.204Z",
+              "WhenOpened": "2025-06-10T18:38:41.788Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AdminDto.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\AdminDto.cs",
-              "RelativeDocumentMoniker": "Models\\Dto\\AdminDto.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\AdminDto.cs",
-              "RelativeToolTip": "Models\\Dto\\AdminDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T14:35:13.127Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "WebSocketNetwork.cs",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketNetwork.cs",
               "RelativeDocumentMoniker": "WebSockets\\WebSocketNetwork.cs",
               "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketNetwork.cs",
               "RelativeToolTip": "WebSockets\\WebSocketNetwork.cs",
-              "ViewState": "AgIAAOkAAAAAAAAAAAAiwJYBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAuwKEBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-10T18:16:28.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MatchRoom.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs",
+              "RelativeDocumentMoniker": "Game\\MatchRoom.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs",
+              "RelativeToolTip": "Game\\MatchRoom.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAwJ4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-10T18:15:00.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "WebSocketMessageDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\WebSocketMessageDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\WebSocketMessageDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\WebSocketMessageDto.cs",
+              "RelativeToolTip": "Models\\Dto\\WebSocketMessageDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T17:20:13.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "UserSummaryDto.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserSummaryDto.cs",
-              "RelativeDocumentMoniker": "Models\\Dto\\UserSummaryDto.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserSummaryDto.cs",
-              "RelativeToolTip": "Models\\Dto\\UserSummaryDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Title": "UserRegisterDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\UserRegisterDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
+              "RelativeToolTip": "Models\\Dto\\UserRegisterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T04:26:54.987Z",
+              "WhenOpened": "2025-04-29T12:41:04.45Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "Models\\Database\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
-              "RelativeToolTip": "Models\\Database\\Entities\\User.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAADwvwcAAAANAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "UserLoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\UserLoginDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
+              "RelativeToolTip": "Models\\Dto\\UserLoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T11:54:41.454Z",
+              "WhenOpened": "2025-04-29T12:41:31.453Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "WebSocketHandler.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketHandler.cs",
-              "RelativeDocumentMoniker": "WebSockets\\WebSocketHandler.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\WebSocketHandler.cs",
-              "RelativeToolTip": "WebSockets\\WebSocketHandler.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAGgAAAABAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "ProfileDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\ProfileDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\ProfileDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\ProfileDto.cs",
+              "RelativeToolTip": "Models\\Dto\\ProfileDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T18:38:41.788Z",
+              "WhenOpened": "2025-06-13T15:57:34.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FriendRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\FriendRequestDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\FriendRequestDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\FriendRequestDto.cs",
+              "RelativeToolTip": "Models\\Dto\\FriendRequestDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T23:19:37.386Z",
               "EditorCaption": ""
             },
             {
@@ -320,7 +302,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
+              "Title": "AdminDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\AdminDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\AdminDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\AdminDto.cs",
+              "RelativeToolTip": "Models\\Dto\\AdminDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T14:35:13.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Seeder.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
+              "RelativeDocumentMoniker": "Models\\Database\\Seeder.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Seeder.cs",
+              "RelativeToolTip": "Models\\Database\\Seeder.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAQwBUAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T12:22:03.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserSummaryDto.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserSummaryDto.cs",
+              "RelativeDocumentMoniker": "Models\\Dto\\UserSummaryDto.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserSummaryDto.cs",
+              "RelativeToolTip": "Models\\Dto\\UserSummaryDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T04:26:54.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MyDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\Database\\MyDbContext.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
+              "RelativeToolTip": "Models\\Database\\MyDbContext.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T11:48:43.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Models\\Database\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\User.cs",
+              "RelativeToolTip": "Models\\Database\\Entities\\User.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAADwvwcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T11:54:41.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "Match.cs",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\Match.cs",
               "RelativeDocumentMoniker": "Models\\Database\\Entities\\Match.cs",
@@ -333,20 +380,124 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "MatchRoom.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs",
-              "RelativeDocumentMoniker": "Game\\MatchRoom.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Game\\MatchRoom.cs",
-              "RelativeToolTip": "Game\\MatchRoom.cs",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAkwJAAAAABAAAAAAAAAA==",
+              "DocumentIndex": 18,
+              "Title": "Friendship.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\Friendship.cs",
+              "RelativeDocumentMoniker": "Models\\Database\\Entities\\Friendship.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\Friendship.cs",
+              "RelativeToolTip": "Models\\Database\\Entities\\Friendship.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T18:15:00.162Z",
+              "WhenOpened": "2025-06-11T23:09:51.396Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "WebSocketController.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WebSocketController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WebSocketController.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WebSocketController.cs",
+              "RelativeToolTip": "Controllers\\WebSocketController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwAgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T21:59:37.557Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
+              "Title": "FriendshipController.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\FriendshipController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FriendshipController.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\FriendshipController.cs",
+              "RelativeToolTip": "Controllers\\FriendshipController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAkwE0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T23:18:05.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T12:43:59.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAowGEAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T12:39:37.121Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ProfileController.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\ProfileController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProfileController.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\ProfileController.cs",
+              "RelativeToolTip": "Controllers\\ProfileController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAAAHAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T15:58:26.403Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Controllers\\AdminController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T14:36:42.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WeatherForecast.cs",
+              "RelativeToolTip": "WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T17:16:50.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T12:05:32.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
               "Title": "Settings.cs",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Settings.cs",
               "RelativeDocumentMoniker": "Settings.cs",
@@ -359,58 +510,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "FriendRequestDto.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\FriendRequestDto.cs",
-              "RelativeDocumentMoniker": "Models\\Dto\\FriendRequestDto.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\FriendRequestDto.cs",
-              "RelativeToolTip": "Models\\Dto\\FriendRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T23:19:37.386Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "WebSocketController.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WebSocketController.cs",
-              "RelativeDocumentMoniker": "Controllers\\WebSocketController.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Controllers\\WebSocketController.cs",
-              "RelativeToolTip": "Controllers\\WebSocketController.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAqwDwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-12T21:59:37.557Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MatchmakingWebSocketMiddleware.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\MatchmakingWebSocketMiddleware.cs",
-              "RelativeDocumentMoniker": "WebSockets\\MatchmakingWebSocketMiddleware.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\WebSockets\\MatchmakingWebSocketMiddleware.cs",
-              "RelativeToolTip": "WebSockets\\MatchmakingWebSocketMiddleware.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAgwBMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-12T20:26:22.2Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "MyDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
-              "RelativeDocumentMoniker": "Models\\Database\\MyDbContext.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\MyDbContext.cs",
-              "RelativeToolTip": "Models\\Database\\MyDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T11:48:43.917Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 28,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -423,19 +523,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "PasswordHelper.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
-              "RelativeDocumentMoniker": "Recursos\\PasswordHelper.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Recursos\\PasswordHelper.cs",
-              "RelativeToolTip": "Recursos\\PasswordHelper.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAAAD0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:43:44.822Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 29,
               "Title": "GOG_Backend.http",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.http",
               "RelativeDocumentMoniker": "GOG_Backend.http",
@@ -447,7 +535,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 30,
               "Title": "GOG_Backend.csproj",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\GOG_Backend.csproj",
               "RelativeDocumentMoniker": "GOG_Backend.csproj",
@@ -459,55 +547,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "FriendshipService.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Services\\FriendshipService.cs",
-              "RelativeDocumentMoniker": "Services\\FriendshipService.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Services\\FriendshipService.cs",
-              "RelativeToolTip": "Services\\FriendshipService.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAkwD8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T23:16:57.391Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Friendship.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\Friendship.cs",
-              "RelativeDocumentMoniker": "Models\\Database\\Entities\\Friendship.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Database\\Entities\\Friendship.cs",
-              "RelativeToolTip": "Models\\Database\\Entities\\Friendship.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T23:09:51.396Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "UserLoginDto.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
-              "RelativeDocumentMoniker": "Models\\Dto\\UserLoginDto.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserLoginDto.cs",
-              "RelativeToolTip": "Models\\Dto\\UserLoginDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:41:31.453Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "UserRegisterDto.cs",
-              "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
-              "RelativeDocumentMoniker": "Models\\Dto\\UserRegisterDto.cs",
-              "ToolTip": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Models\\Dto\\UserRegisterDto.cs",
-              "RelativeToolTip": "Models\\Dto\\UserRegisterDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T12:41:04.45Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\gonza\\OneDrive\\Documentos\\GitHub\\Glove-of-Glory\\GOG_Backend\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",

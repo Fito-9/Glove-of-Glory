@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './friendship.component.html',
   styleUrls: ['./friendship.component.css']
 })
+// Componente para buscar amigos, ver solicitudes y la lista de amigos.
 export class FriendshipComponent implements OnInit, OnDestroy {
   private friendshipService = inject(FriendshipService);
   private authService = inject(AuthService);
@@ -33,6 +34,7 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) return;
     this.loadAllData();
 
+    // Nos suscribimos para saber qué amigos están conectados en tiempo real.
     this.onlineUsersSubscription = this.websocketService.onlineUsers$.subscribe((onlineIds: Set<number>) => {
         this.updateOnlineStatus(onlineIds);
     });
@@ -42,6 +44,7 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     this.onlineUsersSubscription?.unsubscribe();
   }
 
+  // Carga toda la información necesaria para esta página.
   loadAllData(): void {
     if (!this.currentUserId) return;
     
@@ -60,17 +63,18 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Filtra la lista de usuarios según lo que se escribe en el buscador.
   filterUsers(): void {
     if (!this.searchTerm) {
       this.filteredUsers = [];
       return;
     }
-    // ✅ CORRECCIÓN: Se añade una comprobación para asegurarse de que 'u.nickname' no es nulo.
     this.filteredUsers = this.allUsers.filter(u => 
       u.nickname && u.nickname.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
+  // Pone el puntito verde a los amigos que están online.
   updateOnlineStatus(onlineIds: Set<number>): void {
     this.friends.forEach(friend => friend.isOnline = onlineIds.has(friend.userId));
   }
@@ -79,6 +83,7 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) return;
     this.friendshipService.sendFriendRequest(this.currentUserId, receiverId).subscribe(() => {
       alert('Solicitud enviada.');
+      // Aquí podrías actualizar el estado para que ponga "Solicitud Enviada" sin recargar todo.
     });
   }
 
@@ -86,7 +91,7 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) return;
     this.friendshipService.acceptFriendRequest(senderId, this.currentUserId).subscribe(() => {
       alert('Amigo añadido.');
-      this.loadAllData();
+      this.loadAllData(); // Recargamos todo para que se actualicen las listas.
     });
   }
 
@@ -101,8 +106,10 @@ export class FriendshipComponent implements OnInit, OnDestroy {
   inviteToGame(friendId: number): void {
     if (!this.currentUserId) return;
     this.websocketService.inviteFriend(friendId);
+    alert(`Invitación enviada.`);
   }
 
+  // Funciones de ayuda para la vista.
   isFriend(userId: number): boolean {
     return this.friends.some(f => f.userId === userId);
   }

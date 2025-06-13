@@ -14,20 +14,23 @@ export interface UserProfile {
 @Injectable({
   providedIn: 'root'
 })
+// Servicio para manejar el perfil del usuario.
 export class ProfileService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
   private apiUrl = `${environment.apiUrl}Profile`;
 
+  // Pide los datos del perfil al backend.
   getUserProfile(): Observable<UserProfile> {
     const token = this.authService.getToken();
-    const body = { AdminToken: token };
+    const body = { AdminToken: token }; // El backend espera el token en el body.
     return this.http.post<UserProfile>(this.apiUrl, body);
   }
 
+  // Envía los datos actualizados del perfil.
   updateUserProfile(formData: FormData): Observable<any> {
     const token = this.authService.getToken();
-    formData.append('AdminToken', token || '');
+    formData.append('AdminToken', token || ''); // Añadimos el token al FormData.
     return this.http.put(this.apiUrl, formData);
   }
 }

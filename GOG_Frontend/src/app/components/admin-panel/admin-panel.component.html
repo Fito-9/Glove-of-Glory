@@ -18,7 +18,6 @@
         </thead>
         <tbody>
           <ng-container *ngFor="let user of users">
-            <!-- Fila de visualización normal -->
             <tr *ngIf="editingUser?.userId !== user.userId">
               <td>{{ user.userId }}</td>
               <td>{{ user.nickname }}</td>

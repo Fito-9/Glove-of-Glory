@@ -1,12 +1,10 @@
 <div class="friendship-container">
-  <!-- Buscador de Usuarios -->
   <div class="section">
     <h2 class="section-title">Buscar Jugadores</h2>
     <input type="text" placeholder="Buscar por nickname..." [(ngModel)]="searchTerm" (input)="filterUsers()" class="search-input">
     <ul class="user-list">
       <li *ngFor="let user of filteredUsers">
         <div class="user-info">
-          <!-- ✅ CAMBIO: Ya no necesitamos el fallback al asset local -->
           <img [src]="user.ruta" alt="Avatar" class="avatar">
           <span>{{ user.nickname }}</span>
         </div>

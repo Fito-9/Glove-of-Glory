@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
+// La barra de navegación de arriba.
 export class HeaderComponent implements OnInit, OnDestroy {
   authService = inject(AuthService);
   router = inject(Router);
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private inviteSubscription!: Subscription;
 
   ngOnInit(): void {
+    // Se queda escuchando por si llega una invitación a partida.
     this.inviteSubscription = this.websocketService.gameInvite$.subscribe(invite => {
       const accepted = confirm(`${invite.inviterName} te ha invitado a una partida. ¿Aceptar?`);
       if (accepted) {

@@ -21,11 +21,26 @@ export const routes: Routes = [
     path: 'register', 
     component: RegisterComponent 
   },
-  { path: 'match/:roomId', component: MatchRoomComponent },
-  { path: 'friends', component: FriendshipComponent },
-  { path: 'ranking', component: RankingComponent },
-  { path: 'admin', component: AdminPanelComponent },
-  { path: 'profile', component: ProfileComponent },
+  {
+     path: 'match/:roomId', 
+    component: MatchRoomComponent
+  },
+  { 
+    path: 'friends', 
+    component: FriendshipComponent 
+  },
+  { 
+    path: 'ranking', 
+    component: RankingComponent 
+  },
+  { 
+    path: 'admin', 
+    component: AdminPanelComponent
+   },
+  {
+     path: 'profile', 
+     component: ProfileComponent 
+    },
   { 
     path: '**', 
     redirectTo: 'login' 

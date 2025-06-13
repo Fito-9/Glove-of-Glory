@@ -9,17 +9,19 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
+// Este servicio maneja toda la magia de la comunicación en tiempo real.
 export class WebsocketService {
   private socket$: WebSocketSubject<any> | null = null;
   public connected$ = new BehaviorSubject<boolean>(false);
   
+  // Canales para notificar a los componentes sobre eventos específicos.
   public matchmakingMessage$ = new Subject<any>();
   public matchState$ = new BehaviorSubject<any>(null);
   public voteMismatch$ = new Subject<void>();
   public gameInvite$ = new Subject<{ inviterId: number, inviterName: string }>();
+  public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
 
   private connectedUsers = new Set<number>();
-  public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
 
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -28,26 +30,31 @@ export class WebsocketService {
   private reconnectInterval = 5000;
 
   constructor() {
+    // Esto es un "effect" de Angular Signals.
+    // Se ejecuta automáticamente cuando el estado del usuario cambia (login/logout).
     effect(() => {
       const user = this.authService.currentUserSig();
       if (user) {
+        // Si hay un usuario y no estamos conectados, nos conectamos.
         if (!this.connected$.getValue()) {
           this.connect();
         }
       } else {
+        // Si no hay usuario (logout), nos desconectamos.
         this.disconnect();
       }
     });
   }
 
+  // Inicia la conexión con el servidor WebSocket.
   connect(): void {
     const token = this.authService.getToken();
     if (!token) {
       console.error("No hay token, no se puede conectar al WebSocket.");
       return;
     }
-    if (this.socket$ && this.socket$.closed === false) {
-      return;
+    if (this.socket$ && !this.socket$.closed) {
+      return; // Ya estamos conectados.
     }
 
     const url = `${environment.socketUrl}?token=${token}`;
@@ -57,7 +64,7 @@ export class WebsocketService {
       deserializer: event => JSON.parse(event.data),
       openObserver: {
         next: () => {
-          console.log('WebSocket conectado exitosamente.');
+          console.log('WebSocket conectado.');
           this.connected$.next(true);
           this.reconnectAttempts = 0;
         }
@@ -67,8 +74,8 @@ export class WebsocketService {
           console.log('WebSocket desconectado.');
           this.connected$.next(false);
           this.socket$ = null;
-          this.connectedUsers.clear();
           this.onlineUsers$.next(new Set());
+          // Si el usuario sigue logueado, intentamos reconectar.
           if (this.authService.isLoggedIn()) {
             this.reconnect();
           }
@@ -76,6 +83,7 @@ export class WebsocketService {
       }
     });
 
+    // Nos suscribimos para empezar a recibir mensajes.
     this.socket$.pipe(
       catchError(err => {
         console.error('Error en WebSocket:', err);
@@ -91,6 +99,7 @@ export class WebsocketService {
     });
   }
 
+  // Cierra la conexión de forma limpia.
   disconnect(): void {
     if (this.socket$) {
       this.socket$.complete();
@@ -100,13 +109,12 @@ export class WebsocketService {
     }
   }
 
+  // El "cerebro" que decide qué hacer con cada mensaje que llega del servidor.
   private handleMessage(parsed: any): void {
-    console.log("Mensaje recibido del WebSocket:", parsed);
+    console.log("Mensaje recibido:", parsed);
     switch (parsed.Type) {
       case 'onlineUsers':
-        const userIds: number[] = parsed.Payload;
-        this.connectedUsers = new Set(userIds);
-        this.onlineUsers$.next(this.connectedUsers);
+        this.onlineUsers$.next(new Set(parsed.Payload));
         break;
       case 'matchFound':
         this.router.navigate(['/match', parsed.Payload.roomId]);
@@ -124,7 +132,7 @@ export class WebsocketService {
         this.gameInvite$.next(parsed.Payload);
         break;
       case 'eloUpdate':
-        if (parsed.Payload && typeof parsed.Payload.newElo === 'number') {
+        if (parsed.Payload?.newElo) {
           this.authService.updateUserElo(parsed.Payload.newElo);
         }
         break;
@@ -134,48 +142,39 @@ export class WebsocketService {
   }
 
   getOnlineUsers(): Set<number> {
-    return this.connectedUsers;
+    return this.onlineUsers$.getValue();
   }
 
+  // Método base para enviar cualquier mensaje al servidor.
   private send(message: any): void {
     if (this.socket$ && this.connected$.getValue()) {
-      console.log("Enviando mensaje:", message);
       this.socket$.next(message);
     } else {
       console.error('Intento de enviar mensaje pero el WebSocket no está conectado.');
     }
   }
 
+  // --- Métodos públicos para que los componentes envíen acciones ---
+
   requestMatchmaking(): void {
     this.send({ Type: 'matchmakingRequest', Payload: {} });
   }
 
+  inviteFriend(friendId: number): void {
+    this.send({ Type: 'inviteFriend', Payload: { InvitedUserId: friendId } });
+  }
+
+  acceptInvite(inviterId: number): void {
+    this.send({ Type: 'acceptInvite', Payload: { InvitedUserId: inviterId } });
+  }
+
+  // Método genérico para acciones de juego.
   private sendGameAction(type: string, payload: any): void {
-    const message = {
-      Type: type,
-      Payload: payload
-    };
-    this.send(message);
+    this.send({ Type: type, Payload: payload });
   }
 
   requestInitialRoomState(roomId: string): void {
     this.sendGameAction('requestInitialState', { RoomId: roomId });
-  }
-  
-  inviteFriend(friendId: number): void {
-    const message = {
-        Type: 'inviteFriend',
-        Payload: { InvitedUserId: friendId }
-    };
-    this.send(message);
-  }
-
-  acceptInvite(inviterId: number): void {
-    const message = {
-        Type: 'acceptInvite',
-        Payload: { InvitedUserId: inviterId }
-    };
-    this.send(message);
   }
 
   selectCharacter(roomId: string, characterName: string): void {
@@ -198,13 +197,14 @@ export class WebsocketService {
     this.sendGameAction('declareWinner', { RoomId: roomId, DeclaredWinnerId: declaredWinnerId });
   }
   
+  // Intenta reconectar si se cae la conexión.
   private reconnect(): void {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       console.log(`Intento de reconexión ${this.reconnectAttempts}/${this.maxReconnectAttempts}...`);
       setTimeout(() => this.connect(), this.reconnectInterval);
     } else {
-      console.error('Máximo de intentos de reconexión alcanzado. Por favor, recarga la página.');
+      console.error('No se pudo reconectar. Por favor, recarga la página.');
     }
   }
 }

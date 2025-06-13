@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace GOG_Backend.Utils
+namespace GOG_Backend.Recursos
 {
     public static class PasswordHelper
     {

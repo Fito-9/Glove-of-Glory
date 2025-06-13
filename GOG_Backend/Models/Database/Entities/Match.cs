@@ -23,5 +23,6 @@ namespace GOG_Backend.Models.Database.Entities
         public string Player1Character { get; set; }
         public string Player2Character { get; set; }
         public string Map { get; set; }
+        public bool IsRanked { get; set; }
     }
 }

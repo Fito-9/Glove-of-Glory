@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { WebsocketService } from './websocket.service';
 
-// CORRECCIÓN: Añadimos las nuevas propiedades que vienen del backend
+// La interfaz no cambia, pero la incluyo por completitud
 export interface AuthResponse {
   accessToken: string;
   usuarioId: number;
@@ -58,8 +57,6 @@ export class AuthService {
   }
 
   logout(): void {
-    const wsService = inject(WebsocketService); // Inyección local para evitar dependencia circular
-    wsService.disconnect();
     localStorage.removeItem('user_data');
     this.currentUserSig.set(null);
     this.router.navigate(['/login']);

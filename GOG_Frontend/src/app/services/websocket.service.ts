@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, effect } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { BehaviorSubject, Subject, EMPTY } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -24,6 +24,23 @@ export class WebsocketService {
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
   private reconnectInterval = 5000;
+
+  constructor() {
+    // ✅ CAMBIO: Usamos un `effect` para reaccionar a los cambios de autenticación.
+    // Esto es más moderno y desacoplado que la inyección circular.
+    effect(() => {
+      const user = this.authService.currentUserSig();
+      if (user) {
+        // Si hay un usuario y no estamos conectados, conectar.
+        if (!this.connected$.getValue()) {
+          this.connect();
+        }
+      } else {
+        // Si no hay usuario (logout), desconectar.
+        this.disconnect();
+      }
+    });
+  }
 
   connect(): void {
     const token = this.authService.getToken();
@@ -54,7 +71,10 @@ export class WebsocketService {
           this.socket$ = null;
           this.connectedUsers.clear();
           this.onlineUsers$.next(new Set());
-          this.reconnect();
+          // No intentamos reconectar si el usuario ha cerrado sesión.
+          if (this.authService.isLoggedIn()) {
+            this.reconnect();
+          }
         }
       }
     });
@@ -64,7 +84,9 @@ export class WebsocketService {
         console.error('Error en WebSocket:', err);
         this.socket$?.complete();
         this.socket$ = null;
-        this.reconnect();
+        if (this.authService.isLoggedIn()) {
+          this.reconnect();
+        }
         return EMPTY;
       })
     ).subscribe({
@@ -77,6 +99,7 @@ export class WebsocketService {
       this.socket$.complete();
       this.socket$ = null;
       this.connected$.next(false);
+      console.log('WebSocket desconectado por logout.');
     }
   }
 
@@ -118,11 +141,10 @@ export class WebsocketService {
     this.send({ Type: 'matchmakingRequest', Payload: {} });
   }
 
-  // CORRECCIÓN CLAVE: El payload ya no se vuelve a convertir a string.
   private sendGameAction(type: string, roomId: string, payload: any): void {
     const message = {
       Type: type,
-      Payload: { RoomId: roomId, Payload: payload } // El payload es un objeto, no un string
+      Payload: { RoomId: roomId, Payload: payload }
     };
     this.send(message);
   }
@@ -132,7 +154,6 @@ export class WebsocketService {
   }
   
   inviteFriend(friendId: number): void {
-    // La invitación no tiene un roomId aún, se crea en el backend.
     const message = {
         Type: 'inviteFriend',
         Payload: { InvitedUserId: friendId }

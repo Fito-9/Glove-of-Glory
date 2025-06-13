@@ -67,6 +67,17 @@ namespace GOG_Backend.WebSockets
         {
             Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}");
 
+            // ✅ CAMBIO: La invitación a amigos ahora se maneja aquí directamente.
+            if (message.Type == "inviteFriend")
+            {
+                var invitePayload = JsonSerializer.Deserialize<InviteFriendPayload>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (invitePayload != null)
+                {
+                    await HandleFriendInvite(handler.UserId, invitePayload.InvitedUserId);
+                }
+                return;
+            }
+
             if (message.Type == "matchmakingRequest")
             {
                 await HandleMatchmakingRequest(handler);
@@ -136,13 +147,7 @@ namespace GOG_Backend.WebSockets
                             }
                         }
                         break;
-                    case "inviteFriend":
-                        var invitePayload = actionPayloadElement.Deserialize<InviteFriendPayload>();
-                        if (invitePayload != null)
-                        {
-                            await HandleFriendInvite(handler.UserId, invitePayload.InvitedUserId);
-                        }
-                        break;
+                    // ✅ CAMBIO: Se elimina el caso 'inviteFriend' de aquí porque se maneja antes.
                     case "requestInitialState":
                         if (_activeRooms.TryGetValue(gameActionPayload.RoomId, out var requestedRoom))
                         {
@@ -184,7 +189,8 @@ namespace GOG_Backend.WebSockets
                         receiverUsername = user2?.NombreUsuario ?? $"Usuario (ID: {receiverId})";
                     }
 
-                    var newRoom = new MatchRoom(senderId, senderUsername, receiverId, receiverUsername);
+                    // ✅ CAMBIO: Se crea la sala como NO RANKED.
+                    var newRoom = new MatchRoom(senderId, senderUsername, receiverId, receiverUsername, isRanked: false);
                     _activeRooms[newRoom.RoomId] = newRoom;
 
                     var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
@@ -229,7 +235,8 @@ namespace GOG_Backend.WebSockets
                             player2Username = user2?.NombreUsuario ?? $"Usuario (ID: {handler.UserId})";
                         }
 
-                        var newRoom = new MatchRoom(opponentId, player1Username, handler.UserId, player2Username);
+                        // ✅ CAMBIO: Se crea la sala como RANKED.
+                        var newRoom = new MatchRoom(opponentId, player1Username, handler.UserId, player2Username, isRanked: true);
                         _activeRooms[newRoom.RoomId] = newRoom;
 
                         var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
@@ -273,8 +280,12 @@ namespace GOG_Backend.WebSockets
 
                 if (winner != null && loser != null)
                 {
-                    winner.PuntuacionElo += 15;
-                    loser.PuntuacionElo = Math.Max(0, loser.PuntuacionElo - 15);
+                    // ✅ CAMBIO: El ELO solo se modifica si la partida es ranked.
+                    if (room.IsRanked)
+                    {
+                        winner.PuntuacionElo += 15;
+                        loser.PuntuacionElo = Math.Max(0, loser.PuntuacionElo - 15);
+                    }
 
                     var newMatch = new Match
                     {
@@ -284,7 +295,8 @@ namespace GOG_Backend.WebSockets
                         WinnerId = winnerId,
                         Player1Character = room.Player1Character,
                         Player2Character = room.Player2Character,
-                        Map = room.SelectedMap
+                        Map = room.SelectedMap,
+                        IsRanked = room.IsRanked // ✅ CAMBIO: Guardamos el estado en la BD.
                     };
                     await dbContext.Matches.AddAsync(newMatch);
                     await dbContext.SaveChangesAsync();

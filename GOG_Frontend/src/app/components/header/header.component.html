@@ -1,20 +1,23 @@
 <header class="main-header">
-    <div class="logo">
-      <a routerLink="/">Glove of Glory</a>
-    </div>
-    <nav class="main-nav">
-      @if (!authService.currentUserSig()) {
-        <a routerLink="/login" routerLinkActive="active" class="nav-button">Login</a>
-        <a routerLink="/register" routerLinkActive="active" class="nav-button register-btn">Register</a>
-      } @else () {
-        <div class="user-info">
-          <img 
-            [src]="authService.currentUserSig()?.avatar ? authService.currentUserSig()!.avatar : 'assets/default-avatar.png'" 
-            alt="User Avatar" 
-            class="user-avatar">
-          <span class="username">{{ authService.currentUserSig()?.nombreUsuario }}</span>
-        </div>
-        <button (click)="logout()" class="nav-button logout-btn">Logout</button>
-      }
-    </nav>
-  </header>
+  <div class="logo">
+    <a routerLink="/">Glove of Glory</a>
+  </div>
+  <nav class="main-nav">
+    @if (!authService.currentUserSig()) {
+      <a routerLink="/login" routerLinkActive="active" class="nav-button">Login</a>
+      <a routerLink="/register" routerLinkActive="active" class="nav-button register-btn">Register</a>
+    } 
+    @else {
+      <div class="user-info">
+        <img 
+          [src]="authService.currentUserSig()?.avatar ? authService.currentUserSig()!.avatar : 'assets/default-avatar.png'" 
+          alt="User Avatar" 
+          class="user-avatar">
+        <span class="username">{{ authService.currentUserSig()?.nombreUsuario }}</span>
+      </div>
+      <!-- ✅ CAMBIO: Se añade el botón para ir a la página de amigos -->
+      <a routerLink="/friends" routerLinkActive="active" class="nav-button">Amigos</a>
+      <button (click)="logout()" class="nav-button logout-btn">Logout</button>
+    }
+  </nav>
+</header>

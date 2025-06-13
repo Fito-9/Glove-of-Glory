@@ -1,6 +1,5 @@
 <div class="home-container">
   <div class="content-overlay">
-    <!-- Usamos el operador 'optional chaining' (?) por si currentUserSig es null al principio -->
     <h1 class="welcome-title">¡Prepárate para la batalla, {{ authService.currentUserSig()?.nombreUsuario }}!</h1>
     <div class="player-stats">
       <p>Tu ELO actual: <span class="elo-score">{{ userElo }}</span></p>

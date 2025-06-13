@@ -21,6 +21,7 @@ namespace GOG_Backend.Game
         public int Player1Id { get; }
         public int Player2Id { get; }
         public GameState CurrentState { get; private set; }
+        public bool IsRanked { get; } // ✅ CAMBIO: Propiedad para saber si es ranked.
 
         public string Player1Username { get; }
         public string Player2Username { get; }
@@ -37,13 +38,15 @@ namespace GOG_Backend.Game
         private int? _player1WinnerVote;
         private int? _player2WinnerVote;
 
-        public MatchRoom(int player1Id, string player1Username, int player2Id, string player2Username)
+        // ✅ CAMBIO: El constructor ahora requiere el parámetro 'isRanked'.
+        public MatchRoom(int player1Id, string player1Username, int player2Id, string player2Username, bool isRanked)
         {
             RoomId = Guid.NewGuid().ToString();
             Player1Id = player1Id;
             Player1Username = player1Username;
             Player2Id = player2Id;
             Player2Username = player2Username;
+            IsRanked = isRanked; // ✅ CAMBIO: Asignamos el valor.
             CurrentState = GameState.CharacterSelection;
             MapPool = new List<string> { "Small Battlefield", "Battlefield", "Final Destination", "Pokémon Stadium 2", "Hollow Bastion", "Smashville", "Town and City", "Kalos Pokémon League", "Yoshi's Story" };
         }

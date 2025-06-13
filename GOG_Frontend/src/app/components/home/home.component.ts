@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   websocketService = inject(WebsocketService);
   router = inject(Router);
 
-  // CORRECCIÓN: Obtenemos el ELO del servicio de autenticación
+
   get userElo(): number {
     return this.authService.currentUserSig()?.puntuacionElo ?? 1200;
   }

@@ -101,7 +101,8 @@ export class FriendshipComponent implements OnInit, OnDestroy {
 
   inviteToGame(friendId: number): void {
     if (!this.currentUserId) return;
-    this.websocketService.inviteFriend("private-game", friendId);
+    // ✅ CORRECCIÓN: Se elimina el primer argumento "private-game" que causaba el error.
+    this.websocketService.inviteFriend(friendId);
   }
 
   isFriend(userId: number): boolean {
@@ -109,6 +110,7 @@ export class FriendshipComponent implements OnInit, OnDestroy {
   }
 
   isRequestSent(userId: number): boolean {
+
     return false;
   }
 }

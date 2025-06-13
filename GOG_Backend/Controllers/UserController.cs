@@ -21,11 +21,17 @@ namespace GOG_Backend.Controllers
             _dbContext = dbContext;
             _tokenParameters = tokenParameters;
         }
-
         [HttpGet]
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserSummaryDto> GetUsers()
         {
-            return _dbContext.Users;
+            return _dbContext.Users.Select(u => new UserSummaryDto
+            {
+                UserId = u.UsuarioId,
+                Nickname = u.NombreUsuario,
+                Ruta = string.IsNullOrEmpty(u.ImagenPerfil)
+                        ? null
+                        : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil.Replace('\\', '/')}"
+            }).ToList();
         }
 
         [HttpPost("register")]

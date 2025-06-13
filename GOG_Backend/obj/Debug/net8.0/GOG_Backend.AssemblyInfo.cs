@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GOG_Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce32f6b55a764d0c67ba52736076182a240a2c23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11de80d20636788c07a4da6e32a32ed468b33e54")]
 [assembly: System.Reflection.AssemblyProductAttribute("GOG_Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GOG_Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

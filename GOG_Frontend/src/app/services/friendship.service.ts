@@ -3,12 +3,13 @@ import { Injectable, inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
 
+
 export interface UserSummary {
-    userId: number;
-    nickname: string;
-    ruta: string | null;
-    isOnline?: boolean;
-  }
+  userId: number;
+  nickname: string;
+  ruta: string | null;
+  isOnline?: boolean;
+}
   
   export interface FriendRequest {
     senderId: number;

@@ -69,8 +69,8 @@ fun RegisterScreen(navController: NavController) {
                 Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
                 authViewModel.resetRegisterState()
             }
-            is Resource.Loading -> { /* No action needed */ }
-            null -> { /* Initial state */ }
+            is Resource.Loading -> { }
+            null -> { }
         }
     }
 
@@ -94,7 +94,6 @@ fun RegisterScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                // --- CAMBIO: Usamos stringResource ---
                 text = stringResource(id = R.string.register_avatar_prompt),
                 style = MaterialTheme.typography.titleMedium
             )
@@ -137,7 +136,6 @@ fun RegisterScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth().height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = SmashRed),
                 enabled = registerState !is Resource.Loading,
-                // --- CAMBIO: Aplicamos la forma del tema ---
                 shape = MaterialTheme.shapes.medium
             ) {
                 if (registerState is Resource.Loading) {
@@ -169,7 +167,6 @@ fun AvatarItem(
     val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent
     Image(
         painter = rememberAsyncImagePainter(model = imageUrl),
-        // --- CAMBIO: Usamos stringResource ---
         contentDescription = stringResource(id = R.string.avatar_content_description),
         modifier = Modifier
             .size(64.dp)

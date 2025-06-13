@@ -67,7 +67,6 @@ fun StageCard(stage: Stage, onClick: () -> Unit) {
             .fillMaxWidth()
             .height(200.dp)
             .clickable(onClick = onClick),
-        // --- CAMBIO: Usamos la forma del tema ---
         shape = MaterialTheme.shapes.large,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
@@ -118,7 +117,6 @@ fun RecommendedCharactersDialog(stage: Stage, onDismiss: () -> Unit) {
                 Text(stringResource(id = R.string.dialog_close_button))
             }
         },
-        // --- CAMBIO: Aplicamos la forma del tema ---
         shape = MaterialTheme.shapes.large
     )
 }

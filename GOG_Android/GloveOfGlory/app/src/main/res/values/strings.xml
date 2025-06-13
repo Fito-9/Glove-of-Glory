@@ -69,7 +69,6 @@
     <!-- Pantallas de Personajes y Escenarios -->
     <string name="stage_dialog_title">Mejores Personajes para %1$s</string>
     <string name="character_difficulty">Dificultad:</string>
-    <!-- res/values/strings.xml -->
 
     <!-- Pantalla de Historia -->
     <string name="history_main_title">La Leyenda de Smash</string>

@@ -25,7 +25,6 @@ import kotlinx.coroutines.flow.first
 fun SplashScreen(navController: NavController) {
     val context = LocalContext.current
 
-    // La lógica de navegación se mantiene igual.
     LaunchedEffect(key1 = true) {
         val prefsRepository = UserPreferencesRepository(context)
         val authToken = prefsRepository.authToken.first()
@@ -41,9 +40,6 @@ fun SplashScreen(navController: NavController) {
         }
     }
 
-    // --- UI con el GIF animado ---
-
-    // 1. Creamos un ImageLoader que sabe cómo decodificar GIFs.
     val imageLoader = ImageLoader.Builder(context)
         .components {
             if (Build.VERSION.SDK_INT >= 28) {
@@ -54,21 +50,19 @@ fun SplashScreen(navController: NavController) {
         }
         .build()
 
-    // 2. Usamos el composable Image para mostrar el GIF.
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Image(
             painter = rememberAsyncImagePainter(
-                // --- ¡CAMBIA ESTO POR EL NOMBRE DE TU GIF! ---
-                // Si tu archivo se llama 'loading_animation.gif', aquí pones R.drawable.loading_animation
+
                 model = R.drawable.chomik,
-                // ---------------------------------------------
+
                 imageLoader = imageLoader
             ),
             contentDescription = "Animación de carga",
-            modifier = Modifier.size(250.dp) // Puedes ajustar el tamaño del GIF aquí
+            modifier = Modifier.size(250.dp)
         )
     }
 }

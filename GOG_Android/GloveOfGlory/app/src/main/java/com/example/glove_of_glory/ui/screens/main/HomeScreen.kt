@@ -27,17 +27,16 @@ import com.example.glove_of_glory.R
 @Composable
 fun HomeScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        // 1. Imagen de fondo que ocupa toda la pantalla
+        // Imagen de fondo que ocupa toda la pantalla
         Image(
             painter = painterResource(id = R.drawable.background_smash),
             contentDescription = "Fondo de pantalla de Smash",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
-            // --- CAMBIO: Hemos eliminado el alpha = 0.7f de aquí ---
+
         )
 
-        // --- CAMBIO: Añadimos un Box con un gradiente oscuro solo en la parte inferior ---
-        // Esto asegura que el texto sea legible sin oscurecer toda la imagen.
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -48,12 +47,12 @@ fun HomeScreen() {
                             Color.Black.copy(alpha = 0.4f),
                             Color.Black.copy(alpha = 0.8f)
                         ),
-                        startY = 400f // Empieza el gradiente más abajo
+                        startY = 400f
                     )
                 )
         )
 
-        // 2. Columna para centrar el texto de bienvenida
+        // Columna para centrar el texto de bienvenida
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -62,7 +61,7 @@ fun HomeScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                // --- CAMBIO: Usamos stringResource ---
+
                 text = stringResource(id = R.string.home_welcome_to),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Light,
@@ -70,13 +69,12 @@ fun HomeScreen() {
                 textAlign = TextAlign.Center
             )
             Text(
-                // --- CAMBIO: Usamos stringResource ---
+
                 text = stringResource(id = R.string.app_name),
                 fontSize = 48.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 textAlign = TextAlign.Center,
-                // Efecto de sombra para que el texto resalte sobre el fondo
                 style = MaterialTheme.typography.displayLarge.copy(
                     shadow = androidx.compose.ui.graphics.Shadow(
                         color = Color.Black.copy(alpha = 0.7f),

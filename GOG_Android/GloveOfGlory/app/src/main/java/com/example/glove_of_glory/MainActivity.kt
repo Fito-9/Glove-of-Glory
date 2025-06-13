@@ -1,6 +1,6 @@
 package com.example.glove_of_glory
 
-// ... imports
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

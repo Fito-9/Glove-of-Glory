@@ -2,7 +2,7 @@ package com.example.glove_of_glory.data.remote
 
 import com.example.glove_of_glory.data.remote.dto.LoginRequest
 import com.example.glove_of_glory.data.remote.dto.LoginResponse
-import com.example.glove_of_glory.data.remote.dto.RegisterRequestDto // <-- Lo importas desde su archivo
+import com.example.glove_of_glory.data.remote.dto.RegisterRequestDto
 import com.example.glove_of_glory.data.remote.dto.RegisterResponse
 import com.example.glove_of_glory.data.remote.dto.UserFullProfileDto
 import retrofit2.Response

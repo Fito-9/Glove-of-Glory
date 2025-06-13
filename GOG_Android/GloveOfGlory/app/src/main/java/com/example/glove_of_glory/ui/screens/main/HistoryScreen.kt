@@ -24,7 +24,7 @@ import com.example.glove_of_glory.R
 @Composable
 fun HistoryScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        // 1. Imagen de fondo
+        // Imagen de fondo
         Image(
             painter = painterResource(id = R.drawable.background_history),
             contentDescription = stringResource(id = R.string.history_background_description),
@@ -32,7 +32,7 @@ fun HistoryScreen() {
             contentScale = ContentScale.Crop
         )
 
-        // 2. Capa de gradiente oscuro para legibilidad
+        // Capa de gradiente oscuro para legibilidad
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -47,7 +47,7 @@ fun HistoryScreen() {
                 )
         )
 
-        // 3. Contenido de texto con scroll
+        // Contenido de texto con scroll
         Column(
             modifier = Modifier
                 .fillMaxSize()

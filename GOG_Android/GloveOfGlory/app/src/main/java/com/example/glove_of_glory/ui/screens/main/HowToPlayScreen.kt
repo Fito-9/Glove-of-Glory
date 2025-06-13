@@ -59,7 +59,6 @@ fun HowToPlayScreen() {
             videoId = "ncLSmmu7DCc",
             modifier = Modifier
                 .fillMaxWidth()
-                // --- CAMBIO: Usamos la forma del tema para consistencia ---
                 .clip(MaterialTheme.shapes.large)
         )
     }
@@ -85,7 +84,6 @@ fun YoutubeThumbnailPlayer(
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = thumbnailUrl),
-            // --- CAMBIO: Usamos stringResource ---
             contentDescription = stringResource(id = R.string.video_content_description),
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -99,7 +97,6 @@ fun YoutubeThumbnailPlayer(
 
         Icon(
             imageVector = Icons.Filled.PlayArrow,
-            // --- CAMBIO: Usamos stringResource ---
             contentDescription = stringResource(id = R.string.video_play_description),
             modifier = Modifier.size(64.dp),
             tint = Color.White.copy(alpha = 0.9f)

@@ -55,8 +55,8 @@ fun LoginScreen(navController: NavController) {
                 Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
                 authViewModel.resetLoginState()
             }
-            is Resource.Loading -> { /* No action needed, UI shows indicator */ }
-            null -> { /* Initial state */ }
+            is Resource.Loading -> { }
+            null -> { }
         }
     }
 
@@ -81,7 +81,6 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 singleLine = true,
-                // --- CAMBIO: Aplicamos la forma del tema ---
                 shape = MaterialTheme.shapes.medium
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -94,7 +93,6 @@ fun LoginScreen(navController: NavController) {
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 singleLine = true,
-                // --- CAMBIO: Aplicamos la forma del tema ---
                 shape = MaterialTheme.shapes.medium
             )
             Spacer(modifier = Modifier.height(32.dp))
@@ -110,7 +108,6 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth().height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = SmashRed),
                 enabled = loginState !is Resource.Loading,
-                // --- CAMBIO: Aplicamos la forma del tema ---
                 shape = MaterialTheme.shapes.medium
             ) {
                 if (loginState is Resource.Loading) {

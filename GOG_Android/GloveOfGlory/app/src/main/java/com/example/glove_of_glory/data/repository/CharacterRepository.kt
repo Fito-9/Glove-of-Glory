@@ -11,7 +11,7 @@ import java.io.IOException
 class CharacterRepository(private val context: Context) {
 
     suspend fun getCharacters(): List<Character> {
-        return withContext(Dispatchers.IO) { // Hacemos la lectura de archivo en un hilo de fondo
+        return withContext(Dispatchers.IO) {
             try {
                 val jsonString = context.assets.open("characters.json")
                     .bufferedReader()
@@ -21,7 +21,7 @@ class CharacterRepository(private val context: Context) {
                 Gson().fromJson(jsonString, listType)
             } catch (e: IOException) {
                 e.printStackTrace()
-                emptyList() // Devuelve una lista vacía si hay un error
+                emptyList()
             }
         }
     }

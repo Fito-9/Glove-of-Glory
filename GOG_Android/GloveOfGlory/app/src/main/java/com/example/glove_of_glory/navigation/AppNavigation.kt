@@ -48,8 +48,7 @@ fun AppNavigation() {
             composable(Routes.Register.route) {
                 RegisterScreen(navController = navController)
             }
-            // --- CAMBIO AQUÍ ---
-            // Ahora pasamos el navController a la ProfileScreen para que pueda volver.
+
             composable(Routes.Profile.route) {
                 ProfileScreen(navController = navController)
             }

@@ -63,12 +63,12 @@ class AuthViewModel(
         }
     }
 
-    // --- CAMBIO: Añadimos avatarId a la firma ---
+
     fun register(nombreUsuario: String, email: String, password: String, avatarId: String?) {
         viewModelScope.launch {
             _registerState.value = Resource.Loading()
             try {
-                // --- CAMBIO: Pasamos el avatarId al repositorio ---
+
                 val response = userRepository.registerUser(nombreUsuario, email, password, avatarId)
                 if (response.isSuccessful && response.body() != null) {
                     _registerState.value = Resource.Success(response.body()!!)

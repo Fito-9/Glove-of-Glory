@@ -34,7 +34,7 @@ import com.example.glove_of_glory.ui.theme.SmashGold
 import com.example.glove_of_glory.ui.theme.SmashRed
 import kotlinx.coroutines.launch
 
-// --- CAMBIO: La firma ahora acepta un NavController ---
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(navController: NavController) {
@@ -63,13 +63,12 @@ fun ProfileScreen(navController: NavController) {
         }
     }
 
-    // --- CAMBIO: Envolvemos todo en un Scaffold ---
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.profile_title)) },
                 navigationIcon = {
-                    // --- El botón de volver ---
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -85,7 +84,7 @@ fun ProfileScreen(navController: NavController) {
             )
         }
     ) { paddingValues ->
-        // El Surface ahora usa el padding del Scaffold para no quedar debajo de la TopAppBar
+
         Surface(
             modifier = Modifier
                 .fillMaxSize()

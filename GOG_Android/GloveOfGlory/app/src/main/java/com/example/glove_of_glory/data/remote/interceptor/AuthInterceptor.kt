@@ -22,8 +22,6 @@ class AuthInterceptor(context: Context) : Interceptor {
             return chain.proceed(originalRequest)
         }
 
-        // --- CAMBIO AQUÍ ---
-        // Usamos la cabecera personalizada "X-Session-Token" en lugar de "Authorization"
         val newRequest = originalRequest.newBuilder()
             .header("X-Session-Token", authToken)
             .build()

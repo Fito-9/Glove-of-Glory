@@ -43,34 +43,46 @@ namespace GOG_Backend.WebSockets
         private async Task<WebSocketHandler> AddHandlerAsync(WebSocket webSocket, int userId)
         {
             await _semaphore.WaitAsync();
-            var handler = new WebSocketHandler(userId, webSocket);
-            handler.MessageReceived += OnMessageReceivedAsync;
-            handler.Disconnected += OnDisconnectedAsync;
-            _handlers[userId] = handler;
-            _semaphore.Release();
-            return handler;
+            try
+            {
+                var handler = new WebSocketHandler(userId, webSocket);
+                handler.MessageReceived += OnMessageReceivedAsync;
+                handler.Disconnected += OnDisconnectedAsync;
+                _handlers[userId] = handler;
+                return handler;
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
 
         private async Task OnDisconnectedAsync(WebSocketHandler handler)
         {
             await _semaphore.WaitAsync();
-            if (_handlers.ContainsKey(handler.UserId))
+            try
             {
-                _handlers.Remove(handler.UserId);
-                RemoveFromMatchmakingQueue(handler.UserId);
+                if (_handlers.ContainsKey(handler.UserId))
+                {
+                    _handlers.Remove(handler.UserId);
+                    RemoveFromMatchmakingQueue(handler.UserId);
+                }
             }
-            _semaphore.Release();
+            finally
+            {
+                _semaphore.Release();
+            }
             await BroadcastOnlineUsersAsync();
         }
 
+        // 🔥🔥🔥 INICIO DE LA CORRECCIÓN CRÍTICA 🔥🔥🔥
         private async Task OnMessageReceivedAsync(WebSocketHandler handler, WebSocketMessageDto message)
         {
-            Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}, Payload={message.Payload}");
-
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-
+            // Los mensajes de matchmaking e invitación se manejan fuera del bloqueo principal
+            // para evitar deadlocks, ya que sus manejadores también usan el semáforo.
             if (message.Type == "inviteFriend")
             {
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 var invitePayload = JsonSerializer.Deserialize<InviteFriendPayload>(message.Payload.ToString(), options);
                 if (invitePayload != null)
                 {
@@ -85,108 +97,119 @@ namespace GOG_Backend.WebSockets
                 return;
             }
 
-            // --- INICIO DE LA CORRECCIÓN ---
-            GameActionDto gameActionDto;
+            // A partir de aquí, todas las acciones de juego se protegen con el semáforo.
+            await _semaphore.WaitAsync();
             try
             {
-                // El payload del mensaje ya es el GameActionDto, solo hay que deserializarlo.
-                gameActionDto = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), options);
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine($"Usuario {handler.UserId} envió un payload no válido. Error: {ex.Message}");
-                return;
-            }
+                Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}, Payload={message.Payload}");
 
-            if (gameActionDto == null || string.IsNullOrEmpty(gameActionDto.RoomId) || !_activeRooms.TryGetValue(gameActionDto.RoomId, out var room))
-            {
-                Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionDto?.RoomId}");
-                return;
-            }
-            // --- FIN DE LA CORRECCIÓN ---
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            string username = "Unknown";
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
-                var user = await dbContext.Users.FindAsync(handler.UserId);
-                if (user != null) username = user.NombreUsuario;
-            }
-
-            bool stateChanged = false;
-            try
-            {
-                // --- INICIO DE LA CORRECCIÓN ---
-                // Ahora el payload de la acción está dentro del gameActionDto
-                var actionPayloadElement = (JsonElement)gameActionDto.Payload;
-                // --- FIN DE LA CORRECCIÓN ---
-
-                switch (message.Type)
+                GameActionDto gameActionDto;
+                try
                 {
-                    case "selectCharacter":
-                        var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>(options);
-                        if (charPayload != null) stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
-                        break;
-                    case "banMaps":
-                        var banPayload = actionPayloadElement.Deserialize<MapBanPayload>(options);
-                        if (banPayload != null) stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
-                        break;
-                    case "pickMap":
-                        var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>(options);
-                        if (pickPayload != null) stateChanged = room.PickMap(handler.UserId, pickPayload.PickedMap);
-                        break;
-                    case "sendChatMessage":
-                        var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>(options);
-                        if (chatPayload != null)
-                        {
-                            room.AddChatMessage(handler.UserId, username, chatPayload.Message);
-                            stateChanged = true;
-                        }
-                        break;
-                    case "declareWinner":
-                        var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>(options);
-                        if (winnerPayload != null)
-                        {
-                            var (isFinished, players, voteMismatch) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
+                    gameActionDto = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), options);
+                }
+                catch (JsonException ex)
+                {
+                    Console.WriteLine($"Usuario {handler.UserId} envió un payload no válido. Error: {ex.Message}");
+                    return;
+                }
 
-                            if (voteMismatch)
+                if (gameActionDto == null || string.IsNullOrEmpty(gameActionDto.RoomId) || !_activeRooms.TryGetValue(gameActionDto.RoomId, out var room))
+                {
+                    Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionDto?.RoomId}");
+                    return;
+                }
+
+                string username = "Unknown";
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+                    var user = await dbContext.Users.FindAsync(handler.UserId);
+                    if (user != null) username = user.NombreUsuario;
+                }
+
+                bool stateChanged = false;
+                try
+                {
+                    var actionPayloadElement = (JsonElement)gameActionDto.Payload;
+
+                    switch (message.Type)
+                    {
+                        case "selectCharacter":
+                            var charPayload = actionPayloadElement.Deserialize<CharacterSelectionPayload>(options);
+                            if (charPayload != null) stateChanged = room.SelectCharacter(handler.UserId, charPayload.CharacterName);
+                            break;
+                        case "banMaps":
+                            var banPayload = actionPayloadElement.Deserialize<MapBanPayload>(options);
+                            if (banPayload != null) stateChanged = room.BanMaps(handler.UserId, banPayload.BannedMaps);
+                            break;
+                        case "pickMap":
+                            var pickPayload = actionPayloadElement.Deserialize<MapPickPayload>(options);
+                            if (pickPayload != null) stateChanged = room.PickMap(handler.UserId, pickPayload.PickedMap);
+                            break;
+                        case "sendChatMessage":
+                            var chatPayload = actionPayloadElement.Deserialize<ChatMessagePayload>(options);
+                            if (chatPayload != null)
                             {
-                                var mismatchMessage = new WebSocketMessageDto { Type = "voteMismatch", Payload = new { roomId = room.RoomId } };
-                                if (_handlers.TryGetValue(room.Player1Id, out var p1Handler)) await p1Handler.SendAsync(mismatchMessage);
-                                if (_handlers.TryGetValue(room.Player2Id, out var p2Handler)) await p2Handler.SendAsync(mismatchMessage);
+                                room.AddChatMessage(handler.UserId, username, chatPayload.Message);
+                                stateChanged = true;
                             }
-
-                            stateChanged = true;
-
-                            if (isFinished && players.winner.HasValue && players.loser.HasValue)
+                            break;
+                        case "declareWinner":
+                            var winnerPayload = actionPayloadElement.Deserialize<WinnerDeclarationPayload>(options);
+                            if (winnerPayload != null)
                             {
-                                await FinalizeMatch(room, players.winner.Value, players.loser.Value);
+                                var (isFinished, players, voteMismatch) = room.DeclareWinner(handler.UserId, winnerPayload.DeclaredWinnerId);
+
+                                if (voteMismatch)
+                                {
+                                    var mismatchMessage = new WebSocketMessageDto { Type = "voteMismatch", Payload = new { roomId = room.RoomId } };
+                                    if (_handlers.TryGetValue(room.Player1Id, out var p1Handler)) await p1Handler.SendAsync(mismatchMessage);
+                                    if (_handlers.TryGetValue(room.Player2Id, out var p2Handler)) await p2Handler.SendAsync(mismatchMessage);
+                                }
+
+                                stateChanged = true;
+
+                                if (isFinished && players.winner.HasValue && players.loser.HasValue)
+                                {
+                                    // FinalizeMatch ahora se llama dentro del bloque protegido
+                                    await FinalizeMatch(room, players.winner.Value, players.loser.Value);
+                                }
                             }
-                        }
-                        break;
-                    case "requestInitialState":
-                        if (_activeRooms.TryGetValue(gameActionDto.RoomId, out var requestedRoom))
-                        {
-                            var statePayload = requestedRoom.GetStateDto();
-                            var stateMessage = new WebSocketMessageDto { Type = "matchStateUpdate", Payload = statePayload };
-                            await handler.SendAsync(stateMessage);
-                        }
-                        break;
-                    default:
-                        Console.WriteLine($"Tipo de mensaje no reconocido recibido: {message.Type}");
-                        break;
+                            break;
+                        case "requestInitialState":
+                            if (_activeRooms.TryGetValue(gameActionDto.RoomId, out var requestedRoom))
+                            {
+                                var statePayload = requestedRoom.GetStateDto();
+                                var stateMessage = new WebSocketMessageDto { Type = "matchStateUpdate", Payload = statePayload };
+                                await handler.SendAsync(stateMessage);
+                            }
+                            break;
+                        default:
+                            Console.WriteLine($"Tipo de mensaje no reconocido recibido: {message.Type}");
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error procesando acción '{message.Type}' para la sala {room.RoomId}: {ex.Message}");
+                }
+
+                // Comprobamos si la sala todavía existe antes de intentar enviar el estado
+                if (stateChanged && _activeRooms.ContainsKey(room.RoomId))
+                {
+                    await BroadcastRoomState(room.RoomId);
                 }
             }
-            catch (Exception ex)
+            finally
             {
-                Console.WriteLine($"Error procesando acción '{message.Type}' para la sala {room.RoomId}: {ex.Message}");
-            }
-
-            if (stateChanged)
-            {
-                await BroadcastRoomState(room.RoomId);
+                // Liberamos el semáforo para que otros hilos puedan continuar.
+                _semaphore.Release();
             }
         }
+        // 🔥🔥🔥 FIN DE LA CORRECCIÓN CRÍTICA 🔥🔥🔥
 
         private async Task HandleFriendInvite(int senderId, int receiverId)
         {

@@ -1,0 +1,86 @@
+<resources>
+    <!-- General / App -->
+    <string name="app_name">Glove of Glory</string>
+    <string name="loading_text">Cargando...</string>
+
+    <!-- Títulos de Pantalla -->
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="register_title">Crear Cuenta</string>
+    <string name="main_title">Glove of Glory</string>
+    <string name="profile_title">Perfil de Usuario</string>
+    <string name="how_to_play_title">Guía para Principiantes</string>
+
+    <!-- Etiquetas de Campos -->
+    <string name="email_label">Email</string>
+    <string name="password_label">Contraseña</string>
+    <string name="username_label">Nombre de Usuario</string>
+    <string name="confirm_password_label">Confirmar Contraseña</string>
+
+    <!-- Botones -->
+    <string name="login_button">INICIAR SESIÓN</string>
+    <string name="register_button">REGISTRARSE</string>
+    <string name="logout_button">Cerrar Sesión</string>
+    <string name="profile_button">Perfil</string>
+    <string name="dialog_close_button">Cerrar</string>
+    <string name="profile_back_button_description">Volver a la pantalla principal</string>
+
+    <!-- Textos y Enlaces -->
+    <string name="no_account_link">¿No tienes cuenta? Regístrate</string>
+    <string name="already_have_account_link">¿Ya tienes cuenta? Inicia sesión</string>
+
+    <!-- Mensajes y Errores -->
+    <string name="fill_all_fields_error">Por favor, rellena todos los campos</string>
+    <string name="passwords_do_not_match_error">Las contraseñas no coinciden</string>
+    <string name="login_success_message">¡Login exitoso!</string>
+    <string name="register_success_message">Registro exitoso. Ahora inicia sesión.</string>
+    <string name="profile_load_error">Error al cargar el perfil: %1$s</string>
+    <string name="session_invalid_error">Sesión inválida o expirada. Por favor, inicia sesión de nuevo.</string>
+    <string name="network_error">Error de red: %1$s</string>
+
+    <!-- Menú de Navegación -->
+    <string name="menu_home">Inicio</string>
+    <string name="menu_how_to_play">Cómo Jugar</string>
+    <string name="menu_characters">Personajes</string>
+    <string name="menu_stages">Escenarios</string>
+    <string name="menu_history">Historia</string>
+    <string name="menu_description">Menú de Navegación</string>
+
+    <!-- Pantalla de Inicio (Home) -->
+    <string name="home_welcome_to">Bienvenido a</string>
+    <string name="history_placeholder_text">Aquí irá la historia de Smash Ultimate.</string>
+
+    <!-- Pantalla de Registro -->
+    <string name="register_avatar_prompt">Elige tu avatar</string>
+    <string name="avatar_content_description">Avatar seleccionado</string>
+
+    <!-- Pantalla de Perfil -->
+    <string name="profile_elo_label">ELO</string>
+    <string name="profile_email_label">Email</string>
+    <string name="profile_avatar_description">Avatar del usuario</string>
+    <string name="profile_elo_icon_description">Icono de ELO</string>
+    <string name="profile_email_icon_description">Icono de Email</string>
+
+    <!-- Pantalla Cómo Jugar -->
+    <string name="how_to_play_intro_text">Super Smash Bros. Ultimate es un juego de lucha único donde el objetivo no es reducir la vida del oponente, sino lanzarlo fuera del escenario. Cada personaje tiene un porcentaje que aumenta al recibir daño. ¡Cuanto más alto sea el porcentaje, más lejos volarás al ser golpeado! Usa ataques normales, especiales, agarres y escudos para dominar el combate y ser el último en pie.</string>
+    <string name="how_to_play_video_title">Vídeo Tutorial Básico</string>
+    <string name="video_content_description">Vídeo tutorial de cómo jugar</string>
+    <string name="video_play_description">Reproducir vídeo</string>
+
+    <!-- Pantallas de Personajes y Escenarios -->
+    <string name="stage_dialog_title">Mejores Personajes para %1$s</string>
+    <string name="character_difficulty">Dificultad:</string>
+
+    <!-- Pantalla de Historia -->
+    <string name="history_main_title">La Leyenda de Smash</string>
+    <string name="history_background_description">Fondo con personajes de la saga Smash</string>
+    <string name="history_n64_title">1999: El Origen (Nintendo 64)</string>
+    <string name="history_n64_content">Todo comenzó como un prototipo llamado "Dragon King: The Fighting Game", creado por Masahiro Sakurai y Satoru Iwata. La idea de incluir personajes de Nintendo transformó un simple juego de lucha en un crossover histórico. Con solo 12 personajes, Super Smash Bros. sentó las bases de una jugabilidad única: dañar a los oponentes para aumentar su porcentaje y lanzarlos fuera del escenario.</string>
+    <string name="history_melee_title">2001: La Perfección Competitiva (GameCube)</string>
+    <string name="history_melee_content">Considerado por muchos como la cúspide competitiva de la saga, Melee refinó la fórmula con una velocidad y una profundidad técnica sin precedentes. Introdujo movimientos como el "wavedashing" que, aunque no intencionados, se convirtieron en el corazón de su escena competitiva, que perdura hasta hoy. Añadió 25 personajes y se convirtió en un pilar de los torneos de videojuegos.</string>
+    <string name="history_brawl_title">2008: La Gran Aventura (Wii)</string>
+    <string name="history_brawl_content">Brawl cambió el ritmo hacia una jugabilidad más accesible y caótica. Su mayor innovación fue "El Emisario Subespacial", un modo aventura con historia y cinemáticas que unía a todo el universo Nintendo. Fue el primero en incluir personajes de terceros, con la llegada de Solid Snake y Sonic the Hedgehog, rompiendo todas las barreras imaginables.</string>
+    <string name="history_wiiu_3ds_title">2014: Dos Versiones, Una Batalla (Wii U / 3DS)</string>
+    <string name="history_wiiu_3ds_content">Por primera vez, la saga se lanzó simultáneamente en una consola de sobremesa y una portátil. Cada versión tenía escenarios exclusivos y la versión de 3DS introdujo el modo "Smashventura". El juego continuó expandiendo su plantel con personajes como Mega Man, Pac-Man y Ryu, y fue el primero en añadir luchadores DLC, cambiando el futuro de la saga.</string>
+    <string name="history_ultimate_title">2018: ¡Están todos! (Nintendo Switch)</string>
+    <string name="history_ultimate_content">La entrega definitiva. Ultimate cumplió el sueño de todos los fans con el lema "Everyone is Here!", reuniendo a todos los personajes que alguna vez aparecieron en la saga y añadiendo muchos más a través de los Fighters Pass. Con más de 80 luchadores, un pulido sistema de juego que combina lo mejor de Melee y Brawl, y un sinfín de contenido, se ha consolidado como el juego de lucha más vendido de la historia y una celebración monumental de los videojuegos.</string>
+</resources>

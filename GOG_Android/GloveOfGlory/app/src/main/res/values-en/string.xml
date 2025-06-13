@@ -1,0 +1,87 @@
+<resources>
+    <!-- General / App -->
+    <string name="app_name">Glove of Glory</string>
+    <string name="loading_text">Loading...</string>
+
+    <!-- Screen Titles -->
+    <string name="login_title">Login</string>
+    <string name="register_title">Create Account</string>
+    <string name="main_title">Glove of Glory</string>
+    <string name="profile_title">User Profile</string>
+    <string name="how_to_play_title">Beginner\'s Guide</string>
+
+    <!-- Field Labels -->
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="username_label">Username</string>
+    <string name="confirm_password_label">Confirm Password</string>
+
+    <!-- Buttons -->
+    <string name="login_button">LOGIN</string>
+    <string name="register_button">REGISTER</string>
+    <string name="logout_button">Logout</string>
+    <string name="profile_button">Profile</string>
+    <string name="dialog_close_button">Close</string>
+    <string name="profile_back_button_description">Back to main screen</string>
+
+    <!-- Texts and Links -->
+    <string name="no_account_link">Don\'t have an account? Sign up</string>
+    <string name="already_have_account_link">Already have an account? Log in</string>
+
+    <!-- Messages and Errors -->
+    <string name="fill_all_fields_error">Please fill in all fields</string>
+    <string name="passwords_do_not_match_error">Passwords do not match</string>
+    <string name="login_success_message">Login successful!</string>
+    <string name="register_success_message">Registration successful. Please log in.</string>
+    <string name="profile_load_error">Error loading profile: %1$s</string>
+    <string name="session_invalid_error">Invalid or expired session. Please log in again.</string>
+    <string name="network_error">Network error: %1$s</string>
+
+    <!-- Navigation Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_how_to_play">How to Play</string>
+    <string name="menu_characters">Characters</string>
+    <string name="menu_stages">Stages</string>
+    <string name="menu_history">History</string>
+    <string name="menu_description">Navigation Menu</string>
+
+    <!-- Home Screen -->
+    <string name="home_welcome_to">Welcome to</string>
+    <string name="history_placeholder_text">The history of Smash Ultimate will go here.</string>
+
+    <!-- Register Screen -->
+    <string name="register_avatar_prompt">Choose your avatar</string>
+    <string name="avatar_content_description">Selected avatar</string>
+
+    <!-- Profile Screen -->
+    <string name="profile_elo_label">ELO</string>
+    <string name="profile_email_label">Email</string>
+    <string name="profile_avatar_description">User avatar</string>
+    <string name="profile_elo_icon_description">ELO icon</string>
+    <string name="profile_email_icon_description">Email icon</string>
+
+    <!-- How to Play Screen -->
+    <string name="how_to_play_intro_text">Super Smash Bros. Ultimate is a unique fighting game where the goal is not to deplete the opponent\'s health, but to launch them off the stage. Each character has a percentage that increases when they take damage. The higher the percentage, the farther you\'ll fly when hit! Use normal attacks, special moves, grabs, and shields to dominate the fight and be the last one standing.</string>
+    <string name="how_to_play_video_title">Basic Video Tutorial</string>
+    <string name="video_content_description">How to play video tutorial</string>
+    <string name="video_play_description">Play video</string>
+
+    <!-- Character & Stage Screens -->
+    <string name="stage_dialog_title">Best Characters for %1$s</string>
+    <string name="character_difficulty">Difficulty:</string>
+
+
+    <!-- History Screen -->
+    <string name="history_main_title">The Legend of Smash</string>
+    <string name="history_background_description">Background with characters from the Smash series</string>
+    <string name="history_n64_title">1999: The Origin (Nintendo 64)</string>
+    <string name="history_n64_content">It all started as a prototype called "Dragon King: The Fighting Game," created by Masahiro Sakurai and Satoru Iwata. The idea of including Nintendo characters transformed a simple fighting game into a historic crossover. With only 12 characters, Super Smash Bros. laid the foundation for a unique gameplay style: damage opponents to increase their percentage and launch them off the stage.</string>
+    <string name="history_melee_title">2001: Competitive Perfection (GameCube)</string>
+    <string name="history_melee_content">Considered by many to be the competitive peak of the series, Melee refined the formula with unprecedented speed and technical depth. It introduced techniques like "wavedashing" which, though unintentional, became the heart of its competitive scene, which endures to this day. It added 25 characters and became a pillar of video game tournaments.</string>
+    <string name="history_brawl_title">2008: The Great Adventure (Wii)</string>
+    <string name="history_brawl_content">Brawl shifted the pace towards more accessible and chaotic gameplay. Its biggest innovation was "The Subspace Emissary," an adventure mode with a story and cinematics that united the entire Nintendo universe. It was the first to include third-party characters, with the arrival of Solid Snake and Sonic the Hedgehog, breaking all imaginable barriers.</string>
+    <string name="history_wiiu_3ds_title">2014: Two Versions, One Battle (Wii U / 3DS)</string>
+    <string name="history_wiiu_3ds_content">For the first time, the series was released simultaneously on a home console and a handheld. Each version had exclusive stages, and the 3DS version introduced the "Smash Run" mode. The game continued to expand its roster with characters like Mega Man, Pac-Man, and Ryu, and was the first to add DLC fighters, changing the future of the series.</string>
+    <string name="history_ultimate_title">2018: Everyone is Here! (Nintendo Switch)</string>
+    <string name="history_ultimate_content">The definitive installment. Ultimate fulfilled every fans dream with the motto "Everyone is Here!", bringing together every character who had ever appeared in the series and adding many more through the Fighters Pass. With over 80 fighters, a polished gameplay system combining the best of Melee and Brawl, and endless content, it has established itself as the best-selling fighting game in history and a monumental celebration of video games.</string>
+</resources>

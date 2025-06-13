@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Battlefield",
+    "imageUrl": "https://www.ssbwiki.com/images/8/86/SSBU-Battlefield.png?3840f",
+    "recommendedCharacters": ["Joker", "Pikachu", "Sheik", "ZSS"]
+  },
+  {
+    "name": "Small Battlefield",
+    "imageUrl": "https://ssb.wiki.gallery/images/thumb/7/7e/SSBU-Small-Battlefield.jpg/1200px-SSBU-Small-Battlefield.jpg",
+    "recommendedCharacters": ["Roy", "Cloud", "Wolf", "Palutena"]
+  },
+  {
+    "name": "Final Destination",
+    "imageUrl": "https://ssb.wiki.gallery/images/thumb/9/91/SSBU-Final_Destination.jpg/1200px-SSBU-Final_Destination.jpg",
+    "recommendedCharacters": ["Mario", "Lucina", "Fox", "Olimar"]
+  },
+  {
+    "name": "Town and City",
+    "imageUrl": "https://ssb.wiki.gallery/images/thumb/8/81/Town_and_City_2.png/300px-Town_and_City_2.png",
+    "recommendedCharacters": ["R.O.B.", "Steve", "Snake", "Min Min"]
+  },
+  {
+    "name": "Smashville",
+    "imageUrl": "https://ssb.wiki.gallery/images/thumb/0/02/SSBU-Smashville.png/1200px-SSBU-Smashville.png",
+    "recommendedCharacters": ["Diddy Kong", "Wario", "Shulk", "Pyra/Mythra"]
+  },
+  {
+    "name": "Yoshi's Story",
+    "imageUrl": "https://liquipedia.net/commons/images/5/53/YoshiStory.jpg",
+    "recommendedCharacters": ["Marth", "Jigglypuff", "Pichu", "Fox"]
+  },
+  {
+    "name": "Kalos Pokémon League",
+    "imageUrl": "https://images.wikidexcdn.net/mwuploads/esssbwiki/thumb/b/b6/latest/20180819165205/Liga_Pokémon_de_Kalos_SSBU.jpg/800px-Liga_Pokémon_de_Kalos_SSBU.jpg",
+    "recommendedCharacters": ["Terry", "Kazuya", "Cloud", "Byleth"]
+  },
+  {
+    "name": "Pokémon Stadium 2",
+    "imageUrl": "https://images.wikidexcdn.net/mwuploads/esssbwiki/thumb/2/2c/latest/20180819065319/Estadio_Pokémon_2_SSBU.jpg/1200px-Estadio_Pokémon_2_SSBU.jpg",
+    "recommendedCharacters": ["Wolf", "Lucina", "Greninja", "Palutena"]
+  },
+  {
+    "name": "Hollow Bastion",
+    "imageUrl": "https://images.wikidexcdn.net/mwuploads/esssbwiki/thumb/9/91/latest/20211005165806/Bastión_Hueco_SSBU.png/1200px-Bastión_Hueco_SSBU.png",
+    "recommendedCharacters": ["Sora", "Sephiroth", "Joker", "Aegis"]
+  }
+]

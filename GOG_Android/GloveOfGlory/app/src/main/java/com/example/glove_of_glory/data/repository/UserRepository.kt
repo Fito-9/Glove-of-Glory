@@ -16,6 +16,6 @@ class UserRepository(private val apiService: ApiService) {
             password = password.toRequestBody("text/plain".toMediaTypeOrNull())
         )
 
-    // --- AÑADIDO ---
-    suspend fun getUserProfile(userId: Int) = apiService.getUserProfile(userId)
+    // Nuevo método para llamar al nuevo endpoint
+    suspend fun getMyProfile() = apiService.getMyProfile()
 }

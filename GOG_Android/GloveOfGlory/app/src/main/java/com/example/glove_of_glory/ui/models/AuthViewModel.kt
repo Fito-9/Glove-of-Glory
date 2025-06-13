@@ -35,8 +35,7 @@ class AuthViewModel(
                 val response = userRepository.loginUser(email, password)
                 if (response.isSuccessful && response.body() != null) {
                     val loginData = response.body()!!
-                    // --- CAMBIO AQUÍ ---
-                    // Llamamos al nuevo método para guardar AMBOS datos: token y ID.
+                    // Volvemos a guardar token y ID
                     prefsRepository.saveAuthTokenAndId(loginData.accessToken, loginData.usuarioId)
                     _loginState.value = Resource.Success(loginData)
                 } else {

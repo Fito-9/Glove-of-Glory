@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.glove_of_glory.data.remote.RetrofitClient
+import com.example.glove_of_glory.data.remote.dto.UserFullProfileDto
 import com.example.glove_of_glory.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
@@ -15,42 +16,42 @@ import kotlinx.coroutines.launch
 fun ProfileScreen() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    var apiResponse by remember { mutableStateOf("Haciendo petición...") }
+    var userProfile by remember { mutableStateOf<UserFullProfileDto?>(null) }
+    var isLoading by remember { mutableStateOf(true) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    // Usamos un botón para lanzar la petición manualmente. Esto nos da más control.
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Button(onClick = {
-            scope.launch {
-                try {
-                    // --- PRUEBA DIRECTA ---
-                    // Vamos a llamar a la API con un ID que sabemos que existe.
-                    // Reemplaza '8' con el ID de un usuario que exista en tu DB.
-                    val userIdToTest = 8
+    LaunchedEffect(key1 = Unit) {
+        scope.launch {
+            try {
+                val userRepository = UserRepository(RetrofitClient.getInstance(context))
+                // Llamamos al nuevo endpoint que no necesita parámetros
+                val response = userRepository.getMyProfile()
+                if (response.isSuccessful) {
+                    userProfile = response.body()
+                } else {
+                    errorMessage = "Error ${response.code()}: Sesión inválida o expirada. Por favor, inicia sesión de nuevo."
+                }
+            } catch (e: Exception) {
+                errorMessage = "Error de red: ${e.message}"
+            } finally {
+                isLoading = false
+            }
+        }
+    }
 
-                    val userRepository = UserRepository(RetrofitClient.getInstance(context))
-                    val response = userRepository.getUserProfile(userIdToTest)
-
-                    if (response.isSuccessful) {
-                        apiResponse = "ÉXITO 200 OK!\n\nNickname: ${response.body()?.nickname}"
-                    } else {
-                        // Si falla, mostramos el código de error y el mensaje.
-                        apiResponse = "ERROR ${response.code()}\n\n${response.message()}\n\n${response.errorBody()?.string()}"
-                    }
-                } catch (e: Exception) {
-                    apiResponse = "EXCEPCIÓN: ${e.message}"
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        when {
+            isLoading -> CircularProgressIndicator()
+            errorMessage != null -> Text(text = errorMessage!!, color = MaterialTheme.colorScheme.error)
+            userProfile != null -> {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = userProfile!!.nickname, style = MaterialTheme.typography.headlineMedium)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Email: ${userProfile!!.email}")
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(text = "ELO: ${userProfile!!.elo}")
                 }
             }
-        }) {
-            Text("Probar GET /api/user/8")
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Mostramos la respuesta cruda de la API
-        Text(text = apiResponse)
     }
 }

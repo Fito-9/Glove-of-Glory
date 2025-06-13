@@ -11,18 +11,28 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Registro de servicios 
-builder.Services.AddScoped<MyDbContext>();
+// --- Registro de servicios ---
+
+// 1. Configuración del DbContext para que sea flexible
+builder.Services.AddDbContext<MyDbContext>(options =>
+{
+    // Leemos la cadena de conexión de MySQL desde appsettings.json
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+    // Usamos el "proveedor" de MySQL para conectar a la base de datos.
+    // ServerVersion.AutoDetect(connectionString) detecta automáticamente la versión del servidor MySQL.
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// El WebSocketNetwork es único para toda la app, para que todos los jugadores estén en el mismo sitio.
 builder.Services.AddSingleton<WebSocketNetwork>();
 builder.Services.AddTransient<MatchmakingWebSocketMiddleware>();
 builder.Services.AddScoped<FriendshipService>();
 
-// Define cómo se van a validar los tokens de acceso de los usuarios.
+// --- Configuración de Seguridad (JWT) ---
 builder.Services.AddSingleton(provider =>
 {
     Settings settings = builder.Configuration.GetSection(Settings.SECTION_NAME).Get<Settings>();
@@ -36,7 +46,7 @@ builder.Services.AddSingleton(provider =>
     };
 });
 
-// Uso de Cors
+// --- CORS ---
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -47,13 +57,18 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAuthentication().AddJwtBearer();
 
-// Función para crear la base de datos y meterle datos de prueba si es la primera vez que se ejecuta.
+// --- Función de inicialización de la Base de Datos ---
 static async Task InitDatabaseAsync(IServiceProvider serviceProvider)
 {
     using IServiceScope scope = serviceProvider.CreateScope();
     using MyDbContext dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
 
-    if (dbContext.Database.EnsureCreated())
+    // MigrateAsync() aplicará las migraciones pendientes.
+    // Esto crea las tablas en la base de datos de MySQL la primera vez que se ejecute en el servidor.
+    await dbContext.Database.MigrateAsync();
+
+    // El Seeder para meter datos iniciales (como el usuario admin).
+    if (!await dbContext.Users.AnyAsync())
     {
         new Seeder(dbContext).Seed();
     }
@@ -61,7 +76,7 @@ static async Task InitDatabaseAsync(IServiceProvider serviceProvider)
 
 var app = builder.Build();
 
-//  Peticiones HTTP 
+// --- Pipeline de Peticiones HTTP ---
 
 if (app.Environment.IsDevelopment())
 {
@@ -71,12 +86,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
-app.UseStaticFiles(); // Para poder servir las imágenes de perfil.
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Activamos los WebSockets.
 app.UseWebSockets();
 app.UseMiddleware<MatchmakingWebSocketMiddleware>();
 

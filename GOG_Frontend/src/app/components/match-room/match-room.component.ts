@@ -31,9 +31,23 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   chatMessage = '';
   
   voteMismatch = false;
-
-  // ✅ NUEVA PROPIEDAD PARA CONTROLAR EL ESTADO DEL VOTO
   iHaveVoted = false;
+
+  // ✅ INICIO DEL CAMBIO: Lista completa de personajes
+  characterList: string[] = [
+    'Mario', 'Donkey Kong', 'Link', 'Samus', 'Dark Samus', 'Yoshi', 'Kirby', 'Fox', 'Pikachu',
+    'Luigi', 'Ness', 'Captain Falcon', 'Jigglypuff', 'Peach', 'Daisy', 'Bowser', 'Ice Climbers',
+    'Sheik', 'Zelda', 'Dr. Mario', 'Pichu', 'Falco', 'Marth', 'Lucina', 'Young Link', 'Ganondorf',
+    'Mewtwo', 'Roy', 'Chrom', 'Mr. Game & Watch', 'Meta Knight', 'Pit', 'Dark Pit', 'Zero Suit Samus',
+    'Wario', 'Snake', 'Ike', 'Pokemon Trainer', 'Diddy Kong', 'Lucas', 'Sonic', 'King Dedede',
+    'Olimar', 'Lucario', 'R.O.B.', 'Toon Link', 'Wolf', 'Villager', 'Mega Man', 'Wii Fit Trainer',
+    'Rosalina & Luma', 'Little Mac', 'Greninja', 'Mii Brawler', 'Mii Swordfighter', 'Mii Gunner',
+    'Palutena', 'Pac-Man', 'Robin', 'Shulk', 'Bowser Jr.', 'Duck Hunt', 'Ryu', 'Ken', 'Cloud',
+    'Corrin', 'Bayonetta', 'Inkling', 'Ridley', 'Simon', 'Richter', 'King K. Rool', 'Isabelle',
+    'Incineroar', 'Piranha Plant', 'Joker', 'Hero', 'Banjo & Kazooie', 'Terry', 'Byleth',
+    'Min Min', 'Steve', 'Sephiroth', 'Pyra/Mythra', 'Kazuya', 'Sora'
+  ].sort(); // La ordenamos alfabéticamente
+  // ✅ FIN DEL CAMBIO
 
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('roomId')!;
@@ -41,9 +55,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
         this.roomState = state;
-
-        // ✅ INICIO DE LA LÓGICA MODIFICADA
-        // Calculamos el estado del voto aquí y lo guardamos en la propiedad
+        
         const myId = this.authService.currentUserSig()?.usuarioId;
         if (myId) {
           if (myId === this.roomState.player1Id) {
@@ -51,12 +63,11 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
           } else if (myId === this.roomState.player2Id) {
             this.iHaveVoted = this.roomState.player2Voted;
           } else {
-            this.iHaveVoted = true; // Es un espectador, deshabilitar siempre
+            this.iHaveVoted = true;
           }
         } else {
-          this.iHaveVoted = true; // No hay usuario, deshabilitar
+          this.iHaveVoted = true;
         }
-        // ✅ FIN DE LA LÓGICA MODIFICADA
 
         this.cdr.detectChanges();
       }
@@ -145,8 +156,6 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     const state = this.roomState.currentState;
     return state === 'MapBanP1' || state === 'MapBanP2' || state === 'MapPickP1';
   }
-
-  // ❌ LA FUNCIÓN hasVoted() HA SIDO ELIMINADA
 
   getOpponentId(): number {
     const myId = this.authService.currentUserSig()!.usuarioId;

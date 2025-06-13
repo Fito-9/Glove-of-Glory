@@ -128,7 +128,8 @@ namespace GOG_Backend.Controllers
                 UsuarioId = user.UsuarioId,
                 NombreUsuario = user.NombreUsuario,
                 PuntuacionElo = user.PuntuacionElo,
-                Avatar = avatarUrl
+                Avatar = avatarUrl,
+                 Rol = user.Rol
             });
         }
     }

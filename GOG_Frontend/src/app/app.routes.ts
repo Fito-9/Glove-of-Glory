@@ -6,6 +6,7 @@ import { MatchRoomComponent } from './components/match-room/match-room.component
 import { FriendshipComponent } from './components/friendship/friendship.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { 
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'friends', component: FriendshipComponent },
   { path: 'ranking', component: RankingComponent },
   { path: 'admin', component: AdminPanelComponent },
+  { path: 'profile', component: ProfileComponent },
   { 
     path: '**', 
     redirectTo: 'login' 

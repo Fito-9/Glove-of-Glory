@@ -1,5 +1,11 @@
 ﻿namespace GOG_Backend.Models.Dto
 {
+    // ✅ DTO para todas las peticiones del admin
+    public class AdminRequestDto
+    {
+        public string AdminToken { get; set; }
+    }
+
     // DTO para mostrar la lista de usuarios en el panel de admin
     public class AdminUserViewDto
     {
@@ -11,7 +17,7 @@
     }
 
     // DTO para recibir los datos al actualizar un usuario
-    public class AdminUpdateUserDto
+    public class AdminUpdateUserDto : AdminRequestDto
     {
         public string Nickname { get; set; }
         public int PuntuacionElo { get; set; }

@@ -13,7 +13,7 @@
           [src]="authService.currentUserSig()?.avatar" 
           alt="User Avatar" 
           class="user-avatar">
-        <span class="username">{{ authService.currentUserSig()?.nombreUsuario }}</span>
+        <a routerLink="/profile" class="username">{{ authService.currentUserSig()?.nombreUsuario }}</a>
       </div>
       
       @if (authService.currentUserSig()?.rol === 'Admin') {

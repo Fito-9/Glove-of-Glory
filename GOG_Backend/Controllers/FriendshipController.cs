@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GOG_Backend.Controllers
 {
+    // Endpoints para todo lo relacionado con amigos.
     [Route("api/[controller]")]
     [ApiController]
     public class FriendshipController : ControllerBase
@@ -16,6 +17,7 @@ namespace GOG_Backend.Controllers
             _friendshipService = friendshipService;
         }
 
+        // Envía una solicitud de amistad de un usuario a otro.
         [HttpPost("send-request")]
         public async Task<IActionResult> SendFriendRequest([FromBody] FriendRequestDto request)
         {
@@ -23,6 +25,7 @@ namespace GOG_Backend.Controllers
             return Ok(new { Message = "Solicitud de amistad enviada" });
         }
 
+        // Acepta una solicitud de amistad.
         [HttpPost("accept-request")]
         public async Task<IActionResult> AcceptFriendRequest([FromBody] FriendRequestDto request)
         {
@@ -30,6 +33,7 @@ namespace GOG_Backend.Controllers
             return Ok(new { Message = "Solicitud de amistad aceptada" });
         }
 
+        // Rechaza una solicitud de amistad.
         [HttpPost("reject-request")]
         public async Task<IActionResult> RejectFriendRequest([FromBody] FriendRequestDto request)
         {
@@ -37,6 +41,7 @@ namespace GOG_Backend.Controllers
             return Ok(new { Message = "Solicitud de amistad rechazada" });
         }
 
+        // Devuelve la lista de amigos de un usuario.
         [HttpGet("friends/{userId}")]
         public async Task<IActionResult> GetFriends(int userId)
         {
@@ -44,7 +49,7 @@ namespace GOG_Backend.Controllers
             var friendDtos = friends.Select(u => new {
                 userId = u.UsuarioId,
                 nickname = u.NombreUsuario,
-                // ✅ CAMBIO: Ruta actualizada al avatar por defecto en /uploads
+                // Construimos la URL completa del avatar. Si no tiene, usamos el de por defecto.
                 ruta = string.IsNullOrEmpty(u.ImagenPerfil)
                        ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
                        : $"{Request.Scheme}://{Request.Host}/{u.ImagenPerfil.Replace('\\', '/')}"
@@ -52,6 +57,7 @@ namespace GOG_Backend.Controllers
             return Ok(friendDtos);
         }
 
+        // Devuelve las solicitudes de amistad pendientes de un usuario.
         [HttpGet("pending-requests/{userId}")]
         public async Task<IActionResult> GetPendingRequests(int userId)
         {
@@ -61,7 +67,6 @@ namespace GOG_Backend.Controllers
                 SenderId = fr.SenderId,
                 ReceiverId = fr.ReceiverId,
                 SenderNickname = fr.Sender?.NombreUsuario ?? "Desconocido",
-                // ✅ CAMBIO: Ruta actualizada al avatar por defecto en /uploads
                 SenderAvatar = string.IsNullOrEmpty(fr.Sender?.ImagenPerfil)
                                 ? $"{Request.Scheme}://{Request.Host}/uploads/default-avatar.png"
                                 : $"{Request.Scheme}://{Request.Host}/{fr.Sender.ImagenPerfil.Replace('\\', '/')}"

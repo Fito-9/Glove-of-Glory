@@ -1,6 +1,6 @@
 ﻿namespace GOG_Backend.Models.Dto
 {
-    // ✅ DTO para todas las peticiones del admin
+
     public class AdminRequestDto
     {
         public string AdminToken { get; set; }

@@ -3,7 +3,6 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 
-
 namespace StrategoBackend.WebSockets
 {
     public class WebSocketHandler : IDisposable
@@ -37,6 +36,7 @@ namespace StrategoBackend.WebSockets
                     WebSocketMessageDto messageDto;
                     try
                     {
+                        // Intentamos entender el mensaje como un objeto JSON.
                         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                         messageDto = JsonSerializer.Deserialize<WebSocketMessageDto>(message, options);
                         if (messageDto == null || string.IsNullOrEmpty(messageDto.Type))
@@ -46,6 +46,7 @@ namespace StrategoBackend.WebSockets
                     }
                     catch
                     {
+                        // Si no es JSON, lo tratamos como texto plano.
                         messageDto = new WebSocketMessageDto { Type = "text", Payload = message };
                     }
 
@@ -56,12 +57,14 @@ namespace StrategoBackend.WebSockets
                 }
             }
 
+            // Si salimos del bucle, es que se desconectó. 
             if (Disconnected != null)
             {
                 await Disconnected.Invoke(this);
             }
         }
 
+        // Lee un mensaje completo del socket.
         private async Task<string> ReadAsync()
         {
             using var ms = new MemoryStream();
@@ -82,6 +85,7 @@ namespace StrategoBackend.WebSockets
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 
+        // Envía un mensaje de texto al cliente.
         public async Task SendAsync(string message)
         {
             if (IsOpen)
@@ -91,12 +95,14 @@ namespace StrategoBackend.WebSockets
             }
         }
 
+        // Envía un objeto como JSON al cliente.
         public async Task SendAsync(WebSocketMessageDto dto)
         {
             string json = JsonSerializer.Serialize(dto);
             await SendAsync(json);
         }
 
+        // Limpia la conexión.
         public void Dispose()
         {
             _webSocket.Dispose();

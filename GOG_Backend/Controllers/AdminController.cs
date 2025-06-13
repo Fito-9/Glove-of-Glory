@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GOG_Backend.Controllers
 {
+    // Endpoints exclusivos para administradores.
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -19,7 +20,7 @@ namespace GOG_Backend.Controllers
             _dbContext = dbContext;
         }
 
-        // ✅✅✅ INICIO DEL NUEVO MÉTODO DE VALIDACIÓN 100% MANUAL ✅✅✅
+        // Método rápido para comprobar si el que hace la petición es admin.
         private async Task<(bool IsAdmin, string ErrorMessage)> IsUserAdmin(string tokenString)
         {
             if (string.IsNullOrEmpty(tokenString))
@@ -56,9 +57,8 @@ namespace GOG_Backend.Controllers
                 return (false, $"Error al procesar el token: {ex.Message}");
             }
         }
-        // ✅✅✅ FIN DEL NUEVO MÉTODO DE VALIDACIÓN ✅✅✅
 
-        // ✅ CAMBIO: Ahora recibe el token en el body de un POST
+        // Obtiene la lista de usuarios para el panel de admin.
         [HttpPost("users")]
         public async Task<IActionResult> GetAllUsers([FromBody] AdminRequestDto request)
         {
@@ -82,7 +82,7 @@ namespace GOG_Backend.Controllers
             return Ok(users);
         }
 
-        // ✅ CAMBIO: El DTO ya contiene el token
+        // Actualiza un usuario.
         [HttpPut("users/{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] AdminUpdateUserDto updateUserDto)
         {
@@ -107,7 +107,7 @@ namespace GOG_Backend.Controllers
             return Ok(new { Message = "Usuario actualizado correctamente." });
         }
 
-        // ✅ CAMBIO: Ahora es un POST para poder enviar el token en el body
+        // Elimina un usuario.
         [HttpPost("users/delete/{id}")]
         public async Task<IActionResult> DeleteUser(int id, [FromBody] AdminRequestDto request)
         {

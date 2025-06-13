@@ -13,12 +13,15 @@ using System.Threading.Tasks;
 
 namespace GOG_Backend.WebSockets
 {
+    // El cerebro de todo el tinglado en tiempo real.
+    // Controla quién está conectado, las colas de matchmaking y las salas de juego.
     public class WebSocketNetwork
     {
-        private readonly Dictionary<int, WebSocketHandler> _handlers = new();
-        private readonly SemaphoreSlim _semaphore = new(1, 1);
-        private readonly Queue<int> _matchmakingQueue = new();
-        private readonly Dictionary<string, MatchRoom> _activeRooms = new();
+        // Diccionarios para guardar el estado de todo.
+        private readonly Dictionary<int, WebSocketHandler> _handlers = new(); // Guarda la conexión de cada usuario.
+        private readonly SemaphoreSlim _semaphore = new(1, 1); // Un semáforo para que no se pisen los hilos al modificar los diccionarios.
+        private readonly Queue<int> _matchmakingQueue = new(); // La cola de gente esperando partida.
+        private readonly Dictionary<string, MatchRoom> _activeRooms = new(); // Las salas de juego que están en marcha.
         private readonly IServiceProvider _serviceProvider;
 
         public WebSocketNetwork(IServiceProvider serviceProvider)
@@ -26,20 +29,23 @@ namespace GOG_Backend.WebSockets
             _serviceProvider = serviceProvider;
         }
 
+        // Cuando llega una nueva conexión WebSocket, esto es lo primero que se ejecuta.
         public async Task HandleAsync(WebSocket webSocket, int userId)
         {
             if (userId == 0)
             {
-                Console.WriteLine("Error: Se intentó conectar un usuario con ID 0. Conexión rechazada.");
+                // Si no hay ID de usuario, es que el token es malo. Puerta.
+                Console.WriteLine("Error: Usuario con ID 0 intentando conectar. Conexión rechazada.");
                 await webSocket.CloseAsync(WebSocketCloseStatus.PolicyViolation, "Token inválido o ausente.", CancellationToken.None);
                 return;
             }
 
             var handler = await AddHandlerAsync(webSocket, userId);
-            await BroadcastOnlineUsersAsync();
-            await handler.HandleAsync();
+            await BroadcastOnlineUsersAsync(); // Avisamos a todos que ha entrado alguien nuevo.
+            await handler.HandleAsync(); // Ponemos al handler a escuchar mensajes.
         }
 
+        // Mete a un nuevo usuario en la lista de conectados.
         private async Task<WebSocketHandler> AddHandlerAsync(WebSocket webSocket, int userId)
         {
             await _semaphore.WaitAsync();
@@ -57,6 +63,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Se ejecuta cuando un usuario se desconecta. Limpieza.
         private async Task OnDisconnectedAsync(WebSocketHandler handler)
         {
             await _semaphore.WaitAsync();
@@ -65,23 +72,25 @@ namespace GOG_Backend.WebSockets
                 if (_handlers.ContainsKey(handler.UserId))
                 {
                     _handlers.Remove(handler.UserId);
-                    RemoveFromMatchmakingQueue(handler.UserId);
+                    RemoveFromMatchmakingQueue(handler.UserId); // Lo sacamos de la cola si estaba buscando.
                 }
             }
             finally
             {
                 _semaphore.Release();
             }
-            await BroadcastOnlineUsersAsync();
+            await BroadcastOnlineUsersAsync(); // Avisamos a todos que alguien se ha pirado.
         }
 
+        // El "router" de los mensajes WebSocket. Decide qué hacer con cada mensaje que llega.
         private async Task OnMessageReceivedAsync(WebSocketHandler handler, WebSocketMessageDto message)
         {
-            Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}, Payload={message.Payload}");
+            Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}");
 
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var payloadElement = (JsonElement)message.Payload;
 
+            // Primero miramos los mensajes que no son de una sala específica.
             switch (message.Type)
             {
                 case "matchmakingRequest":
@@ -89,36 +98,27 @@ namespace GOG_Backend.WebSockets
                     return;
                 case "inviteFriend":
                     var invitePayload = payloadElement.Deserialize<InviteFriendPayload>(options);
-                    if (invitePayload != null)
-                    {
-                        await HandleFriendInvite(handler.UserId, invitePayload.InvitedUserId);
-                    }
+                    if (invitePayload != null) await HandleFriendInvite(handler.UserId, invitePayload.InvitedUserId);
                     return;
                 case "acceptInvite":
-                    var acceptPayload = payloadElement.Deserialize<InviteFriendPayload>(options); // Reutilizamos el DTO
-                    if (acceptPayload != null)
-                    {
-                        await HandleAcceptInvite(handler.UserId, acceptPayload.InvitedUserId);
-                    }
+                    var acceptPayload = payloadElement.Deserialize<InviteFriendPayload>(options);
+                    if (acceptPayload != null) await HandleAcceptInvite(handler.UserId, acceptPayload.InvitedUserId);
                     return;
             }
 
+            // Si el mensaje es para una sala de juego, lo gestionamos aquí.
             await _semaphore.WaitAsync();
             try
             {
-                string roomId = null;
-                if (payloadElement.TryGetProperty("RoomId", out var roomIdElement))
-                {
-                    roomId = roomIdElement.GetString();
-                }
-
+                string roomId = payloadElement.TryGetProperty("RoomId", out var roomIdElement) ? roomIdElement.GetString() : null;
                 if (roomId == null || !_activeRooms.TryGetValue(roomId, out var room))
                 {
-                    Console.WriteLine($"Acción para una sala no existente o inválida: {roomId}");
+                    Console.WriteLine($"Acción para una sala que no existe: {roomId}");
                     return;
                 }
 
-                string username = "Unknown";
+                // Pillamos el nombre de usuario de la BD para el chat.
+                string username = "Desconocido";
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
@@ -128,6 +128,7 @@ namespace GOG_Backend.WebSockets
 
                 bool stateChanged = false;
 
+                // Acciones dentro de una partida.
                 switch (message.Type)
                 {
                     case "selectCharacter":
@@ -168,7 +169,7 @@ namespace GOG_Backend.WebSockets
                             {
                                 await BroadcastRoomState(roomId);
                                 await FinalizeMatch(room, players.winner.Value, players.loser.Value);
-                                _activeRooms.Remove(roomId);
+                                _activeRooms.Remove(roomId); // La partida ha terminado, la eliminamos.
                                 stateChanged = false;
                             }
                         }
@@ -186,7 +187,7 @@ namespace GOG_Backend.WebSockets
 
                 if (stateChanged)
                 {
-                    await BroadcastRoomState(roomId);
+                    await BroadcastRoomState(roomId); // Si algo cambió, avisamos a los jugadores de la sala.
                 }
             }
             catch (Exception ex)
@@ -199,6 +200,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Manda una invitación de partida a un amigo.
         private async Task HandleFriendInvite(int senderId, int receiverId)
         {
             if (_handlers.TryGetValue(receiverId, out var receiverHandler))
@@ -226,6 +228,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Cuando alguien acepta una invitación, se crea la sala.
         private async Task HandleAcceptInvite(int receiverId, int senderId)
         {
             await _semaphore.WaitAsync();
@@ -262,6 +265,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Gestiona la cola de matchmaking.
         private async Task HandleMatchmakingRequest(WebSocketHandler handler)
         {
             await _semaphore.WaitAsync();
@@ -269,11 +273,12 @@ namespace GOG_Backend.WebSockets
             {
                 if (_matchmakingQueue.Contains(handler.UserId) || _activeRooms.Values.Any(r => r.Player1Id == handler.UserId || r.Player2Id == handler.UserId))
                 {
-                    return;
+                    return; // Si ya está en cola o en partida, no hace nada.
                 }
 
                 if (_matchmakingQueue.Count > 0)
                 {
+                    // Si hay alguien esperando, los emparejamos.
                     int opponentId = _matchmakingQueue.Dequeue();
                     if (_handlers.TryGetValue(opponentId, out var opponentHandler))
                     {
@@ -300,6 +305,7 @@ namespace GOG_Backend.WebSockets
                 }
                 else
                 {
+                    // Si no hay nadie, lo ponemos a la cola.
                     _matchmakingQueue.Enqueue(handler.UserId);
                     await handler.SendAsync(new WebSocketMessageDto { Type = "waitingForMatch", Payload = "Esperando oponente..." });
                 }
@@ -310,6 +316,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Envía el estado actual de una sala a sus dos jugadores.
         private async Task BroadcastRoomState(string roomId)
         {
             if (_activeRooms.TryGetValue(roomId, out var room))
@@ -321,6 +328,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Cuando la partida termina, actualiza el ELO y guarda el resultado.
         private async Task FinalizeMatch(MatchRoom room, int winnerId, int loserId)
         {
             using (var scope = _serviceProvider.CreateScope())
@@ -351,6 +359,7 @@ namespace GOG_Backend.WebSockets
                     await dbContext.Matches.AddAsync(newMatch);
                     await dbContext.SaveChangesAsync();
 
+                    // Avisa a los jugadores de su nuevo ELO.
                     var winnerUpdatePayload = new { newElo = winner.PuntuacionElo };
                     var loserUpdatePayload = new { newElo = loser.PuntuacionElo };
 
@@ -369,6 +378,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Saca a un usuario de la cola de matchmaking.
         private void RemoveFromMatchmakingQueue(int userId)
         {
             if (_matchmakingQueue.Contains(userId))
@@ -382,6 +392,7 @@ namespace GOG_Backend.WebSockets
             }
         }
 
+        // Envía la lista de usuarios conectados a todos.
         private async Task BroadcastOnlineUsersAsync()
         {
             await _semaphore.WaitAsync();

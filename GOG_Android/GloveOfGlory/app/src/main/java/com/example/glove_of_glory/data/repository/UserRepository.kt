@@ -15,4 +15,7 @@ class UserRepository(private val apiService: ApiService) {
             email = email.toRequestBody("text/plain".toMediaTypeOrNull()),
             password = password.toRequestBody("text/plain".toMediaTypeOrNull())
         )
+
+    // --- AÑADIDO ---
+    suspend fun getUserProfile(userId: Int) = apiService.getUserProfile(userId)
 }

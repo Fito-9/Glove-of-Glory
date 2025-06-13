@@ -1,5 +1,5 @@
 package com.example.glove_of_glory.ui.screens
-// --- IMPORTS CORRECTOS ---
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.glove_of_glory.data.local.UserPreferencesRepository // <-- IMPORTAR
 import com.example.glove_of_glory.data.remote.RetrofitClient
 import com.example.glove_of_glory.data.repository.UserRepository
 import com.example.glove_of_glory.navigation.Routes
@@ -29,11 +30,15 @@ import com.example.glove_of_glory.util.Resource
 fun LoginScreen(navController: NavController) {
     val context = LocalContext.current
 
-    // Esta línea ahora encontrará AuthViewModelFactory, UserRepository y RetrofitClient
+// ...
     val authViewModel: AuthViewModel = viewModel(
-        factory = AuthViewModelFactory(UserRepository(RetrofitClient.instance))
+        factory = AuthViewModelFactory(
+            // Pasamos el context al crear la instancia de Retrofit
+            userRepository = UserRepository(RetrofitClient.getInstance(context)),
+            prefsRepository = UserPreferencesRepository(context)
+        )
     )
-
+// ...
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -43,8 +48,9 @@ fun LoginScreen(navController: NavController) {
         when (val state = loginState) {
             is Resource.Success -> {
                 Toast.makeText(context, "Login exitoso!", Toast.LENGTH_SHORT).show()
+                // Navegamos a la pantalla principal y limpiamos la pila de navegación
                 navController.navigate(Routes.Main.route) {
-                    popUpTo(Routes.Login.route) {
+                    popUpTo(navController.graph.startDestinationId) {
                         inclusive = true
                     }
                 }
@@ -102,7 +108,6 @@ fun LoginScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Esta línea ahora encontrará SmashRed
             Button(
                 onClick = {
                     if (email.isNotBlank() && password.isNotBlank()) {

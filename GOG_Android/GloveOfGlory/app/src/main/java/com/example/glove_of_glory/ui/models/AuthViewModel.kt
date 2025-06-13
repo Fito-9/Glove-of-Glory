@@ -2,6 +2,7 @@ package com.example.glove_of_glory.ui.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.glove_of_glory.data.local.UserPreferencesRepository
 import com.example.glove_of_glory.data.remote.dto.ErrorResponse
 import com.example.glove_of_glory.data.remote.dto.LoginResponse
 import com.example.glove_of_glory.data.remote.dto.RegisterResponse
@@ -14,13 +15,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
+class AuthViewModel(
+    private val userRepository: UserRepository,
+    private val prefsRepository: UserPreferencesRepository
+) : ViewModel() {
 
-    // Login State
     private val _loginState = MutableStateFlow<Resource<LoginResponse>?>(null)
     val loginState: StateFlow<Resource<LoginResponse>?> = _loginState.asStateFlow()
 
-    // Register State
     private val _registerState = MutableStateFlow<Resource<RegisterResponse>?>(null)
     val registerState: StateFlow<Resource<RegisterResponse>?> = _registerState.asStateFlow()
 
@@ -32,7 +34,11 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
             try {
                 val response = userRepository.loginUser(email, password)
                 if (response.isSuccessful && response.body() != null) {
-                    _loginState.value = Resource.Success(response.body()!!)
+                    val loginData = response.body()!!
+                    // --- CAMBIO AQUÍ ---
+                    // Llamamos al nuevo método para guardar AMBOS datos: token y ID.
+                    prefsRepository.saveAuthTokenAndId(loginData.accessToken, loginData.usuarioId)
+                    _loginState.value = Resource.Success(loginData)
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = if (!errorBody.isNullOrEmpty()) {
@@ -75,6 +81,14 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
             } catch (e: Exception) {
                 _registerState.value = Resource.Error(e.message ?: "Ocurrió un error inesperado.")
             }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            prefsRepository.clear()
+            _loginState.value = null
+            _registerState.value = null
         }
     }
 

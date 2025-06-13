@@ -1,5 +1,5 @@
 package com.example.glove_of_glory.ui.screens
-// En la parte superior de RegisterScreen.kt
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,23 +19,28 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.glove_of_glory.data.local.UserPreferencesRepository // <-- IMPORTAR
 import com.example.glove_of_glory.data.remote.RetrofitClient
 import com.example.glove_of_glory.data.repository.UserRepository
-
 import com.example.glove_of_glory.navigation.Routes
 import com.example.glove_of_glory.ui.models.AuthViewModel
 import com.example.glove_of_glory.ui.models.AuthViewModelFactory
 import com.example.glove_of_glory.ui.theme.SmashRed
-
 import com.example.glove_of_glory.util.Resource
 
 @Composable
 fun RegisterScreen(navController: NavController) {
     val context = LocalContext.current
 
+// ...
     val authViewModel: AuthViewModel = viewModel(
-        factory = AuthViewModelFactory(UserRepository(RetrofitClient.instance))
+        factory = AuthViewModelFactory(
+            // Pasamos el context al crear la instancia de Retrofit
+            userRepository = UserRepository(RetrofitClient.getInstance(context)),
+            prefsRepository = UserPreferencesRepository(context)
+        )
     )
+// ...
 
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -48,9 +53,10 @@ fun RegisterScreen(navController: NavController) {
         when (val state = registerState) {
             is Resource.Success -> {
                 Toast.makeText(context, state.data?.message ?: "Registro exitoso. Ahora inicia sesión.", Toast.LENGTH_LONG).show()
+                // Navegamos a Login y limpiamos la pila para que no pueda volver a Registro con el botón "atrás"
                 navController.navigate(Routes.Login.route) {
-                    // Limpiamos la pila de navegación hasta la pantalla de Login para que el usuario no vuelva a Registro
                     popUpTo(Routes.Login.route) { inclusive = true }
+                    launchSingleTop = true
                 }
                 authViewModel.resetRegisterState()
             }
@@ -72,7 +78,7 @@ fun RegisterScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState()), // Para evitar que el teclado oculte los campos
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

@@ -1,29 +1,37 @@
 package com.example.glove_of_glory.data.remote
 
+import android.content.Context
+import com.example.glove_of_glory.data.remote.interceptor.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    // IMPORTANTE: Asegúrate de que esta IP es la de tu PC en la red local.
-    // En Windows: ipconfig | En Mac/Linux: ifconfig o ip a
-    private const val BASE_URL =  "http://10.0.2.2:5023/api/" // <-- ¡¡CAMBIA ESTA IP!!
+    private const val BASE_URL = "http://10.0.2.2:5023/api/"
+    private var apiService: ApiService? = null
 
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
+    // Cambiamos el método para que acepte un Context y cree una única instancia (Singleton)
+    fun getInstance(context: Context): ApiService {
+        if (apiService == null) {
+            val loggingInterceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
 
-    private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .build()
+            // Creamos el cliente OkHttp añadiendo nuestro nuevo AuthInterceptor
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(AuthInterceptor(context)) // <-- AÑADIDO
+                .addInterceptor(loggingInterceptor)
+                .build()
 
-    val instance: ApiService by lazy {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        retrofit.create(ApiService::class.java)
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(okHttpClient) // <-- Usamos el nuevo cliente
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            apiService = retrofit.create(ApiService::class.java)
+        }
+        return apiService!!
     }
 }

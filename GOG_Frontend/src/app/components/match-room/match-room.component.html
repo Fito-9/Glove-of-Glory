@@ -52,6 +52,7 @@
     <!-- Vista de Declaración de Ganador -->
     <div *ngIf="roomState.currentState === 'WinnerDeclaration'" class="state-view">
       <h3>¿Quién ha ganado la partida?</h3>
+      <p *ngIf="voteMismatch" class="error-message">Los votos no coincidieron. Por favor, vuelvan a votar.</p>
       <div *ngIf="!hasVoted()" class="vote-buttons">
           <button class="btn" (click)="onDeclareWinner(roomState.player1Id)">{{ roomState.player1Username }}</button>
           <button class="btn" (click)="onDeclareWinner(roomState.player2Id)">{{ roomState.player2Username }}</button>

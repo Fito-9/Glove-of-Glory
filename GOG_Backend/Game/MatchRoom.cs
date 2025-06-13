@@ -22,7 +22,6 @@ namespace GOG_Backend.Game
         public int Player2Id { get; }
         public GameState CurrentState { get; private set; }
 
-        // --- PROPIEDADES AÑADIDAS PARA LOS NOMBRES DE USUARIO ---
         public string Player1Username { get; }
         public string Player2Username { get; }
 
@@ -38,14 +37,13 @@ namespace GOG_Backend.Game
         private int? _player1WinnerVote;
         private int? _player2WinnerVote;
 
-        // --- CONSTRUCTOR MODIFICADO PARA ACEPTAR NOMBRES DE USUARIO ---
         public MatchRoom(int player1Id, string player1Username, int player2Id, string player2Username)
         {
             RoomId = Guid.NewGuid().ToString();
             Player1Id = player1Id;
-            Player1Username = player1Username; // Asignar nombre de usuario
+            Player1Username = player1Username;
             Player2Id = player2Id;
-            Player2Username = player2Username; // Asignar nombre de usuario
+            Player2Username = player2Username;
             CurrentState = GameState.CharacterSelection;
             MapPool = new List<string> { "Small Battlefield", "Battlefield", "Final Destination", "Pokémon Stadium 2", "Hollow Bastion", "Smashville", "Town and City", "Kalos Pokémon League", "Yoshi's Story" };
         }
@@ -103,6 +101,16 @@ namespace GOG_Backend.Game
             if (userId == Player1Id) _player1WinnerVote = declaredWinnerId;
             else if (userId == Player2Id) _player2WinnerVote = declaredWinnerId;
 
+            // Si los votos no coinciden, se resetean para que vuelvan a votar.
+            if (_player1WinnerVote.HasValue && _player2WinnerVote.HasValue && _player1WinnerVote != _player2WinnerVote)
+            {
+                _player1WinnerVote = null;
+                _player2WinnerVote = null;
+                // Devolvemos false para que la partida no termine, pero el estado ha cambiado (se reseteó)
+                return (false, null, null);
+            }
+
+            // Si ambos votos existen y coinciden, la partida termina.
             if (_player1WinnerVote.HasValue && _player1WinnerVote == _player2WinnerVote)
             {
                 CurrentState = GameState.Finished;
@@ -111,6 +119,7 @@ namespace GOG_Backend.Game
                 return (true, winner, loser);
             }
 
+            // Si solo uno ha votado, la partida no ha terminado.
             return (false, null, null);
         }
 
@@ -121,9 +130,9 @@ namespace GOG_Backend.Game
                 roomId = RoomId,
                 currentState = CurrentState.ToString(),
                 player1Id = Player1Id,
-                player1Username = Player1Username, 
+                player1Username = Player1Username,
                 player2Id = Player2Id,
-                player2Username = Player2Username, 
+                player2Username = Player2Username,
                 player1Character = (CurrentState > GameState.CharacterSelection) ? Player1Character : null,
                 player2Character = (CurrentState > GameState.CharacterSelection) ? Player2Character : null,
                 mapPool = MapPool,

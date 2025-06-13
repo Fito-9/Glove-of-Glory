@@ -28,6 +28,13 @@ namespace GOG_Backend.WebSockets
 
         public async Task HandleAsync(WebSocket webSocket, int userId)
         {
+            if (userId == 0)
+            {
+                Console.WriteLine("Error: Se intentó conectar un usuario con ID 0. Conexión rechazada.");
+                await webSocket.CloseAsync(WebSocketCloseStatus.PolicyViolation, "Token inválido o ausente.", CancellationToken.None);
+                return;
+            }
+
             var handler = await AddHandlerAsync(webSocket, userId);
             await BroadcastOnlineUsersAsync();
             await handler.HandleAsync();
@@ -58,7 +65,8 @@ namespace GOG_Backend.WebSockets
 
         private async Task OnMessageReceivedAsync(WebSocketHandler handler, WebSocketMessageDto message)
         {
-          
+            Console.WriteLine($"Mensaje recibido de {handler.UserId}: Tipo={message.Type}");
+
             if (message.Type == "matchmakingRequest")
             {
                 await HandleMatchmakingRequest(handler);
@@ -68,7 +76,6 @@ namespace GOG_Backend.WebSockets
             GameActionDto gameActionPayload;
             try
             {
-
                 gameActionPayload = JsonSerializer.Deserialize<GameActionDto>(message.Payload.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
             catch (JsonException)
@@ -82,7 +89,6 @@ namespace GOG_Backend.WebSockets
                 Console.WriteLine($"Acción para una sala no existente o inválida: {gameActionPayload?.RoomId}");
                 return;
             }
-
 
             string username = "Unknown";
             using (var scope = _serviceProvider.CreateScope())
@@ -168,22 +174,19 @@ namespace GOG_Backend.WebSockets
             {
                 if (_handlers.TryGetValue(receiverId, out var receiverHandler))
                 {
-   
-                    string senderUsername = "Player1";
-                    string receiverUsername = "Player2";
+                    string senderUsername, receiverUsername;
                     using (var scope = _serviceProvider.CreateScope())
                     {
                         var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
                         var user1 = await dbContext.Users.FindAsync(senderId);
                         var user2 = await dbContext.Users.FindAsync(receiverId);
-                        if (user1 != null) senderUsername = user1.NombreUsuario;
-                        if (user2 != null) receiverUsername = user2.NombreUsuario;
+                        senderUsername = user1?.NombreUsuario ?? $"Usuario (ID: {senderId})";
+                        receiverUsername = user2?.NombreUsuario ?? $"Usuario (ID: {receiverId})";
                     }
 
                     var newRoom = new MatchRoom(senderId, senderUsername, receiverId, receiverUsername);
                     _activeRooms[newRoom.RoomId] = newRoom;
 
-             
                     var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
 
                     if (_handlers.TryGetValue(senderId, out var senderHandler))
@@ -204,45 +207,49 @@ namespace GOG_Backend.WebSockets
         private async Task HandleMatchmakingRequest(WebSocketHandler handler)
         {
             await _semaphore.WaitAsync();
-            if (_matchmakingQueue.Contains(handler.UserId))
+            try
             {
-                _semaphore.Release();
-                return;
-            }
-
-            if (_matchmakingQueue.Count > 0)
-            {
-                int opponentId = _matchmakingQueue.Dequeue();
-                if (_handlers.TryGetValue(opponentId, out var opponentHandler))
+                if (_matchmakingQueue.Contains(handler.UserId) || _activeRooms.Values.Any(r => r.Player1Id == handler.UserId || r.Player2Id == handler.UserId))
                 {
-                    string player1Username = "Player1";
-                    string player2Username = "Player2";
-                    using (var scope = _serviceProvider.CreateScope())
+                    return; // El usuario ya está en cola o en una partida
+                }
+
+                if (_matchmakingQueue.Count > 0)
+                {
+                    int opponentId = _matchmakingQueue.Dequeue();
+                    if (_handlers.TryGetValue(opponentId, out var opponentHandler))
                     {
-                        var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
-                        var user1 = await dbContext.Users.FindAsync(opponentId);
-                        var user2 = await dbContext.Users.FindAsync(handler.UserId);
-                        if (user1 != null) player1Username = user1.NombreUsuario;
-                        if (user2 != null) player2Username = user2.NombreUsuario;
+                        string player1Username, player2Username;
+                        using (var scope = _serviceProvider.CreateScope())
+                        {
+                            var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+                            var user1 = await dbContext.Users.FindAsync(opponentId);
+                            var user2 = await dbContext.Users.FindAsync(handler.UserId);
+                            player1Username = user1?.NombreUsuario ?? $"Usuario (ID: {opponentId})";
+                            player2Username = user2?.NombreUsuario ?? $"Usuario (ID: {handler.UserId})";
+                        }
+
+                        var newRoom = new MatchRoom(opponentId, player1Username, handler.UserId, player2Username);
+                        _activeRooms[newRoom.RoomId] = newRoom;
+
+                        var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
+
+                        await opponentHandler.SendAsync(matchMessage);
+                        await handler.SendAsync(matchMessage);
+
+                        await BroadcastRoomState(newRoom.RoomId);
                     }
-
-                    var newRoom = new MatchRoom(opponentId, player1Username, handler.UserId, player2Username);
-                    _activeRooms[newRoom.RoomId] = newRoom;
-
-                    var matchMessage = new WebSocketMessageDto { Type = "matchFound", Payload = new { roomId = newRoom.RoomId } };
-
-                    await opponentHandler.SendAsync(matchMessage);
-                    await handler.SendAsync(matchMessage);
-
-                    await BroadcastRoomState(newRoom.RoomId);
+                }
+                else
+                {
+                    _matchmakingQueue.Enqueue(handler.UserId);
+                    await handler.SendAsync(new WebSocketMessageDto { Type = "waitingForMatch", Payload = "Esperando oponente..." });
                 }
             }
-            else
+            finally
             {
-                _matchmakingQueue.Enqueue(handler.UserId);
-                await handler.SendAsync(new WebSocketMessageDto { Type = "waitingForMatch", Payload = "Esperando oponente..." });
+                _semaphore.Release();
             }
-            _semaphore.Release();
         }
 
         private async Task BroadcastRoomState(string roomId)
@@ -266,8 +273,8 @@ namespace GOG_Backend.WebSockets
 
                 if (winner != null && loser != null)
                 {
-                    winner.PuntuacionElo += 20;
-                    loser.PuntuacionElo = Math.Max(0, loser.PuntuacionElo - 10);
+                    winner.PuntuacionElo += 15;
+                    loser.PuntuacionElo = Math.Max(0, loser.PuntuacionElo - 15);
 
                     var newMatch = new Match
                     {
@@ -288,7 +295,6 @@ namespace GOG_Backend.WebSockets
 
         private void RemoveFromMatchmakingQueue(int userId)
         {
- 
             if (_matchmakingQueue.Contains(userId))
             {
                 var newQueue = new Queue<int>(_matchmakingQueue.Where(id => id != userId));
@@ -302,16 +308,15 @@ namespace GOG_Backend.WebSockets
 
         private async Task BroadcastOnlineUsersAsync()
         {
-            var onlineUserIds = _handlers.Keys.ToList();
-            var dto = new WebSocketMessageDto
-            {
-                Type = "onlineUsers",
-                Payload = onlineUserIds
-            };
-
             await _semaphore.WaitAsync();
             try
             {
+                var onlineUserIds = _handlers.Keys.ToList();
+                var dto = new WebSocketMessageDto
+                {
+                    Type = "onlineUsers",
+                    Payload = onlineUserIds
+                };
                 var tasks = _handlers.Values.Select(handler => handler.SendAsync(dto));
                 await Task.WhenAll(tasks);
             }

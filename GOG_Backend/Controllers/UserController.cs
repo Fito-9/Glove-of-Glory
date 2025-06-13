@@ -96,12 +96,15 @@ namespace GOG_Backend.Controllers
 
             string avatarUrl = string.IsNullOrEmpty(user.ImagenPerfil)
                 ? null
-                : $"{Request.Scheme}://{Request.Host}/{user.ImagenPerfil}";
+                : $"{Request.Scheme}://{Request.Host}/{user.ImagenPerfil.Replace('\\', '/')}";
 
+            // CORRECCIÓN: Añadir NombreUsuario y PuntuacionElo a la respuesta
             return Ok(new
             {
                 AccessToken = accessToken,
                 UsuarioId = user.UsuarioId,
+                NombreUsuario = user.NombreUsuario,
+                PuntuacionElo = user.PuntuacionElo,
                 Avatar = avatarUrl
             });
         }

@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, EMPTY } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from './authservice';
 import { Router } from '@angular/router';
 
@@ -16,10 +16,8 @@ export class WebsocketService {
   public matchmakingMessage$ = new Subject<any>();
   public matchState$ = new BehaviorSubject<any>(null);
 
-  // --- PROPIEDADES AÑADIDAS PARA USUARIOS ONLINE ---
   private connectedUsers = new Set<number>();
   public onlineUsers$ = new BehaviorSubject<Set<number>>(new Set());
-  // -------------------------------------------------
 
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -27,41 +25,50 @@ export class WebsocketService {
   private maxReconnectAttempts = 5;
   private reconnectInterval = 5000;
 
-  constructor(private http: HttpClient) {}
-
   connect(): void {
-    const token = this.authService.getToken(); 
-    if (!token || this.socket$) return;
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error("No hay token, no se puede conectar al WebSocket.");
+      return;
+    }
+    if (this.socket$ && this.socket$.closed === false) {
+      return;
+    }
 
     const url = `${environment.socketUrl}?token=${token}`;
     this.socket$ = webSocket({
       url: url,
-      serializer: msg => msg,
-      deserializer: event => event.data,
-      openObserver: { next: () => {
-          console.log('WebSocket conectado');
+      serializer: msg => JSON.stringify(msg),
+      deserializer: event => JSON.parse(event.data),
+      openObserver: {
+        next: () => {
+          console.log('WebSocket conectado exitosamente.');
           this.connected$.next(true);
           this.reconnectAttempts = 0;
-      }},
-      closeObserver: { next: () => {
-          console.log('WebSocket desconectado');
+        }
+      },
+      closeObserver: {
+        next: () => {
+          console.log('WebSocket desconectado.');
           this.connected$.next(false);
           this.socket$ = null;
-          // --- LIMPIAR LISTA DE USUARIOS AL DESCONECTAR ---
           this.connectedUsers.clear();
           this.onlineUsers$.next(new Set());
-          // ---------------------------------------------
           this.reconnect();
-      }}
+        }
+      }
     });
 
-    this.socket$.subscribe({
-      next: (message: any) => this.handleMessage(message),
-      error: err => {
+    this.socket$.pipe(
+      catchError(err => {
         console.error('Error en WebSocket:', err);
+        this.socket$?.complete();
         this.socket$ = null;
         this.reconnect();
-      }
+        return EMPTY;
+      })
+    ).subscribe({
+      next: (message: any) => this.handleMessage(message)
     });
   }
 
@@ -73,65 +80,64 @@ export class WebsocketService {
     }
   }
 
-  private handleMessage(message: string): void {
-    try {
-      const parsed = JSON.parse(message);
-      switch (parsed.Type) {
-        // --- NUEVO CASE PARA MANEJAR LA LISTA DE USUARIOS ONLINE ---
-        case 'onlineUsers':
-          const userIds: number[] = parsed.Payload;
-          this.connectedUsers = new Set(userIds);
-          this.onlineUsers$.next(this.connectedUsers);
-          break;
-        // ---------------------------------------------------------
-        case 'matchFound':
-          this.matchmakingMessage$.next(parsed.Payload);
-          this.router.navigate(['/match', parsed.Payload.roomId]);
-          break;
-        case 'waitingForMatch':
-          this.matchmakingMessage$.next(parsed);
-          break;
-        case 'matchStateUpdate':
-          this.matchState$.next(parsed.Payload);
-          break;
-        default:
-          console.log('Mensaje desconocido:', parsed);
-      }
-    } catch (error) {
-      console.error('Error al parsear mensaje:', error, 'Original:', message);
+  private handleMessage(parsed: any): void {
+    console.log("Mensaje recibido del WebSocket:", parsed);
+    switch (parsed.Type) {
+      case 'onlineUsers':
+        const userIds: number[] = parsed.Payload;
+        this.connectedUsers = new Set(userIds);
+        this.onlineUsers$.next(this.connectedUsers);
+        break;
+      case 'matchFound':
+        this.router.navigate(['/match', parsed.Payload.roomId]);
+        break;
+      case 'waitingForMatch':
+        this.matchmakingMessage$.next(parsed);
+        break;
+      case 'matchStateUpdate':
+        this.matchState$.next(parsed.Payload);
+        break;
+      default:
+        console.log('Mensaje de tipo desconocido:', parsed);
     }
   }
-  
-  // --- NUEVO MÉTODO PARA OBTENER LA LISTA ACTUAL ---
+
   getOnlineUsers(): Set<number> {
     return this.connectedUsers;
   }
-  // ------------------------------------------------
 
-  // ... (resto de métodos como requestMatchmaking, sendGameAction, etc. no cambian)
-  
-  inviteFriend(roomId: string, invitedUserId: number): void {
-    this.sendGameAction('inviteFriend', roomId, { InvitedUserId: invitedUserId });
-  }
-  
-  requestInitialRoomState(roomId: string): void {
-    this.sendGameAction('requestInitialState', roomId, {});
+  private send(message: any): void {
+    if (this.socket$ && this.connected$.getValue()) {
+      this.socket$.next(message);
+    } else {
+      console.error('Intento de enviar mensaje pero el WebSocket no está conectado.');
+    }
   }
 
   requestMatchmaking(): void {
-    if (this.socket$) {
-      this.socket$.next(JSON.stringify({ Type: 'matchmakingRequest', Payload: {} }));
-    }
+    this.send({ Type: 'matchmakingRequest', Payload: {} });
   }
 
+  // CORRECCIÓN CLAVE: El payload ya no se vuelve a convertir a string.
   private sendGameAction(type: string, roomId: string, payload: any): void {
-    if (this.socket$) {
-      const message = {
-        Type: type,
-        Payload: JSON.stringify({ RoomId: roomId, Payload: payload })
-      };
-      this.socket$.next(JSON.stringify(message));
-    }
+    const message = {
+      Type: type,
+      Payload: { RoomId: roomId, Payload: payload } // El payload es un objeto, no un string
+    };
+    this.send(message);
+  }
+
+  requestInitialRoomState(roomId: string): void {
+    this.sendGameAction('requestInitialState', roomId, {});
+  }
+  
+  inviteFriend(friendId: number): void {
+    // La invitación no tiene un roomId aún, se crea en el backend.
+    const message = {
+        Type: 'inviteFriend',
+        Payload: { InvitedUserId: friendId }
+    };
+    this.send(message);
   }
 
   selectCharacter(roomId: string, characterName: string): void {
@@ -157,9 +163,10 @@ export class WebsocketService {
   private reconnect(): void {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
+      console.log(`Intento de reconexión ${this.reconnectAttempts}/${this.maxReconnectAttempts}...`);
       setTimeout(() => this.connect(), this.reconnectInterval);
     } else {
-      console.error('Máximo de intentos de reconexión alcanzado.');
+      console.error('Máximo de intentos de reconexión alcanzado. Por favor, recarga la página.');
     }
   }
 }

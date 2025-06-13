@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, inject, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component, OnInit, OnDestroy, inject, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { WebsocketService } from '../../services/websocket.service';
 import { AuthService } from '../../services/authservice';
@@ -19,6 +19,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   private route = inject(ActivatedRoute);
   private websocketService = inject(WebsocketService);
   public authService = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef); // Para forzar la detección de cambios
 
   roomId!: string;
   roomState: any;
@@ -27,15 +28,31 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   hasSelectedCharacter = false;
   selectedMapsForBan: string[] = [];
   chatMessage = '';
+  
+  // Variable para mostrar si hubo un desacuerdo en la votación
+  voteMismatch = false;
 
   ngOnInit(): void {
     this.roomId = this.route.snapshot.paramMap.get('roomId')!;
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
+        
+        // Lógica para detectar desacuerdo en la votación
+        const previousState = this.roomState;
         this.roomState = state;
+
+        if (previousState && 
+            previousState.currentState === 'WinnerDeclaration' && 
+            state.currentState === 'WinnerDeclaration' && 
+            !state.player1Voted && !state.player2Voted) {
+              // Si el estado sigue siendo el mismo pero los votos se resetearon, hubo un desacuerdo.
+              this.voteMismatch = true;
+              setTimeout(() => this.voteMismatch = false, 3000); // Ocultar el mensaje después de 3 segundos
+        }
+        
+        this.cdr.detectChanges(); // Forzar actualización de la vista
       }
     });
-    // Solicitamos activamente el estado inicial por si nos lo perdimos.
     this.websocketService.requestInitialRoomState(this.roomId);
   }
 
@@ -131,9 +148,9 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   getTitleForState(state: string): string {
     switch (state) {
       case 'CharacterSelection': return 'Selección de Personajes';
-      case 'MapBanP1': return 'Turno de Veto: Jugador 1';
-      case 'MapBanP2': return 'Turno de Veto: Jugador 2';
-      case 'MapPickP1': return 'Turno de Selección: Jugador 1';
+      case 'MapBanP1': return `Turno de Veto: ${this.roomState.player1Username}`;
+      case 'MapBanP2': return `Turno de Veto: ${this.roomState.player2Username}`;
+      case 'MapPickP1': return `Turno de Selección: ${this.roomState.player1Username}`;
       case 'WinnerDeclaration': return 'Declarar Ganador';
       case 'Finished': return 'Partida Terminada';
       default: return 'Sala de Partida';
@@ -144,9 +161,9 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     const myId = this.authService.currentUserSig()!.usuarioId;
     const isP1 = myId === this.roomState.player1Id;
     switch (this.roomState.currentState) {
-      case 'MapBanP1': return isP1 ? 'Banea 3 mapas.' : 'Esperando a que el Jugador 1 banee 3 mapas.';
-      case 'MapBanP2': return !isP1 ? 'Banea 4 mapas de los restantes.' : 'Esperando a que el Jugador 2 banee 4 mapas.';
-      case 'MapPickP1': return isP1 ? 'Elige 1 mapa para jugar.' : 'Esperando a que el Jugador 1 elija el mapa.';
+      case 'MapBanP1': return isP1 ? 'Banea 3 mapas.' : `Esperando a que ${this.roomState.player1Username} banee 3 mapas.`;
+      case 'MapBanP2': return !isP1 ? 'Banea 4 mapas de los restantes.' : `Esperando a que ${this.roomState.player2Username} banee 4 mapas.`;
+      case 'MapPickP1': return isP1 ? 'Elige 1 mapa para jugar.' : `Esperando a que ${this.roomState.player1Username} elija el mapa.`;
       default: return '';
     }
   }
@@ -172,7 +189,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
       case "Yoshi's Story":
         return 'https://www.smashbros.com/assets_v2/img/stage/stage_img19.jpg';
       default:
-        return ''; // URL a una imagen por defecto
+        return '';
     }
   }
 }

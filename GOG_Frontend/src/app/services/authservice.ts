@@ -1,29 +1,31 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { WebsocketService } from './websocket.service';
 
+// CORRECCIÓN: Añadimos las nuevas propiedades que vienen del backend
 export interface AuthResponse {
   accessToken: string;
   usuarioId: number;
+  nombreUsuario: string;
+  puntuacionElo: number;
   avatar: string;
-  nombreUsuario: string; // Asumimos que el backend lo devuelve o lo guardamos nosotros
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7096/api/User';
+  private apiUrl = `${environment.apiUrl}User`;
   
-  // Usamos signals para reactividad en el estado de autenticación
   public currentUserSig = signal<AuthResponse | undefined | null>(undefined);
 
   constructor(private http: HttpClient, private router: Router) {
-    // Al iniciar el servicio, intentamos cargar los datos del usuario desde localStorage
-    const user_data = localStorage.getItem('user_data');
-    if (user_data) {
-      this.currentUserSig.set(JSON.parse(user_data));
+    const userData = localStorage.getItem('user_data');
+    if (userData) {
+      this.currentUserSig.set(JSON.parse(userData));
     } else {
       this.currentUserSig.set(null);
     }
@@ -36,7 +38,6 @@ export class AuthService {
   login(credentials: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
-        // Guardamos el token y los datos del usuario
         this.saveUserData(response);
       })
     );
@@ -57,6 +58,8 @@ export class AuthService {
   }
 
   logout(): void {
+    const wsService = inject(WebsocketService); // Inyección local para evitar dependencia circular
+    wsService.disconnect();
     localStorage.removeItem('user_data');
     this.currentUserSig.set(null);
     this.router.navigate(['/login']);

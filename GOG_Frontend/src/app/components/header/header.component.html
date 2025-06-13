@@ -1,17 +1,28 @@
 <header class="main-header">
-    <div class="logo">
-      <a routerLink="/">Glove of Glory</a>
-    </div>
-    <nav class="main-nav">
-      @if (!authService.currentUserSig()) {
-        <a routerLink="/login" routerLinkActive="active" class="nav-button">Login</a>
-        <a routerLink="/register" routerLinkActive="active" class="nav-button register-btn">Register</a>
-      } @else () {
-        <div class="user-info">
-          <img [src]="authService.currentUserSig()?.avatar || 'assets/default-avatar.png'" alt="User Avatar" class="user-avatar">
-          <span class="username">{{ authService.currentUserSig()?.nombreUsuario }}</span>
-        </div>
-        <button (click)="logout()" class="nav-button logout-btn">Logout</button>
+  <div class="logo">
+    <a routerLink="/">Glove of Glory</a>
+  </div>
+  <nav class="main-nav">
+    @if (!authService.currentUserSig()) {
+      <a routerLink="/login" routerLinkActive="active" class="nav-button">Login</a>
+      <a routerLink="/register" routerLinkActive="active" class="nav-button register-btn">Register</a>
+    } 
+    @else {
+      <div class="user-info">
+        <img 
+          [src]="authService.currentUserSig()?.avatar" 
+          alt="User Avatar" 
+          class="user-avatar">
+        <a routerLink="/profile" class="username">{{ authService.currentUserSig()?.nombreUsuario }}</a>
+      </div>
+      
+      @if (authService.currentUserSig()?.rol === 'Admin') {
+        <a routerLink="/admin" routerLinkActive="active" class="nav-button">Admin Panel</a>
       }
-    </nav>
-  </header>
+
+      <a routerLink="/ranking" routerLinkActive="active" class="nav-button">Ranking</a>
+      <a routerLink="/friends" routerLinkActive="active" class="nav-button">Amigos</a>
+      <button (click)="logout()" class="nav-button logout-btn">Logout</button>
+    }
+  </nav>
+</header>

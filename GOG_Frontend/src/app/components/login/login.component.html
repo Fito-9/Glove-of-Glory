@@ -1,10 +1,8 @@
 <div class="form-container">
     <h2 class="form-title">Iniciar Sesión</h2>
-    <!-- Usamos (ngSubmit) para llamar al método y #loginForm para la validación del botón -->
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>
-        <!-- Usamos [(ngModel)] y el atributo 'name' es requerido por FormsModule -->
         <input id="email" type="email" name="email" [(ngModel)]="email" required>
       </div>
       <div class="form-group">

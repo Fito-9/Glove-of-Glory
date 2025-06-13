@@ -1,0 +1,60 @@
+<div class="admin-container">
+    <h1 class="admin-title">Panel de Administración de Usuarios</h1>
+  
+    <div *ngIf="isLoading" class="loading-message">Cargando usuarios...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+    <div *ngIf="!isLoading && !error" class="admin-table-container">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nickname</th>
+            <th>Email</th>
+            <th>ELO</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let user of users">
+            <tr *ngIf="editingUser?.userId !== user.userId">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.nickname }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.puntuacionElo }}</td>
+              <td>{{ user.rol }}</td>
+              <td class="actions">
+                <button (click)="editUser(user)" class="btn edit-btn">Editar</button>
+                <button (click)="deleteUser(user.userId, user.nickname)" class="btn delete-btn">Eliminar</button>
+              </td>
+            </tr>
+            
+            <!-- Fila de edición -->
+            <ng-container *ngIf="editingUser && editingUser.userId === user.userId">
+              <tr class="editing-row">
+                <td>{{ editingUser.userId }}</td>
+                <td><input type="text" [(ngModel)]="editingUser.nickname" class="edit-input"></td>
+                <td>{{ editingUser.email }}</td>
+                <td><input type="number" [(ngModel)]="editingUser.puntuacionElo" class="edit-input"></td>
+                <td class="role-cell">
+                  <label class="admin-checkbox-label">
+                    Admin:
+                    <input 
+                      type="checkbox" 
+                      [ngModel]="editingUser.rol === 'Admin'" 
+                      (ngModelChange)="editingUser.rol = $event ? 'Admin' : 'Jugador'">
+                  </label>
+                </td>
+                <td class="actions">
+                  <button (click)="saveUser()" class="btn save-btn">Guardar</button>
+                  <button (click)="cancelEdit()" class="btn cancel-btn">Cancelar</button>
+                </td>
+              </tr>
+            </ng-container>
+  
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>

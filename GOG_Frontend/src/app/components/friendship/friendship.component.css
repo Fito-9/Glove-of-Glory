@@ -1,0 +1,87 @@
+.friendship-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    color: var(--text-primary);
+  }
+  
+  .section {
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-accent);
+  }
+  
+  .section-title {
+    color: var(--primary-accent);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: var(--background-dark);
+    border: 1px solid var(--tertiary-accent);
+    color: var(--text-primary);
+    border-radius: 4px;
+  }
+  
+  .user-list, .request-list, .friend-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .status-text {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--error-color);
+    margin-left: 10px;
+  }
+  
+  .status-dot.online {
+    background-color: #4caf50; 
+  }
+  
+  .btn.accept-btn { background: #4caf50; }
+  .btn.reject-btn { background: var(--error-color); }
+  .btn.invite-btn:disabled { opacity: 0.5; cursor: not-allowed; }

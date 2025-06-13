@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { MatchRoomComponent } from './components/match-room/match-room.component';
+import { FriendshipComponent } from './components/friendship/friendship.component';
+import { RankingComponent } from './components/ranking/ranking.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { 
@@ -16,7 +21,26 @@ export const routes: Routes = [
     path: 'register', 
     component: RegisterComponent 
   },
-  // Redirige cualquier ruta no encontrada al login
+  {
+     path: 'match/:roomId', 
+    component: MatchRoomComponent
+  },
+  { 
+    path: 'friends', 
+    component: FriendshipComponent 
+  },
+  { 
+    path: 'ranking', 
+    component: RankingComponent 
+  },
+  { 
+    path: 'admin', 
+    component: AdminPanelComponent
+   },
+  {
+     path: 'profile', 
+     component: ProfileComponent 
+    },
   { 
     path: '**', 
     redirectTo: 'login' 

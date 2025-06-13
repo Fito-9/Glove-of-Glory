@@ -19,7 +19,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   private route = inject(ActivatedRoute);
   private websocketService = inject(WebsocketService);
   public authService = inject(AuthService);
-  private cdr = inject(ChangeDetectorRef); // Para forzar la detección de cambios
+  private cdr = inject(ChangeDetectorRef);
 
   roomId!: string;
   roomState: any;
@@ -29,7 +29,6 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
   selectedMapsForBan: string[] = [];
   chatMessage = '';
   
-  // Variable para mostrar si hubo un desacuerdo en la votación
   voteMismatch = false;
 
   ngOnInit(): void {
@@ -37,20 +36,19 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.stateSubscription = this.websocketService.matchState$.subscribe(state => {
       if (state && state.roomId === this.roomId) {
         
-        // Lógica para detectar desacuerdo en la votación
         const previousState = this.roomState;
         this.roomState = state;
 
         if (previousState && 
             previousState.currentState === 'WinnerDeclaration' && 
             state.currentState === 'WinnerDeclaration' && 
-            !state.player1Voted && !state.player2Voted) {
-              // Si el estado sigue siendo el mismo pero los votos se resetearon, hubo un desacuerdo.
+            !state.player1Voted && !state.player2Voted &&
+            (previousState.player1Voted || previousState.player2Voted)) { // <-- Asegurarse de que antes sí había un voto
               this.voteMismatch = true;
-              setTimeout(() => this.voteMismatch = false, 3000); // Ocultar el mensaje después de 3 segundos
+              setTimeout(() => this.voteMismatch = false, 3000);
         }
         
-        this.cdr.detectChanges(); // Forzar actualización de la vista
+        this.cdr.detectChanges();
       }
     });
     this.websocketService.requestInitialRoomState(this.roomId);
@@ -133,6 +131,7 @@ export class MatchRoomComponent implements OnInit, OnDestroy, AfterViewChecked {
     return state === 'MapBanP1' || state === 'MapBanP2' || state === 'MapPickP1';
   }
 
+  // ✅ CORRECCIÓN: La lógica ahora solo comprueba si el jugador actual ha votado.
   hasVoted(): boolean {
     if (!this.roomState || !this.authService.currentUserSig()) return false;
     const myId = this.authService.currentUserSig()!.usuarioId;

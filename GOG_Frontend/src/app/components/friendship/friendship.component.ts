@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-friendship',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink], // Añadido RouterLink para el futuro
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './friendship.component.html',
   styleUrls: ['./friendship.component.css']
 })
@@ -33,7 +33,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) return;
     this.loadAllData();
 
-    // SOLUCIÓN: Añadimos el tipo explícito Set<number> al parámetro.
     this.onlineUsersSubscription = this.websocketService.onlineUsers$.subscribe((onlineIds: Set<number>) => {
         this.updateOnlineStatus(onlineIds);
     });
@@ -53,7 +52,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
 
     this.friendshipService.getFriends(this.currentUserId).subscribe(friends => {
       this.friends = friends;
-      // SOLUCIÓN: Ahora este método existe en el servicio.
       this.updateOnlineStatus(this.websocketService.getOnlineUsers());
     });
 
@@ -67,8 +65,9 @@ export class FriendshipComponent implements OnInit, OnDestroy {
       this.filteredUsers = [];
       return;
     }
+    // ✅ CORRECCIÓN: Se añade una comprobación para asegurarse de que 'u.nickname' no es nulo.
     this.filteredUsers = this.allUsers.filter(u => 
-      u.nickname.toLowerCase().includes(this.searchTerm.toLowerCase())
+      u.nickname && u.nickname.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
@@ -101,7 +100,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
 
   inviteToGame(friendId: number): void {
     if (!this.currentUserId) return;
-    // ✅ CORRECCIÓN: Se elimina el primer argumento "private-game" que causaba el error.
     this.websocketService.inviteFriend(friendId);
   }
 
@@ -110,7 +108,6 @@ export class FriendshipComponent implements OnInit, OnDestroy {
   }
 
   isRequestSent(userId: number): boolean {
-
     return false;
   }
 }

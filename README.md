@@ -83,7 +83,7 @@ A continuación se muestra el diagrama Entidad-Relación:
 ## 6. Despliegue
 
 *   **URL de la Aplicación Web:** [https://webserver.jarvisnetwork.es/app/browser/]
-*   **URL del Backend:** [http://webserver.jarvisnetwork.es/app/back/]
+*   **URL del Backend:** [http://webserver.jarvisnetwork.es/app/back/] 
 
 ---
 
@@ -92,8 +92,11 @@ A continuación se muestra el diagrama Entidad-Relación:
 El diseño de la interfaz y la experiencia de usuario se ha prototipado utilizando Uizard.
 
 *   **URL del Prototipo:** [https://app.uizard.io/prototypes/qyYGgMWbQjsye6ZejxJG/player/overview]
+*   ![image](https://github.com/user-attachments/assets/68590665-202e-4b1b-905e-ce7d8b0312bc)
+
 *   
     **Powerby**![image](https://github.com/user-attachments/assets/64e1b63c-150b-4624-8ec7-69dba2635144)
+    
 
 ---
 

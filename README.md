@@ -101,6 +101,9 @@ El diseño de la interfaz y la experiencia de usuario se ha prototipado utilizan
 
 *   **Vídeo Demostrativo:** [https://drive.google.com/file/d/1Fx7ekHjBghVxUzzjgIb4rGNEZM-fiK2k/view?usp=sharing]
 
+*  **PDF:**  [Presentación proyecto de negocio formas orgánicas profesional azul y beis.pdf](https://github.com/user-attachments/files/20799009/Presentacion.proyecto.de.negocio.formas.organicas.profesional.azul.y.beis.pdf)
+
+
 
 ---
 ## 9. Bitácora de Tareas
